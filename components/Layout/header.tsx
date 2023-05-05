@@ -1,7 +1,7 @@
-import { AppBar, Box, Button, ThemeProvider, Toolbar, Typography, createTheme } from '@mui/material';
-import Link from 'next/link';
+import { AppBar, Box, Button, Link, ThemeProvider, Toolbar, Typography, createTheme } from '@mui/material';
 import * as React from 'react';
 import LintuIcon from '../icon/icon';
+import '@fontsource/roboto/400.css';
 
 const pages = ['Menu Item', 'Menu Item', 'Menu Item', 'Menu Item', 'Menu Item'];
 
@@ -11,9 +11,6 @@ const theme = createTheme({
       main: '#62AA5D',
       contrastText: 'white'
     },
-  },
-  typography: {
-    fontFamily: 'Roboto'
   }
 });
 
@@ -27,16 +24,14 @@ function Header() {
         </Link>
         <Box sx={{component:"div", flexGrow:1, display: { xs: 'flex', md: 'flex' , justifyContent: 'flex-end'} }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                sx={{color:'white', fontWeight:400, fontSize:16, textTransform: 'none',letterSpacing:0.15,lineHeight:'150%', py:3, pr:4}}
-              >
+              <Link key={page} component="button"
+                sx={{color:'white', fontWeight:400, fontSize:16,letterSpacing:0.15, py:3, pr:4, textDecoration:"none"}}>
                 {page}
-              </Button>
+              </Link>
             ))}
           </Box>
-          <Link href="/">
-        <Typography textAlign="right" sx={{flexGrow:1, pl:11, pr:15.5, py:3, letterSpacing:0.15,lineHeight:'150%'}}>Sigh in</Typography>
+          <Link href="/sign-up">
+        <Typography textAlign="right" sx={{color:'white', flexGrow:1, pl:11, pr:15.5, py:3, letterSpacing:0.15}}>Sigh in</Typography>
         </Link>
        </Toolbar>
     </AppBar>
