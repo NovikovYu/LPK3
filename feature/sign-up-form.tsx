@@ -59,7 +59,7 @@ const countries = [
 
 
 const SignUpForm = () => {
-    const {handleSubmit, control, register, setError} = useForm<ISignUpForm>({
+    const {handleSubmit, control} = useForm<ISignUpForm>({
         resolver: yupResolver(schema),
     });
     const {errors} = useFormState({
@@ -107,10 +107,9 @@ const SignUpForm = () => {
                         sx={{pb:2}} 
                         value={field.value ? field.value : ''}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => field.onChange(event)}  
-                        
                     />
-                        )}
-                />
+                )}
+            />
             <Controller
                 control={control}
                 name="email"
@@ -126,8 +125,8 @@ const SignUpForm = () => {
                         value={field.value ? field.value : ''}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => field.onChange(event)}  
                     />
-                        )}
-                />
+                )}
+            />
             <TextField
                 id="reg-from-country"
                 select
@@ -209,9 +208,6 @@ const SignUpForm = () => {
                     label="I apply terms&conditions"
                     labelPlacement="end"
                     sx={{pl:2, pb:2}}
-                    onChange={() => {
-                        setError("convertion", {message:"You need to agree with the terms&conditions"});
-                    }} 
                   />
                 )}
             />
