@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Container, FormControlLabel, IconButton, MenuItem, Stack, TextField, ThemeProvider, Typography, createTheme } from '@mui/material';
+import { Box, Button, Checkbox, Container, FormControlLabel,  IconButton,  MenuItem, TextField, ThemeProvider, Typography, createTheme } from '@mui/material';
 import * as React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import '@fontsource/roboto/400.css';
@@ -6,6 +6,7 @@ import '@fontsource/roboto/500.css';
 import { Controller, SubmitHandler, useForm, useFormState } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+
 //в Сontainer mt=10 - временный параметр. Добавила его, чтобы форма не прилипала к верхнему краю страницы
 const theme = createTheme({
     palette: {
@@ -23,7 +24,8 @@ const theme = createTheme({
     phone:number,
     password:string,
     repeatPassword:string,
-    convertion: boolean
+    convertion: boolean,
+    country: string
   };
   
 const schema = yup.object().shape({
@@ -32,15 +34,23 @@ const schema = yup.object().shape({
     lastName: yup.string()
     .required("Input your last name"),
     phone: yup.number()
-    .required("Input your number"),
+    .required("Input your number")
+    .integer()
+    .typeError('please enter a valid phone number'),
     email: yup.string().email("Email should have correct format")
     .required("Input your email"),
     password: yup.string()
+    .min(8, 'the password must consist of more then 8 characters')
     .required("Input your password"),
     repeatPassword: yup.string()
+    .min(8, 'the password must consist of more then 8 characters')
+    .oneOf([yup.ref('password')], 'passwords must match')
     .required("Input your password"),
-    convertion: yup.boolean()
-    .required("You need to agree with the terms&conditions"),
+    convertion: yup.bool()
+    .required("You need to agree with the terms&conditions")
+    .oneOf([true], "You need to agree with the terms&conditions"),
+    country: yup.string().required('please select your country')
+
 })
 const countries = [
     {
@@ -60,13 +70,14 @@ const countries = [
 
 const SignUpForm = () => {
     const {handleSubmit, control} = useForm<ISignUpForm>({
+        mode: 'onChange',
         resolver: yupResolver(schema),
     });
     const {errors} = useFormState({
         control
     });
 
-
+    console.log(errors);
     const onSubmit:SubmitHandler<ISignUpForm>=(data)=>console.log(data);
 
     return (
@@ -76,8 +87,20 @@ const SignUpForm = () => {
         <IconButton aria-label="Close-form" disableRipple={true}  sx={{position: "absolute", left:400, right:0, top:105}}>
             <CloseIcon />
         </IconButton>
-        <Typography variant="h5" component="div"  sx={{fontWeight:400,  pb:4, pl:1,display:"flex",  alignItems: "flex-start", flexGrow:1, flexDirection:"row", pt:4}}>Sign up</Typography>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off" sx={{width:424, minHeight:460, pl:0}}>
+        <Typography 
+            variant="h5" 
+            component="div"  
+            sx={{fontWeight:400,  pb:4, pl:1,display:"flex",  alignItems: "flex-start", flexGrow:1, flexDirection:"row", pt:4}}
+        >
+            Sign up
+        </Typography>
+        <Box 
+            component="form" 
+            onSubmit={handleSubmit(onSubmit)} 
+            noValidate 
+            autoComplete="off" 
+            sx={{minWidth:424, minHeight:460, pl:0, pr:1}}
+        >
             <Controller
                 control={control}
                 name="name"
@@ -127,13 +150,16 @@ const SignUpForm = () => {
                     />
                 )}
             />
+
             <TextField
                 id="reg-from-country"
+                name='country'
                 select
                 label="Country"
-                helperText="Please select your country"
+                error={!!errors.country?.message}
+                helperText="please select your country"
                 defaultValue={''}
-                sx={{pr:3, pb:1}}
+                sx={{pr:4, pb:1}}
             >
             {countries.map((option) => (
                 <MenuItem key={option?.value} value={option?.value} >
@@ -162,7 +188,6 @@ const SignUpForm = () => {
              <Controller
                 control={control}
                 name="password"
-                rules={{minLength:8}}
                 render={({field}) => (
                     <TextField 
                         fullWidth
@@ -180,7 +205,6 @@ const SignUpForm = () => {
             />
              <Controller
                 control={control}
-                rules={{minLength:8}}
                 name="repeatPassword"
                 render={({field}) => (
                      <TextField 
@@ -200,28 +224,27 @@ const SignUpForm = () => {
             <Controller
                 control={control}
                 name="convertion"
-                rules={{required: true}}
-                render={() => (
+                render={({field}) => (
                     <FormControlLabel
                     value="I apply terms&conditions"
+                    checked={field.value}
                     control={<Checkbox />}
                     label="I apply terms&conditions"
                     labelPlacement="end"
                     sx={{pl:2, pb:2}}
-                  />
+                    />
                 )}
             />
-
-        <Button 
-        type="submit" 
-        variant="contained" 
-        fullWidth={true} 
-        size="large" 
-        color='secondary' 
-        sx={{mb:4, mt:2}}
-        >
-            SIGN UP
-        </Button>
+            <Button 
+                type="submit" 
+                variant="contained" 
+                fullWidth={true} 
+                size="large" 
+                color='secondary' 
+                sx={{mb:4, mt:2}}   
+            >
+                SIGN UP
+            </Button>
         </Box>
         </Container>
         </ThemeProvider>
