@@ -2,42 +2,43 @@ import * as React from 'react';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, IconButton} from '@mui/material';
-import { EmailBox, EmailTypography, MessageBox, MessageTypography } from '@/components/Layout/styles';
+import {Button, IconButton, Typography } from '@mui/material';
+import {EmailBoxSm, EmailTypographySm, MessageBoxSm, MessageTypographySm} from '@/components/Layout/styles';
 
 interface Props {
     handleCloseEmail: () => void;
   }
 
-const SendEmailMessage = ({handleCloseEmail}:Props) => {
+const SendEmailMessageSm = ({handleCloseEmail}:Props) => {
     return (
-            <EmailBox>
-                <MessageBox>
-                    <EmailTypography
+            <EmailBoxSm>
+                <MessageBoxSm>
+                    <EmailTypographySm
                         variant="h4"
                     >
                         We sent an email
-                    </EmailTypography>
+                    </EmailTypographySm>
                     <IconButton aria-label="Close form">
-                        <CloseIcon onClick={handleCloseEmail} />
+                        <CloseIcon onClick={handleCloseEmail} fontSize='small'/>
                     </IconButton>
-                </MessageBox>
-                <MessageTypography
+                </MessageBoxSm>
+                <MessageTypographySm
                     variant="body1"
                 >
                     Check your inbox, follow the link provided in the email to confirm your mailbox
-                </MessageTypography>
+                </MessageTypographySm>
                 <Button
                   variant="contained" 
                   fullWidth
-                  size="large" 
+                  size="small" 
                   color='primary'
                   onClick={handleCloseEmail}
+                  sx={{fontSize:'small'}}
                 >
-                    OK
+                     OK
                 </Button>
-            </EmailBox>
+            </EmailBoxSm>
     );
 };
-export default SendEmailMessage;
+export default SendEmailMessageSm;
 
