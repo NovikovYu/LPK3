@@ -61,7 +61,7 @@ export const SignUpButton = styled(Button)<ButtonProps>(({theme}) => ({
   
  export const SignUpStyle = {
     position: 'absolute' as 'absolute',
-    top: '40%',
+    top: '50%',
     left: '50%',
     width:496, 
     minHeight: 588, 
@@ -165,7 +165,7 @@ export const EmailMessageStyleSm = {
   top: '40%',
   left: '50%',
   width:350, 
-  height: 150, 
+  height: 165, 
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
 };
@@ -192,11 +192,12 @@ export const MessageBoxSm = styled(Box)(() => ({
   justifyContent:'space-between'
 }));
 
-export const MessageTypographySm = styled(Typography)(() => ({
+export const MessageTypographySm = styled(Typography)(({theme}) => ({
   fontWeight:400, 
   fontSize:14, 
   lineHeight:'150%',
   letterSpacing: 0.15,
   alignSelf: 'stretch',
-  fontStyle:'normal'
+  fontStyle:'normal',
+  marginBottom:theme.spacing(1)
 }));

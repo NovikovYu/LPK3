@@ -13,7 +13,7 @@ import SendEmailMessageSm from "@/feature/sm-email.message";
 const Layout: FC<PropsWithChildren<unknown>> = ({children}) => {
     const theme = useTheme();
     const isMatchLg = useMediaQuery(theme.breakpoints.up('lg'));
-    const isMatchMd = useMediaQuery(theme.breakpoints.down('md'));
+    const isMatchMd = useMediaQuery(theme.breakpoints.up('md'));
     const isMatchSm = useMediaQuery(theme.breakpoints.down('sm'));
     const [openFormModal, setOpenFormModal] = React.useState(false);
     const handleOpen = () => {
