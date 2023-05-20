@@ -170,6 +170,7 @@ export const EmailMessageStyleSm = {
   bgcolor: 'background.paper',
 };
 
+
 export const EmailTypographySm= styled(Typography)(() => ({
   fontWeight:400, 
   fontSize:18, 
