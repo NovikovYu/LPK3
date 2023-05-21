@@ -2,7 +2,7 @@ import {AppBar, Box, Button, Toolbar} from '@mui/material';
 import * as React from 'react';
 import LintuIcon from '../icon/icon';
 import '@fontsource/roboto/400.css';
-import {MenuButton, SignUpButton} from './styles';
+import {MenuButton, SignUpButton} from './Header-style';
 import styles from './Header.module.css'
 
 const pages = ['Menu Item', 'Menu Item2', 'Menu Item3', 'Menu Item4', 'Menu Item5'];
@@ -32,7 +32,7 @@ function HeaderFull({handleOpen}:Props) {
               ))}
             </Box>
           </Box>
-        <SignUpButton onClick={handleOpen}>Sign up</SignUpButton> 
+        <SignUpButton onClick={handleOpen}>Sign In</SignUpButton> 
        </Toolbar>
     </AppBar>
   );

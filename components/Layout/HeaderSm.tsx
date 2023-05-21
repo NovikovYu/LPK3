@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {AppBar, Button, Menu, MenuItem} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {MenuButtonIcon, SignUpButton, ToolbarSm} from './styles';
+import {MenuButtonIcon, SignUpButton, ToolbarSm} from './Header-style';
 import LintuIcon from '../icon/icon';
 
 const pages = ['Menu Item', 'Menu Item2', 'Menu Item3', 'Menu Item4', 'Menu Item5'];
@@ -50,7 +50,7 @@ function HeaderSm({handleOpen}:Props) {
                 <Button href="/">
                     <LintuIcon />
                 </Button>
-                <SignUpButton  sx={{textTransform:'none'}} onClick={handleOpen}>Sign up</SignUpButton> 
+                <SignUpButton  sx={{textTransform:'none'}} onClick={handleOpen}>Sign In</SignUpButton> 
         </ToolbarSm>
         </AppBar>
     );

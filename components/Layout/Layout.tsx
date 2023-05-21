@@ -4,18 +4,19 @@ import * as React from 'react';
 import { Box, Modal} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { EmailMessageStyle, EmailMessageStyleSm, SignUpStyle, SignUpStyleSm } from "./styles";
-import SignUpForm from "@/feature/sign-up-form";
-import SendEmailMessage from "@/feature/email-message";
-import SignUpFormSm from "@/feature/sm-sign-up-form";
-import SendEmailMessageSm from "@/feature/sm-email.message";
+import { EmailMessageStyle, EmailMessageStyleSm, SignUpStyle, SignUpStyleSm } from "./Header-style";
+import SignUpForm from "@/feature/sign-up/sign-up-form";
+import SendEmailMessage from "@/feature/sign-up/email-message";
+import SignUpFormSm from "@/feature/sign-up/sm-sign-up-form";
+import SendEmailMessageSm from "@/feature/sign-up/sm-email.message";
 
 const Layout: FC<PropsWithChildren<unknown>> = ({children}) => {
     const theme = useTheme();
     const isMatchLg = useMediaQuery(theme.breakpoints.up('lg'));
-    const isMatchMd = useMediaQuery(theme.breakpoints.up('md'));
+    const isMatchMd = useMediaQuery(theme.breakpoints.between('sm','md'));
     const isMatchSm = useMediaQuery(theme.breakpoints.down('sm'));
     const [openFormModal, setOpenFormModal] = React.useState(false);
+
     const handleOpen = () => {
         setOpenFormModal(true);
     };

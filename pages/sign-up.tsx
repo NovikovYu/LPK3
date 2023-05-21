@@ -1,4 +1,4 @@
-import SignUpForm from '@/feature/sign-up-form';
+import SignUpForm from '@/feature/sign-up/sign-up-form';
 import { NextPage } from 'next';
 
 import * as React from 'react';

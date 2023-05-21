@@ -34,7 +34,7 @@ import {
     InputFormControlSm, 
     InputPasswordSm, 
     SignUpBox 
-} from '@/components/Layout/styles';
+} from './sign-up-form-style';
 
 
   type ISignUpForm = {
@@ -211,7 +211,7 @@ const SignUpFormSm = ({handleClose, handleOpenEmail}:Props) => {
                                             defaultErrorMessage={errors.phone?.message}
                                             value={fieldValue}
                                             onChange={onChange}
-                                            inputStyle={{width:248, height:40}}    
+                                            inputStyle={{height:40}}    
                                         />
                                     </div>
                                     <HelperTextSm>{errors.phone?.message}</HelperTextSm>

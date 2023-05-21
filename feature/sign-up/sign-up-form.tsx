@@ -23,7 +23,6 @@ import {
     FormControl, 
     FormControlLabel, 
     FormHelperText,  
-    Grid,  
     IconButton, 
     InputAdornment, 
     InputLabel, 
@@ -31,13 +30,13 @@ import {
     Typography
 } from '@mui/material';
 import {
-    BoxFormSm, 
+    BoxForm,
     InputBox, 
     InputField, 
     InputFormControl, 
     InputPassword, 
     SignUpBox 
-} from '@/components/Layout/styles';
+} from './sign-up-form-style';
 
 
   type ISignUpForm = {
@@ -128,7 +127,7 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
 
     const isValidForm=(data:ISignUpForm) => schema.isValidSync(data);
     return (
-            <BoxFormSm>
+            <BoxForm>
                 <SignUpBox>
                     <Typography 
                         variant="h5" 
@@ -204,15 +203,14 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                         render={({field}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                                <InputFormControl error={!!errors.phone?.message}>
+                                <InputFormControl error={!!errors.phone?.message} fullWidth>
                                     <div className='phone'>
                                         <PhoneInput
                                             inputClass={styles.phone}
                                             excludeCountries={EXCLUDE_COUNTRIES}
                                             defaultErrorMessage={errors.phone?.message}
                                             value={fieldValue}
-                                            onChange={onChange}
-                                            inputStyle={{width:448}}       
+                                            onChange={onChange}  
                                         />
                                     </div>
                                     <FormHelperText>{errors.phone?.message}</FormHelperText>
@@ -330,7 +328,7 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                         SIGN UP
                     </Button>
                 </Box>
-        </BoxFormSm>
+        </BoxForm>
     );
 };
 

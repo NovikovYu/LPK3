@@ -2,7 +2,7 @@ import {AppBar, Box, Button, Menu, MenuItem, Toolbar} from '@mui/material';
 import * as React from 'react';
 import LintuIcon from '../icon/icon';
 import '@fontsource/roboto/400.css';
-import {MenuButtonIcon, SignUpButton, ToolbarSm} from './styles';
+import {MenuButtonIcon, SignUpButton, ToolbarSm} from './Header-style';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const pages = ['Menu Item', 'Menu Item2', 'Menu Item3', 'Menu Item4', 'Menu Item5'];
@@ -51,7 +51,7 @@ function HeaderMd ({handleOpen}:Props) {
                 <Button href="/">
                     <LintuIcon />
                 </Button>
-                <SignUpButton  sx={{textTransform:'none'}} onClick={handleOpen}>Sign up</SignUpButton> 
+                <SignUpButton  sx={{textTransform:'none'}} onClick={handleOpen}>Sign In</SignUpButton> 
         </ToolbarSm>
         </AppBar>
     );
