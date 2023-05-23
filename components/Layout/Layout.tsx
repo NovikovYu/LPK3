@@ -1,21 +1,21 @@
 import { FC, PropsWithChildren } from "react";
 import Header from "./header";
 import * as React from 'react';
-import { Box, Modal} from "@mui/material";
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { EmailMessageStyle, EmailMessageStyleSm, SignUpStyle, SignUpStyleSm } from "./Header-style";
+import {Box, Modal} from "@mui/material";
+import {EmailMessageStyle, EmailMessageStyleSm, SignUpStyle, SignUpStyleSm } from "./Header-style";
 import SignUpForm from "@/feature/sign-up/sign-up-form";
 import SendEmailMessage from "@/feature/sign-up/email-message";
-import SignUpFormSm from "@/feature/sign-up/sm-sign-up-form";
-import SendEmailMessageSm from "@/feature/sign-up/sm-email.message";
+//import SignUpFormSm from "@/feature/sign-up/sm-sign-up-form";
+//import SendEmailMessageSm from "@/feature/sign-up/sm-email-message";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Layout: FC<PropsWithChildren<unknown>> = ({children}) => {
-    const theme = useTheme();
-    const isMatchLg = useMediaQuery(theme.breakpoints.up('lg'));
-    const isMatchMd = useMediaQuery(theme.breakpoints.between('sm','md'));
-    const isMatchSm = useMediaQuery(theme.breakpoints.down('sm'));
-    const [openFormModal, setOpenFormModal] = React.useState(false);
+  const theme = useTheme();
+  const isMatchLg = useMediaQuery(theme.breakpoints.up('lg'));
+  const isMatchMd = useMediaQuery(theme.breakpoints.between('sm','lg'));
+  const isMatchSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const [openFormModal, setOpenFormModal] = React.useState(false);
 
     const handleOpen = () => {
         setOpenFormModal(true);
@@ -48,7 +48,7 @@ const Layout: FC<PropsWithChildren<unknown>> = ({children}) => {
                   aria-describedby="sign-up-form"
                 >
                   <Box sx={{...SignUpStyleSm}}> 
-                    <SignUpFormSm
+                    <SignUpForm
                       handleClose={handleClose} 
                       handleOpenEmail={handleOpenEmail}
                     />
@@ -61,7 +61,7 @@ const Layout: FC<PropsWithChildren<unknown>> = ({children}) => {
                   aria-describedby="send-email-message"
                 >
                   <Box sx={{...EmailMessageStyleSm}}> 
-                    <SendEmailMessageSm handleCloseEmail={handleCloseEmail} />
+                    <SendEmailMessage handleCloseEmail={handleCloseEmail} />
                   </Box>
                 </Modal>
               </>

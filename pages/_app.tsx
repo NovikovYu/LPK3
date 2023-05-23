@@ -21,14 +21,40 @@ const theme = createTheme({
         }
     },
     typography: {
-      fontFamily: 'Roboto'
+      fontFamily: 'Roboto',
+      body1: {
+        fontWeight: 400,
+        fontSize:16,
+        letterSpacing:0.15,
+      },
+      h3: {
+        fontWeight: 400,
+        fontSize:24,
+      },
+      h4: {
+        fontWeight: 400,
+        fontSize:18,
+      },
+      h5: {
+        fontWeight: 400,
+        fontSize:14,
+      },
+      h6: {
+        fontSize:12,
+      },
+      subtitle1:{
+        fontSize:10,
+      },
+      subtitle2:{
+        fontSize:9,
+      },
     },
     breakpoints: {
       values: {
         xs: 0, 
         sm: 600,
         md: 930, 
-        lg: 1200, 
+        lg: 1205, 
         xl: 1536
       }
     }
@@ -37,9 +63,7 @@ const theme = createTheme({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="xl">
         <Component {...pageProps} />
-      </Container>
     </ThemeProvider>
   )
   

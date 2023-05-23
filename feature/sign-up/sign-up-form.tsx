@@ -7,8 +7,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import {yupResolver} from '@hookform/resolvers/yup';
 import 'react-phone-number-input/style.css';
 import 'react-phone-input-2/lib/material.css';
-import styles from './PhoneStyle.module.css'
-import PhoneInput from 'react-phone-input-2';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import { 
     Controller, 
@@ -27,16 +25,27 @@ import {
     InputAdornment, 
     InputLabel, 
     OutlinedInput, 
-    Typography
+    Typography,
 } from '@mui/material';
 import {
     BoxForm,
+    ButtonStyle,
+    CloseIconButton,
+    FormHeaderName,
+    HelperText,
+    HelperTextCheckbox,
+    HelperTextPassword,
     InputBox, 
     InputField, 
     InputFormControl, 
     InputPassword, 
-    SignUpBox 
-} from './sign-up-form-style';
+    LabelText, 
+    SignUpBox, 
+    StyledPhoneInput,
+    VisibilityButton,
+    VisibilityOffButton
+} from './style-sign-up-form';
+
 
 
   type ISignUpForm = {
@@ -62,10 +71,12 @@ import {
 const schema = yup.object().shape({
     name: yup.string()
     .required("Input your name")
+    .matches(/^([^0-9]*)$/, "Name should not contain numbers")
     .min(2, "Name must be more then 2 characters")
     .max(50, "Name must be less than 50 characters"),
     lastName: yup.string()
     .required("Input your last name")
+    .matches(/^([^0-9]*)$/, "Last Name should not contain numbers")
     .min(2, "Last name must be more then 2 characters")
     .max(50, "Last name must be less than 50 characters"),
     email: yup.string()
@@ -85,7 +96,6 @@ const schema = yup.object().shape({
     .required("You need to agree with the terms&conditions")
     .oneOf([true], "You need to agree with the terms&conditions")
 })
-
 
 const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
 
@@ -129,16 +139,14 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
     return (
             <BoxForm>
                 <SignUpBox>
-                    <Typography 
-                        variant="h5" 
-                        component="h2"  
+                    <FormHeaderName 
                     >
                         Sign up
-                    </Typography>
+                    </FormHeaderName>
                     <IconButton 
                         aria-label="Close form" 
                     >
-                        <CloseIcon onClick={handleClose} />
+                        <CloseIconButton onClick={handleClose} />
                     </IconButton>
                 </SignUpBox>
                 <Box 
@@ -150,16 +158,16 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                     <Controller
                         control={control}
                         name="name"
-                        render={({...field}) => (
+                        render={({field, fieldState}) => (
                             <InputField
                                 id="reg-form-name" 
                                 fullWidth
                                 label="Name"
                                 variant="outlined"
-                                value={field.field.value || ''}
-                                error={!!errors.name?.message}
-                                helperText={errors.name?.message}
-                                onChange={field.field.onChange}
+                                value={field.value || ''}
+                                error={!!fieldState.error?.message}
+                                helperText={fieldState.error?.message}
+                                onChange={field.onChange}
                             />
                         )}
                     />
@@ -167,16 +175,16 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                     <Controller
                         control={control}
                         name="lastName"
-                        render={({...field}) => (
+                        render={({field, fieldState}) => (
                             <InputField 
                                 id="reg-form-last-name" 
                                 fullWidth
                                 label="Last Name" 
                                 variant="outlined"
-                                error={!!errors.lastName?.message}
-                                helperText={errors.lastName?.message}
-                                value={field.field.value || ''}
-                                onChange={field.field.onChange}  
+                                error={!!fieldState.error?.message}
+                                helperText={fieldState.error?.message}
+                                value={field.value || ''}
+                                onChange={field.onChange}  
                             />
                         )}
                     />
@@ -184,36 +192,36 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                     <Controller
                         control={control}
                         name="email"
-                        render={({...field}) => (
+                        render={({field, fieldState}) => (
                             <InputField
                                 id="reg-form-email" 
                                 fullWidth
                                 label="Email" 
                                 variant="outlined" 
-                                error={!!errors.email?.message}
-                                helperText={errors.email?.message}
-                                value={field.field.value || ''}
-                                onChange={ field.field.onChange}
+                                error={!!fieldState.error?.message}
+                                helperText={fieldState.error?.message}
+                                value={field.value || ''}
+                                onChange={ field.onChange}
                             />
                         )}
                     />
                     <Controller
                         control={control}
                         name="phone"
-                        render={({field}) => {
+                        render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                                <InputFormControl error={!!errors.phone?.message} fullWidth>
-                                    <div className='phone'>
-                                        <PhoneInput
-                                            inputClass={styles.phone}
+                                <InputFormControl error={!!fieldState.error?.message} fullWidth>
+                                        <StyledPhoneInput
                                             excludeCountries={EXCLUDE_COUNTRIES}
-                                            defaultErrorMessage={errors.phone?.message}
-                                            value={fieldValue}
-                                            onChange={onChange}  
+                                            defaultErrorMessage={fieldState.error?.message}
+                                            value={fieldValue} 
+                                            inputClass={(!!fieldState.error?.message) ? 'invalid-number' : ''}
+                                            onChange={onChange}
+                                            inputStyle={{width:'100%'}}
+                                            disableInitialCountryGuess={true}   
                                         />
-                                    </div>
-                                    <FormHelperText>{errors.phone?.message}</FormHelperText>
+                                    <HelperText>{fieldState.error?.message}</HelperText>
                                 </InputFormControl>
                             )}
                         }
@@ -221,13 +229,13 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                     <Controller
                         control={control}
                         name="password"
-                        render={({field}) => {
+                        render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
                             <InputPassword
                                 fullWidth
                                 variant="outlined"
-                                error={!!errors.password?.message}
+                                error={!!fieldState.error?.message}
                                 > 
                                 <InputLabel htmlFor="reg-form-password">Password</InputLabel>
                                 <OutlinedInput
@@ -244,30 +252,31 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                                 onClick={handleClickShowPassword}
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
+                                                disableRipple={true}
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showPassword ? <VisibilityOffButton /> : <VisibilityButton />}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
                                 />
-                                <FormHelperText>
+                                <HelperTextPassword error={false}>
                                     The password must be more than 8 characters and 
                                     contain at least one capital letter, a special sign and a number
-                                </FormHelperText>
-                                <FormHelperText>{errors.password?.message}</FormHelperText>
+                                </HelperTextPassword>
+                                <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
                             </InputPassword>
                         )}}
                     />
                     <Controller
                         control={control}
                         name="repeatPassword"
-                        render={({field}) => {
+                        render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
                             <InputPassword
                                 fullWidth
                                 variant="outlined"
-                                error={!!errors.repeatPassword?.message}
+                                error={!!fieldState.error?.message}
                                 > 
                                 <InputLabel htmlFor="reg-form-repeat-password">Repeat Password</InputLabel>
                                 <OutlinedInput
@@ -284,13 +293,14 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                                 onClick={handleClickShowRepeatPassword}
                                                 onMouseDown={handleMouseDownRepeatPassword}
                                                 edge="end"
+                                                disableFocusRipple={true}
                                             >
-                                                {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showRepeatPassword ? <VisibilityOffButton /> : <VisibilityButton />}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
                                 />
-                                <FormHelperText>{errors.repeatPassword?.message}</FormHelperText>
+                                <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
                             </InputPassword>
                         )}}
                     />
@@ -300,8 +310,8 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                         render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                                <FormControl error={!!errors.isAccepted?.message}>
-                                <FormControlLabel
+                                <FormControl error={!!fieldState.error?.message}>
+                                <LabelText
                                 label="I apply terms&conditions"
                                 control={
                                     <Checkbox
@@ -313,12 +323,12 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                 labelPlacement="end"
                                                 
                                 />
-                                <FormHelperText sx={{pb:2}} >{errors.isAccepted?.message}</FormHelperText>
+                                <HelperTextCheckbox>{fieldState.error?.message}</HelperTextCheckbox>
                                 </FormControl>
                             )
                         }}
                     />
-                    <Button
+                    <ButtonStyle
                         type="submit" 
                         variant="contained" 
                         fullWidth={true} 
@@ -326,7 +336,7 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                         color="primary"
                     >
                         SIGN UP
-                    </Button>
+                    </ButtonStyle>
                 </Box>
         </BoxForm>
     );

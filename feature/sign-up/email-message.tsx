@@ -3,7 +3,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import CloseIcon from '@mui/icons-material/Close';
 import {Button, IconButton} from '@mui/material';
-import { EmailBox, EmailTypography, MessageBox, MessageTypography } from './sign-up-form-style';
+import { ButtonMessage, EmailBox, EmailTypography, MessageBox, MessageTypography } from './style-sign-up-form';
 
 interface Props {
     handleCloseEmail: () => void;
@@ -14,7 +14,6 @@ const SendEmailMessage = ({handleCloseEmail}:Props) => {
             <EmailBox>
                 <MessageBox>
                     <EmailTypography
-                        variant="h4"
                     >
                         We sent an email
                     </EmailTypography>
@@ -23,11 +22,10 @@ const SendEmailMessage = ({handleCloseEmail}:Props) => {
                     </IconButton>
                 </MessageBox>
                 <MessageTypography
-                    variant="body1"
                 >
                     Check your inbox, follow the link provided in the email to confirm your mailbox
                 </MessageTypography>
-                <Button
+                <ButtonMessage
                   variant="contained" 
                   fullWidth
                   size="large" 
@@ -35,7 +33,7 @@ const SendEmailMessage = ({handleCloseEmail}:Props) => {
                   onClick={handleCloseEmail}
                 >
                     OK
-                </Button>
+                </ButtonMessage>
             </EmailBox>
     );
 };

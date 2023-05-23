@@ -1,12 +1,12 @@
-import {Button, ButtonProps, IconButton, Toolbar} from "@mui/material";
+import {Box, Button, ButtonProps, IconButton, Toolbar} from "@mui/material";
 import {styled } from "@mui/material/styles";
 
 export const  MenuButton = styled(Button)<ButtonProps>(({theme}) => ({
   color: theme.palette.common.white,
   textTransform: 'capitalize',
-  fontWeight:400, 
-  fontSize:16,
-  letterSpacing:0.15, 
+  fontWeight:theme.typography.body1.fontWeight,
+  fontSize:theme.typography.body1.fontSize,
+  letterSpacing:theme.typography.body1.letterSpacing
   
 }));
 
@@ -17,10 +17,9 @@ export const MenuButtonIcon = styled(IconButton)(({theme}) => ({
 export const SignUpButton = styled(Button)<ButtonProps>(({theme}) => ({
     color: theme.palette.common.white,
     textTransform: 'none',
-    letterSpacing:0.15,
-    fontWeight:400,
-    fontSize:16,
-    marginRight:theme.spacing(4)
+    fontWeight:theme.typography.body1.fontWeight,
+    fontSize:theme.typography.body1.fontSize,
+    letterSpacing:theme.typography.body1.letterSpacing
   }));
   
  export const SignUpStyle = {
@@ -34,18 +33,33 @@ export const SignUpButton = styled(Button)<ButtonProps>(({theme}) => ({
     outline: 0,
   };
 
-export const ToolbarSm= styled(Toolbar)(() => ({
-  display:'flex', 
-  alignItems:'center', 
-  justifyContent:'space-between'
-}));
+export const ToolbarStyle= styled(Toolbar)(() => ({
+    display:'flex', 
+    alignItems:'center', 
+    justifyContent:'space-between',
+  }));
+
+
+  export const LogoButton= styled(Button)(({theme}) => ({
+    marginRight: theme.spacing(4)
+    }));
+  
+    export const LiBox= styled(Box)(({theme}) => ({
+    listStyleType: 'none',
+    marginRight: theme.spacing(3)
+    }));
+
+  export const UlBox= styled(Box)(({theme}) => ({
+    display:'flex',
+    marginLeft:theme.spacing(30)
+    }));
 
 export const SignUpStyleSm = {
   position: 'absolute' as 'absolute',
-  top: '53%',
+  top: '54%',
   left: '50%',
   minWidth: 296,
-  minHeight: 498,
+  minHeight: 470,
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
   outline: 0,
