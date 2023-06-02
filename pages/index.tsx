@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import * as React from 'react';
-import {Container, Grid, Typography} from '@mui/material';
+import {Container, Typography} from '@mui/material';
 import Layout from '@/components/Layout/Layout';
 
 export default function Home() {

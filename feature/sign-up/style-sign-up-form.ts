@@ -2,7 +2,6 @@ import { Box, Button, FormControl, FormControlLabel, FormHelperText, TextField,T
 import {styled } from "@mui/material/styles";
 import PhoneInput from 'react-phone-input-2';
 import CloseIcon from '@mui/icons-material/Close';
-import {Visibility, VisibilityOff} from '@mui/icons-material';
 
 export const SignUpBox = styled(Box)(() => ({
   display:'flex', 
@@ -35,7 +34,6 @@ export const InputBox = styled(Box)(({theme}) => ({
     flexDirection:'column',
     gap:theme.spacing(0),
   },
-
 }));
 
 export const  FormHeaderName = styled(Typography)(({theme}) => ({
@@ -46,18 +44,6 @@ export const  FormHeaderName = styled(Typography)(({theme}) => ({
 }));
 
 export const CloseIconButton = styled(CloseIcon)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 'large',
-  },
-}));
-
-export const VisibilityButton = styled(Visibility)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 'large',
-  },
-}));
-
-export const VisibilityOffButton = styled(VisibilityOff)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
     fontSize: 'large',
   },
@@ -114,7 +100,7 @@ export const StyledPhoneInput = styled(PhoneInput)(({theme}) => ({
       height:30
     },
      "&.react-tel-input .special-label": {
-      fontSize:10,
+      fontSize:theme.typography.subtitle1.fontSize
     },
   },
 }));
@@ -148,7 +134,6 @@ export const LabelText = styled(FormControlLabel)(({theme}) => ({
 
 export const ButtonStyle= styled(Button)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
-    size:'small',
     fontSize:theme.typography.h6.fontSize,
   },
 }));
@@ -175,7 +160,6 @@ export const  EmailBox = styled(Box)(({theme}) => ({
     marginBottom:theme.spacing(2),
     marginRight: theme.spacing(4),
     marginLeft:theme.spacing(4),
-    gap:theme.spacing(1),
   },
 
 }));
@@ -200,7 +184,7 @@ export const MessageTypography = styled(Typography)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
     fontWeight:theme.typography.h5.fontWeight, 
     fontSize:theme.typography.h5.fontSize, 
-    letterSpacing: 0.15,
+    letterSpacing: theme.typography.h5.letterSpacing,
     alignSelf: 'stretch',
     marginBottom:theme.spacing(1)
   },
@@ -208,102 +192,10 @@ export const MessageTypography = styled(Typography)(({theme}) => ({
 
 export const ButtonMessage= styled(Button)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
-    size:'small',
     fontSize:theme.typography.h6.fontSize,
+    marginTop: theme.spacing(1),
   },
 }));
-//SM breakpoint form
-// export const  BoxFormSm = styled(Box)(({theme}) => ({
-//   display:'flex',
-//   flexDirection:'column',
-//   marginTop: 14,
-//   marginBottom:14,
-//   marginRight: 24,
-//   marginLeft:24,
-//   gap:theme.spacing(1.5),
-//   fontSize:theme.typography.h6.fontSize
-// }));
-
-
-// export const InputFormControlSm = styled(FormControl)(({theme}) => ({
-//   marginBottom: theme.spacing(1.5),
-  
-// }));
-
-// export const  InputFieldSm = styled(TextField)(({theme}) => ({
-//   marginBottom: theme.spacing(1.5),
-//   input: {
-//     fontSize:theme.typography.h6.fontSize
-//   },
-//   label: {
-//     fontSize:theme.typography.h6.fontSize
-//   },
-//   ".MuiFormHelperText-root.Mui-error": {
-//     fontSize:theme.typography.subtitle1.fontSize
-//   }
-// }));
-
-// export const StyledPhoneInputSm = styled(PhoneInput)(({theme}) => ({
-//   "&.react-tel-input .form-control:focus": {
-//      borderColor: theme.palette.primary.main,
-//      boxShadow: "0px 0px 0px 1px #62AA5D",
-//    },
-//    "&.react-tel-input .form-control.invalid-number:focus": {
-//     borderColor: theme.palette.primary.main,
-//     boxShadow: "0px 0px 0px 1px #62AA5D",
-//   },
-//    "&.react-tel-input .form-control": {
-//     fontSize:theme.typography.h6.fontSize,
-//     height:30
-//   },
-//    "&.react-tel-input .special-label": {
-//     fontSize:10,
-//   },
-//  })) as  typeof PhoneInput;
-
-// export const InputPasswordSm = styled(FormControl)(({theme}) => ({
-//   input: {
-//     fontSize:theme.typography.h6.fontSize
-//   },
-//   label: {
-//     fontSize:theme.typography.h6.fontSize
-//   }
-// }));
-
-
-
-// Email
-
-
-// export const MessageTypographySm = styled(Typography)(({theme}) => ({
-//   fontWeight:theme.typography.h5.fontWeight, 
-//   fontSize:theme.typography.h5.fontSize, 
-//   letterSpacing: 0.15,
-//   alignSelf: 'stretch',
-//   marginBottom:theme.spacing(1)
-// }));
-
-// SM breakpoints email
-// export const EmailTypographySm= styled(Typography)(({theme}) => ({
-//   fontWeight:theme.typography.h4.fontWeight,  
-//   fontSize:theme.typography.h4.fontSize, 
-// }));
-
-// export const  EmailBoxSm = styled(Box)(({theme}) => ({
-//   display:'flex',
-//   flexDirection:'column',
-//   marginTop: 16,
-//   marginBottom:16,
-//   marginRight: 32,
-//   marginLeft:32,
-//   gap:theme.spacing(1),
-// }));
-
-// export const MessageBoxSm = styled(Box)(() => ({
-//   display:'flex', 
-//   alignItems:'center', 
-//   justifyContent:'space-between'
-// }));
 
 
 

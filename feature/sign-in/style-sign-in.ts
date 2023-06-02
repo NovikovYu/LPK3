@@ -10,10 +10,10 @@ export const SignInBox = styled(Box)(() => ({
   export const  BoxForm = styled(Box)(({theme}) => ({
       display:'flex',
       flexDirection:'column',
-      marginTop: 32,
-      marginBottom:32,
-      marginRight: 48,
-      marginLeft:48,
+      marginTop: theme.spacing(4),
+      marginBottom: theme.spacing(4),
+      marginRight: theme.spacing(6),
+      marginLeft:theme.spacing(6),
       gap:theme.spacing(4),
     }));
   

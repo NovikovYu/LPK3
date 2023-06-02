@@ -1,13 +1,9 @@
 import * as React from 'react';
 import * as yup from 'yup';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/500.css';
-import CloseIcon from '@mui/icons-material/Close';
 import {yupResolver} from '@hookform/resolvers/yup';
 import 'react-phone-number-input/style.css';
 import 'react-phone-input-2/lib/material.css';
-import {Visibility, VisibilityOff} from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { 
     Controller, 
     SubmitHandler, 
@@ -16,11 +12,8 @@ import {
 } from 'react-hook-form';
 import {
     Box, 
-    Button, 
     Checkbox, 
     FormControl, 
-    FormControlLabel, 
-    FormHelperText,  
     IconButton, 
     InputAdornment, 
     InputLabel, 
@@ -42,11 +35,7 @@ import {
     LabelText, 
     SignUpBox, 
     StyledPhoneInput,
-    VisibilityButton,
-    VisibilityOffButton
 } from './style-sign-up-form';
-
-
 
   type ISignUpForm = {
     name: string,
@@ -62,6 +51,7 @@ import {
   interface Props {
     handleClose: () => void;
     handleOpenEmail: () => void;
+    isMatchSm: boolean;
   }
 
   const EXCLUDE_COUNTRIES = ['ru', 'by']
@@ -97,7 +87,7 @@ const schema = yup.object().shape({
     .oneOf([true], "You need to agree with the terms&conditions")
 })
 
-const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
+const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
 
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -139,14 +129,14 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
     return (
             <BoxForm>
                 <SignUpBox>
-                    <FormHeaderName 
-                    >
+                    <FormHeaderName>
                         Sign up
                     </FormHeaderName>
                     <IconButton 
                         aria-label="Close form" 
+                        onClick={handleClose}
                     >
-                        <CloseIconButton onClick={handleClose} />
+                        <CloseIconButton />
                     </IconButton>
                 </SignUpBox>
                 <Box 
@@ -163,6 +153,7 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                 id="reg-form-name" 
                                 fullWidth
                                 label="Name"
+                                size={isMatchSm ? 'small' : 'medium'}
                                 variant="outlined"
                                 value={field.value || ''}
                                 error={!!fieldState.error?.message}
@@ -171,7 +162,6 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                             />
                         )}
                     />
-                    
                     <Controller
                         control={control}
                         name="lastName"
@@ -180,6 +170,7 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                 id="reg-form-last-name" 
                                 fullWidth
                                 label="Last Name" 
+                                size={isMatchSm ? 'small' : 'medium'}
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
                                 helperText={fieldState.error?.message}
@@ -197,6 +188,7 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                 id="reg-form-email" 
                                 fullWidth
                                 label="Email" 
+                                size={isMatchSm ? 'small' : 'medium'}
                                 variant="outlined" 
                                 error={!!fieldState.error?.message}
                                 helperText={fieldState.error?.message}
@@ -219,7 +211,6 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                             inputClass={(!!fieldState.error?.message) ? 'invalid-number' : ''}
                                             onChange={onChange}
                                             inputStyle={{width:'100%'}}
-                                            disableInitialCountryGuess={true}   
                                         />
                                     <HelperText>{fieldState.error?.message}</HelperText>
                                 </InputFormControl>
@@ -236,6 +227,7 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                 fullWidth
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
+                                size={isMatchSm ? 'small' : 'medium'}
                                 > 
                                 <InputLabel htmlFor="reg-form-password">Password</InputLabel>
                                 <OutlinedInput
@@ -252,16 +244,15 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                                 onClick={handleClickShowPassword}
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
-                                                disableRipple={true}
                                             >
-                                                {showPassword ? <VisibilityOffButton /> : <VisibilityButton />}
+                                                {showPassword ? <VisibilityOff fontSize={isMatchSm ? 'small' : 'medium'} /> : <Visibility fontSize={isMatchSm ? 'small' : 'medium'} />}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
                                 />
                                 <HelperTextPassword error={false}>
                                     The password must be more than 8 characters and 
-                                    contain at least one capital letter, a special sign and a number
+                                    contain at least one capital letter, a special sign !@#$%^&* and a number
                                 </HelperTextPassword>
                                 <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
                             </InputPassword>
@@ -277,6 +268,7 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                 fullWidth
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
+                                size={isMatchSm ? 'small' : 'medium'}
                                 > 
                                 <InputLabel htmlFor="reg-form-repeat-password">Repeat Password</InputLabel>
                                 <OutlinedInput
@@ -293,9 +285,8 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                                                 onClick={handleClickShowRepeatPassword}
                                                 onMouseDown={handleMouseDownRepeatPassword}
                                                 edge="end"
-                                                disableFocusRipple={true}
                                             >
-                                                {showRepeatPassword ? <VisibilityOffButton /> : <VisibilityButton />}
+                                                {showRepeatPassword ? <VisibilityOff fontSize={isMatchSm ? 'small' : 'medium'}/> : <Visibility fontSize={isMatchSm ? 'small' : 'medium'}/>}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
@@ -311,19 +302,19 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                             const {value: fieldValue, onChange} = field;
                             return (
                                 <FormControl error={!!fieldState.error?.message}>
-                                <LabelText
-                                label="I apply terms&conditions"
-                                control={
-                                    <Checkbox
-                                        checked={fieldValue}
-                                        onChange={onChange}
-                                        color={fieldState.error ? 'error' : 'secondary'} 
+                                    <LabelText
+                                        label="I apply terms&conditions"
+                                        control={
+                                            <Checkbox
+                                                checked={fieldValue}
+                                                onChange={onChange}
+                                                color={fieldState.error ? 'error' : 'secondary'} 
+                                                size={isMatchSm ? 'small' : 'medium'}
+                                            />
+                                        }
+                                        labelPlacement="end"               
                                     />
-                                }
-                                labelPlacement="end"
-                                                
-                                />
-                                <HelperTextCheckbox>{fieldState.error?.message}</HelperTextCheckbox>
+                                    <HelperTextCheckbox>{fieldState.error?.message}</HelperTextCheckbox>
                                 </FormControl>
                             )
                         }}
@@ -332,8 +323,9 @@ const SignUpForm = ({handleClose, handleOpenEmail}:Props) => {
                         type="submit" 
                         variant="contained" 
                         fullWidth={true} 
-                        size="large" 
+                        size={isMatchSm ? 'small' : 'large'} 
                         color="primary"
+                        sx={isMatchSm ? {fontSize:'small'} : {fontSize:'medium'}}
                     >
                         SIGN UP
                     </ButtonStyle>

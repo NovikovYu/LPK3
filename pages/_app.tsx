@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-import { Container, ThemeProvider, createTheme } from '@mui/material';
+import {ThemeProvider, createTheme} from '@mui/material';
 import type { AppProps } from 'next/app'
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -38,6 +38,7 @@ const theme = createTheme({
       h5: {
         fontWeight: 400,
         fontSize:14,
+        letterSpacing: 0.15
       },
       h6: {
         fontSize:12,
