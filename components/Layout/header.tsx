@@ -9,7 +9,7 @@ interface Props {
   isMatchLg: boolean;
 }
 
-const pages = ['Menu Item', 'Menu Item2', 'Menu Item3', 'Menu Item4', 'Menu Item5'];
+const pages = ['confirm-your-email', 'Menu Item', 'Menu Item2', 'Menu Item3', 'Menu Item4'];
 
 function Header({handleOpen, isMatchLg}:Props) {
 
@@ -33,8 +33,8 @@ function Header({handleOpen, isMatchLg}:Props) {
             <Box component="nav">
               <UlBox component="ul">
                 {pages.map((page) => (
-                  <LiBox component="li">
-                    <MenuButton key={page} href="/">
+                  <LiBox component="li" key={page} >
+                    <MenuButton href={`/${page}`}>
                       {page}
                     </MenuButton>
                   </LiBox>

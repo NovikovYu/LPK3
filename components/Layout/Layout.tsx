@@ -29,6 +29,7 @@ const Layout: FC<PropsWithChildren<unknown>> = ({children}) => {
       setOpenEmailModal(false);
     };
 
+    // закладка - убрать <Box mt='100px' border="1px dotted gray">
     return (
         <div>
             <Header 
@@ -59,7 +60,10 @@ const Layout: FC<PropsWithChildren<unknown>> = ({children}) => {
                     <SendEmailMessage handleCloseEmail={handleCloseEmail} isMatchSm={isMatchSm} />
                   </Box>
                 </Modal>
-             {children}
+              <Box>
+              {children}
+              </Box>
+             
         </div>
     )
 };
