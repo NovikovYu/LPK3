@@ -1,14 +1,6 @@
 import * as React from 'react';
-import * as yup from 'yup';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/500.css';
-import CloseIcon from '@mui/icons-material/Close';
+import { signInSchema } from '../utils/validation/common-validation';
 import {yupResolver} from '@hookform/resolvers/yup';
-import 'react-phone-number-input/style.css';
-import 'react-phone-input-2/lib/material.css';
-import styles from './PhoneStyle.module.css'
-import PhoneInput from 'react-phone-input-2';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import { 
     Controller, 
@@ -17,60 +9,44 @@ import {
     useFormState
 } from 'react-hook-form';
 import {
-    Box, 
-    Button, 
-    Checkbox, 
-    FormControl, 
-    FormControlLabel, 
-    FormHelperText,  
+    Box,  
     IconButton, 
     InputAdornment, 
     InputLabel, 
     OutlinedInput, 
-    Typography
 } from '@mui/material';
 import {
-    BoxForm,
-    InputBox, 
-    InputField, 
-    InputFormControl, 
-    InputPassword, 
-    SignInBox 
+    InputLabelForgotPassword, 
+    InputPasswordSignIn, 
+    SendIconButtonStyle, 
+    SignInBox, 
+    SignInButtonStyle, 
+    SignUpButtonStyle, 
+    SignInBoxForm
 } from './style-sign-in'
+import {
+    CloseIconButton, 
+    FormHeaderName, 
+    HelperTextPassword, 
+    InputField,
+} from '../sign-up/style-sign-up-form';
 
-
-  type ISignUpForm = {
-    name: string,
-    lastName: string,
+  type SignInFormTypes = {
     email:string,
-    phone:string,
     password:string,
-    repeatPassword:string,
-    isAccepted: boolean,
-    country: string
   };
 
   interface Props {
-    handleClose: () => void;
-    handleOpenEmail: () => void;
+    handleCloseSignInModal: () => void;
+    handleOpenSignUpModal: () => void;
+    handleOpenForgotPasswordModal: () => void;
+    isMobile: boolean;
   }
 
-  const REG_EMAIL= /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const REG_PASSWORD=/^.*((?=.*[!@#$%^&*\:]))(?=.*\d)((?=.*[a-z]))((?=.*[A-Z])).*$/;
-
-const schema = yup.object().shape({
-    email: yup.string()
-    .matches(REG_EMAIL, "Email should have correct format")
-    .required("Input your email"),
-    password: yup.string()
-    .matches(REG_PASSWORD, " ")
-    .min(8, "Password must be more then 8 characters")
-    .required("Input your password"),
-})
-
-
-const SignInForm = ({handleClose, handleOpenEmail}:Props) => {
-
+const SignInForm = ({handleCloseSignInModal, handleOpenSignUpModal, handleOpenForgotPasswordModal, isMobile}:Props) => {
+    const InputSize=isMobile ? 'small' : 'medium';
+    const ButtonSize=isMobile ? 'small' : 'large';
+    const [loading, setLoading] = React.useState(true);
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     
@@ -78,49 +54,49 @@ const SignInForm = ({handleClose, handleOpenEmail}:Props) => {
         event.preventDefault();
     };
 
-    const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
-
-    const handleClickShowRepeatPassword = () => setShowRepeatPassword((show) => !show);
-    
-    const handleMouseDownRepeatPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-
-    const {handleSubmit, control} = useForm<ISignUpForm>({
+    const {handleSubmit, control} = useForm<SignInFormTypes>({
         mode: 'onChange',
-        resolver: yupResolver(schema),
-        defaultValues: {
-            isAccepted: false
-        }
+        resolver: yupResolver(signInSchema),
     });
 
     const {errors, isValid} = useFormState({
         control
     });
    
-    const onSubmit:SubmitHandler<ISignUpForm>=(data)=>{
+    const LoadingButtonsTransition = () => {
+          setLoading(true);
+    }
+
+    const onSubmit:SubmitHandler<SignInFormTypes>=(data)=>{
         if (isValidForm(data)) {
+                LoadingButtonsTransition();
                 console.log(data);
-                handleClose();
-                handleOpenEmail();
+                handleCloseSignInModal();
         } 
         else errors;
     };
 
-    const isValidForm=(data:ISignUpForm) => schema.isValidSync(data);
+    const isValidForm=(data:SignInFormTypes) => signInSchema.isValidSync(data);
+    
+    const ControlForms = () => {
+        handleOpenSignUpModal();
+        handleCloseSignInModal();
+    };
+    const ForgotPasswordForm = () => {
+        handleCloseSignInModal();
+        handleOpenForgotPasswordModal();
+    }
     return (
-            <BoxForm>
+            <SignInBoxForm>
                 <SignInBox>
-                    <Typography 
-                        variant="h5" 
-                        component="h2"  
-                    >
+                <FormHeaderName>
                         Sign in
-                    </Typography>
+                    </FormHeaderName>
                     <IconButton 
                         aria-label="Close form" 
+                        onClick={handleCloseSignInModal}
                     >
-                        <CloseIcon onClick={handleClose} />
+                        <CloseIconButton />
                     </IconButton>
                 </SignInBox>
                 <Box 
@@ -131,34 +107,37 @@ const SignInForm = ({handleClose, handleOpenEmail}:Props) => {
                     <Controller
                         control={control}
                         name="email"
-                        render={({...field}) => (
+                        render={({field, fieldState}) => (
                             <InputField
-                                id="reg-form-email" 
+                                id="auth-form-email" 
                                 fullWidth
                                 label="Email" 
+                                size={InputSize}
                                 variant="outlined" 
-                                error={!!errors.email?.message}
-                                helperText={errors.email?.message}
-                                value={field.field.value || ''}
-                                onChange={ field.field.onChange}
+                                error={!!fieldState.error?.message}
+                                helperText={fieldState.error?.message}
+                                value={field.value || ''}
+                                onChange={ field.onChange}
                             />
                         )}
                     />
                     <Controller
                         control={control}
                         name="password"
-                        render={({field}) => {
+                        render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                            <InputPassword
+                            <InputPasswordSignIn
+                                id="auth-form-password"
                                 fullWidth
                                 variant="outlined"
-                                error={!!errors.password?.message}
-                                > 
-                                <InputLabel htmlFor="reg-form-password">Password</InputLabel>
+                                error={!!fieldState.error?.message}
+                                size={InputSize}
+                                >
+                                <InputLabel htmlFor="auth-form-password" id='auth-form-password'>Password</InputLabel>
                                 <OutlinedInput
-                                    id="reg-form-password"
-                                    label="Password"
+                                    id='auth-form-password'
+                                    label='Password'
                                     type={showPassword ? 'text' : 'password'}
                                     autoComplete="current-password"
                                     value={fieldValue || ''}
@@ -171,38 +150,45 @@ const SignInForm = ({handleClose, handleOpenEmail}:Props) => {
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showPassword ? <VisibilityOff fontSize={isMobile ? 'small' : 'medium'} /> : <Visibility fontSize={isMobile ? 'small' : 'medium'} />}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
                                 />
-                                <FormHelperText>
+                                <HelperTextPassword error={false}>
                                     The password must be more than 8 characters and 
-                                    contain at least one capital letter, a special sign and a number
-                                </FormHelperText>
-                                <FormHelperText>{errors.password?.message}</FormHelperText>
-                            </InputPassword>
+                                    contain at least one capital letter, a special sign !@#$%^&* and a number
+                                </HelperTextPassword>
+                                <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
+                            </InputPasswordSignIn>
                         )}}
                     />
-                    <Button
+                    <InputLabelForgotPassword htmlFor="auth-forgot-password" id='auth-form-forgot-password' onClick={ForgotPasswordForm}>Forgot a password?</InputLabelForgotPassword>
+                    <SignInButtonStyle
+                        loading={false}
+                        loadingPosition="end"
                         type="submit" 
                         variant="contained" 
                         fullWidth
-                        size="large" 
+                        size={ButtonSize}
                         color="primary"
-                    >
-                        SIGN IN
-                    </Button>
-                    <Button
-                        type="button" 
-                        variant="text" 
+                        endIcon={<SendIconButtonStyle />}
+                        sx={isMobile ? {fontSize:'small'} : {fontSize:'medium'}}
+                        >
+                        <span>sign in</span>
+                    </SignInButtonStyle>
+                    <SignUpButtonStyle
+                        type="submit" 
+                        id="auth-form-button"
                         fullWidth
-                        size="large" 
+                        size={ButtonSize}
+                        sx={isMobile ? {fontSize:'small'} : {fontSize:'medium'}}
+                        onClick={ControlForms}
                     >
-                        SIGN IN
-                    </Button>
+                        sign up
+                    </SignUpButtonStyle>
                 </Box>
-        </BoxForm>
+        </SignInBoxForm>
     );
 };
 

@@ -5,6 +5,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import Layout from '@/components/Layout/Layout';
 
 const theme = createTheme({
     palette: {
@@ -18,6 +19,9 @@ const theme = createTheme({
         },
         error: {
           main:'#D32F2F'
+        },
+        text: {
+          primary: 'rgba(0, 0, 0, 0.87)'
         }
     },
     typography: {
@@ -54,17 +58,19 @@ const theme = createTheme({
       values: {
         xs: 0, 
         sm: 600,
-        md: 930, 
-        lg: 1205, 
+        md: 900, 
+        lg: 1200, 
         xl: 1536
       }
-    }
+    },
   });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
+      <Layout>
         <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   )
   

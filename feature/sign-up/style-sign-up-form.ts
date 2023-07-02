@@ -9,7 +9,7 @@ export const SignUpBox = styled(Box)(() => ({
   justifyContent:'space-between'
 }));
 
-export const  BoxForm = styled(Box)(({theme}) => ({
+export const  SignUpBoxForm = styled(Box)(({theme}) => ({
     display:'flex',
     flexDirection:'column',
     marginTop: theme.spacing(4),
@@ -86,18 +86,25 @@ export const InputPassword = styled(FormControl)(({theme}) => ({
 }));
 
 export const StyledPhoneInput = styled(PhoneInput)(({theme}) => ({
- "&.react-tel-input .form-control:focus": {
+  "& .selected-flag:focus":{
+    outline: `${theme.spacing(0.125)} solid ${theme.palette.primary.main}`,
+    borderRadius: theme.spacing(0.625),
+  },
+  "& .react-tel-input .selected-flag .arrow":{
+    borderTop: `${theme.spacing(0.5)} solid ${theme.palette.primary.main}`,
+  },
+ "&.react-tel-input .form-control:focus, &.react-tel-input .form-control:hover": {
     borderColor: theme.palette.primary.main,
-    boxShadow: "0px 0px 0px 1px #62AA5D",
+    boxShadow: `${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(0.125)} ${theme.palette.primary.main}`,
   },
   "&.react-tel-input .form-control.invalid-number:focus": {
     borderColor: theme.palette.primary.main,
-    boxShadow: "0px 0px 0px 1px #62AA5D",
+    boxShadow: `${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(0.125)} ${theme.palette.primary.main}`,
   },
   [theme.breakpoints.down('sm')]: {
     "&.react-tel-input .form-control": {
       fontSize:theme.typography.h6.fontSize,
-      height:30
+      height:theme.spacing(3.75),
     },
      "&.react-tel-input .special-label": {
       fontSize:theme.typography.subtitle1.fontSize
@@ -138,16 +145,6 @@ export const ButtonStyle= styled(Button)(({theme}) => ({
   },
 }));
 
-// email
-export const EmailTypography = styled(Typography)(({theme}) => ({
-  fontWeight:theme.typography.h3.fontWeight, 
-  fontSize:theme.typography.h3.fontSize, 
-  [theme.breakpoints.down('sm')]: {
-    fontWeight:theme.typography.h4.fontWeight,  
-    fontSize:theme.typography.h4.fontSize, 
-  },
-}));
-
 export const  EmailBox = styled(Box)(({theme}) => ({
   display:'flex',
   flexDirection:'column',
@@ -156,8 +153,8 @@ export const  EmailBox = styled(Box)(({theme}) => ({
   marginRight: theme.spacing(6),
   marginLeft: theme.spacing(6),
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(2),
-    marginBottom:theme.spacing(2),
+    marginTop: theme.spacing(3),
+    marginBottom:theme.spacing(3),
     marginRight: theme.spacing(4),
     marginLeft:theme.spacing(4),
   },
@@ -178,24 +175,19 @@ export const MessageTypography = styled(Typography)(({theme}) => ({
   fontWeight:theme.typography.body1.fontWeight, 
   fontSize:theme.typography.body1.fontSize,
   letterSpacing:theme.typography.body1.letterSpacing,
-  alignSelf: 'stretch',
-  fontStyle:'normal',
   marginBottom:theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
     fontWeight:theme.typography.h5.fontWeight, 
     fontSize:theme.typography.h5.fontSize, 
     letterSpacing: theme.typography.h5.letterSpacing,
-    alignSelf: 'stretch',
     marginBottom:theme.spacing(1)
   },
 }));
 
 export const ButtonMessage= styled(Button)(({theme}) => ({
+  textTransform: 'uppercase',
   [theme.breakpoints.down('sm')]: {
     fontSize:theme.typography.h6.fontSize,
     marginTop: theme.spacing(1),
   },
 }));
-
-
-

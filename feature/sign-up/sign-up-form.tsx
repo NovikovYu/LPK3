@@ -1,9 +1,8 @@
 import * as React from 'react';
-import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
 import 'react-phone-number-input/style.css';
 import 'react-phone-input-2/lib/material.css';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 import { 
     Controller, 
     SubmitHandler, 
@@ -18,10 +17,8 @@ import {
     InputAdornment, 
     InputLabel, 
     OutlinedInput, 
-    Typography,
 } from '@mui/material';
 import {
-    BoxForm,
     ButtonStyle,
     CloseIconButton,
     FormHeaderName,
@@ -34,10 +31,12 @@ import {
     InputPassword, 
     LabelText, 
     SignUpBox, 
+    SignUpBoxForm, 
     StyledPhoneInput,
 } from './style-sign-up-form';
+import { signAppSchema } from '../utils/validation/common-validation';
 
-  type ISignUpForm = {
+type SignUpFormTypes = {
     name: string,
     lastName: string,
     email:string,
@@ -46,67 +45,30 @@ import {
     repeatPassword:string,
     isAccepted: boolean,
     country: string
-  };
+};
 
-  interface Props {
-    handleClose: () => void;
+interface Props {
+    handleCloseSignUpModal: () => void;
     handleOpenEmail: () => void;
-    isMatchSm: boolean;
-  }
+    isMobile: boolean;
+}
 
-  const EXCLUDE_COUNTRIES = ['ru', 'by']
-  const REG_EMAIL= /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const REG_PASSWORD=/^.*((?=.*[!@#$%^&*\:]))(?=.*\d)((?=.*[a-z]))((?=.*[A-Z])).*$/;
+const EXCLUDE_COUNTRIES = ['ru', 'by'];
 
-const schema = yup.object().shape({
-    name: yup.string()
-    .required("Input your name")
-    .matches(/^([^0-9]*)$/, "Name should not contain numbers")
-    .min(2, "Name must be more then 2 characters")
-    .max(50, "Name must be less than 50 characters"),
-    lastName: yup.string()
-    .required("Input your last name")
-    .matches(/^([^0-9]*)$/, "Last Name should not contain numbers")
-    .min(2, "Last name must be more then 2 characters")
-    .max(50, "Last name must be less than 50 characters"),
-    email: yup.string()
-    .matches(REG_EMAIL, "Email should have correct format")
-    .required("Input your email"),
-    phone: yup.string()
-    .required("Input your number"),
-    password: yup.string()
-    .matches(REG_PASSWORD, " ")
-    .min(8, "Password must be more then 8 characters")
-    .required("Input your password"),
-    repeatPassword: yup.string()
-    .min(8, "Password must be more then 8 characters")
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required("Input your password"),
-    isAccepted: yup.bool()
-    .required("You need to agree with the terms&conditions")
-    .oneOf([true], "You need to agree with the terms&conditions")
-})
-
-const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
-
+const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) => {
+    const InputSize = isMobile ? 'small' : 'medium';
+    const ButtonSize = isMobile ? 'small' : 'large';
     const [showPassword, setShowPassword] = React.useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    
+    const handleClickShowPassword = () => setShowPassword((show) => !show);;
+    const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
+    const handleClickShowRepeatPassword = () => setShowRepeatPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
-    const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
-
-    const handleClickShowRepeatPassword = () => setShowRepeatPassword((show) => !show);
-    
-    const handleMouseDownRepeatPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-
-    const {handleSubmit, control} = useForm<ISignUpForm>({
+    const {handleSubmit, control} = useForm<SignUpFormTypes>({
         mode: 'onChange',
-        resolver: yupResolver(schema),
+        resolver: yupResolver(signAppSchema),
         defaultValues: {
             isAccepted: false
         }
@@ -116,25 +78,25 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
         control
     });
    
-    const onSubmit:SubmitHandler<ISignUpForm>=(data)=>{
+    const onSubmit:SubmitHandler<SignUpFormTypes>=(data)=>{
         if (isValidForm(data)) {
                 console.log(data);
-                handleClose();
+                handleCloseSignUpModal();
                 handleOpenEmail();
         } 
         else errors;
     };
 
-    const isValidForm=(data:ISignUpForm) => schema.isValidSync(data);
+    const isValidForm=(data:SignUpFormTypes) => signAppSchema.isValidSync(data);
     return (
-            <BoxForm>
+            <SignUpBoxForm>
                 <SignUpBox>
                     <FormHeaderName>
                         Sign up
                     </FormHeaderName>
                     <IconButton 
                         aria-label="Close form" 
-                        onClick={handleClose}
+                        onClick={handleCloseSignUpModal}
                     >
                         <CloseIconButton />
                     </IconButton>
@@ -152,8 +114,8 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                             <InputField
                                 id="reg-form-name" 
                                 fullWidth
-                                label="Name"
-                                size={isMatchSm ? 'small' : 'medium'}
+                                label="First Name"
+                                size={InputSize}
                                 variant="outlined"
                                 value={field.value || ''}
                                 error={!!fieldState.error?.message}
@@ -170,7 +132,7 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                                 id="reg-form-last-name" 
                                 fullWidth
                                 label="Last Name" 
-                                size={isMatchSm ? 'small' : 'medium'}
+                                size={InputSize}
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
                                 helperText={fieldState.error?.message}
@@ -188,7 +150,7 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                                 id="reg-form-email" 
                                 fullWidth
                                 label="Email" 
-                                size={isMatchSm ? 'small' : 'medium'}
+                                size={InputSize}
                                 variant="outlined" 
                                 error={!!fieldState.error?.message}
                                 helperText={fieldState.error?.message}
@@ -227,25 +189,26 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                                 fullWidth
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
-                                size={isMatchSm ? 'small' : 'medium'}
+                                size={InputSize}
                                 > 
                                 <InputLabel htmlFor="reg-form-password">Password</InputLabel>
                                 <OutlinedInput
-                                    id="reg-form-password"
-                                    label="Password"
+                                    id='reg-form-password'
+                                    label='Password'
                                     type={showPassword ? 'text' : 'password'}
                                     autoComplete="current-password"
                                     value={fieldValue || ''}
                                     onChange={onChange}
                                     endAdornment={
-                                        <InputAdornment position="end">
+                                        <InputAdornment position='end'>
                                             <IconButton
+                                                id='reg-form-password-eye'
                                                 aria-label="toggle password visibility"
                                                 onClick={handleClickShowPassword}
                                                 onMouseDown={handleMouseDownPassword}
-                                                edge="end"
+                                                edge='end'
                                             >
-                                                {showPassword ? <VisibilityOff fontSize={isMatchSm ? 'small' : 'medium'} /> : <Visibility fontSize={isMatchSm ? 'small' : 'medium'} />}
+                                                {showPassword ? <VisibilityOff fontSize={isMobile ? 'small' : 'medium'} /> : <Visibility fontSize={isMobile ? 'small' : 'medium'} />}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
@@ -268,7 +231,7 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                                 fullWidth
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
-                                size={isMatchSm ? 'small' : 'medium'}
+                                size={InputSize}
                                 > 
                                 <InputLabel htmlFor="reg-form-repeat-password">Repeat Password</InputLabel>
                                 <OutlinedInput
@@ -283,10 +246,10 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                                             <IconButton
                                                 aria-label="toggle password visibility"
                                                 onClick={handleClickShowRepeatPassword}
-                                                onMouseDown={handleMouseDownRepeatPassword}
+                                                onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {showRepeatPassword ? <VisibilityOff fontSize={isMatchSm ? 'small' : 'medium'}/> : <Visibility fontSize={isMatchSm ? 'small' : 'medium'}/>}
+                                                {showRepeatPassword? <VisibilityOff fontSize={isMobile ? 'small' : 'medium'}/> : <Visibility fontSize={isMobile ? 'small' : 'medium'}/>}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
@@ -303,13 +266,15 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                             return (
                                 <FormControl error={!!fieldState.error?.message}>
                                     <LabelText
+                                        id='reg-form-accepted'
                                         label="I apply terms&conditions"
                                         control={
                                             <Checkbox
                                                 checked={fieldValue}
                                                 onChange={onChange}
+                                                id='reg-form-checkbox'
                                                 color={fieldState.error ? 'error' : 'secondary'} 
-                                                size={isMatchSm ? 'small' : 'medium'}
+                                                size={InputSize}
                                             />
                                         }
                                         labelPlacement="end"               
@@ -321,16 +286,17 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                     />
                     <ButtonStyle
                         type="submit" 
+                        id='reg-form-button'
                         variant="contained" 
-                        fullWidth={true} 
-                        size={isMatchSm ? 'small' : 'large'} 
+                        fullWidth
+                        size={ButtonSize} 
                         color="primary"
-                        sx={isMatchSm ? {fontSize:'small'} : {fontSize:'medium'}}
+                        sx={isMobile ? {fontSize:'small'} : {fontSize:'medium'}}
                     >
                         SIGN UP
                     </ButtonStyle>
                 </Box>
-        </BoxForm>
+        </SignUpBoxForm>
     );
 };
 
