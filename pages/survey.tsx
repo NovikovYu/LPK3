@@ -1,5 +1,5 @@
-import Head from "next/head";
-import * as React from "react";
+import { useState } from "react";
+import { cloneDeep } from "lodash";
 import { Container } from "@mui/material";
 import Layout from "@/components/Layout/Layout";
 import {
@@ -14,8 +14,6 @@ import {
   SurvayPartQuestionsCounter,
 } from "@/components/Survey/Survey-style";
 import Question from "@/components/Survey/Question";
-import { useState } from "react";
-import { cloneDeep } from "lodash";
 
 const questions = [
   {
@@ -123,13 +121,7 @@ export default function Survey() {
   };
 
   return (
-    <Layout>
-      <Head>
-        <title>Lintu - survay</title>
-        <meta name="description" content="Lintu" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-
+    <Layout pageTitle={"Lintu - survey page"}>
       <MainBox component="main">
         <Container sx={{ maxWidth: "808px" }} maxWidth={false}>
           <SurvayWrapper>

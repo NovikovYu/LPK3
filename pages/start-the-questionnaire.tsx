@@ -1,21 +1,11 @@
-import Head from "next/head";
-import * as React from "react";
 import { Container } from "@mui/material";
 import Layout from "@/components/Layout/Layout";
-import {
-  MainBox,
-} from "@/components/CommonComponents/Common-сomponents-style";
+import { MainBox } from "@/components/CommonComponents/Common-сomponents-style";
 import InfoPageContent from "@/components/Info-page/info-page-content";
 
 export default function StartTheQuestionnaire() {
   return (
-    <Layout>
-      <Head>
-        <title>Lintu</title>
-        <meta name="description" content="Lintu" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-
+    <Layout pageTitle={"Lintu - start the questionnaire page"}>
       <MainBox component="main">
         <Container sx={{ maxWidth: "808px" }} maxWidth={false}>
           <InfoPageContent

@@ -1,6 +1,4 @@
-import Head from "next/head";
-import * as React from "react";
-import {  Container } from "@mui/material";
+import { Container } from "@mui/material";
 import Layout from "@/components/Layout/Layout";
 import {
   PortfoliosTitle,
@@ -9,24 +7,41 @@ import {
   PortfolioCardsList,
   PortfolioCardItem,
   PortfolioCardSubtitle,
-  PortfolioCardNumbersWrapper,
-  PortfolioCardNumbersColumnRight,
-  PortfolioCardNumbersColumnLeft,
-  PortfolioCardAssentTitle,
-  PrimaryButtonForPortfolioCard,
   SecondaryButtonForPortfolioCard,
 } from "../components/Portfolios/Portfolios-style";
-import { MainBox, P } from "@/components/CommonComponents/Common-сomponents-style";
+import { MainBox } from "@/components/CommonComponents/Common-сomponents-style";
+import IncompletedPortfolioCardItem from "@/components/Portfolios/Incompleted-portfolio-card-item copy";
+import CompletedPortfolioCardItem from "@/components/Portfolios/Completed-portfolio-card-item";
+
+const completedPortfolios = [
+  {
+    currency: "€",
+    amount: 2456,
+    number: 1,
+    profitability: 12,
+    link: "/sdfsdf",
+  },
+  {
+    currency: "€",
+    amount: 9481,
+    number: 2,
+    profitability: -1,
+    link: "/sdfsdf",
+  },
+];
+
+const inCompletedPortfolios = [
+  {
+    link: "/sdfsdf",
+  },
+  {
+    link: "/sdfsdf",
+  },
+];
 
 export default function Portfolios() {
   return (
-    <Layout>
-      <Head>
-        <title>Lintu</title>
-        <meta name="description" content="Lintu" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-
+    <Layout pageTitle={"Lintu - portfolios page"}>
       <MainBox component="main">
         <Container sx={{ maxWidth: "808px" }} maxWidth={false}>
           <PortfoliosTitle variant="h1">Portfolios</PortfoliosTitle>
@@ -57,49 +72,21 @@ export default function Portfolios() {
               </SecondaryButtonForPortfolioCard>
             </PortfolioCardItem>
 
-            <PortfolioCardItem component="li">
-              <PortfolioCardNumbersWrapper>
-                <PortfolioCardNumbersColumnLeft>
-                  <PortfolioCardTitle>€ 2 456</PortfolioCardTitle>
-                  <P variant="h2">Portfolio 1</P>
-                </PortfolioCardNumbersColumnLeft>
+            {completedPortfolios.map((portfolio) => {
+              return (
+                <CompletedPortfolioCardItem
+                  currency={portfolio.currency}
+                  amount={portfolio.amount}
+                  number={portfolio.number}
+                  profitability={portfolio.profitability}
+                  link={portfolio.link}
+                />
+              );
+            })}
 
-                <PortfolioCardNumbersColumnRight>
-                  <PortfolioCardAssentTitle>+12%</PortfolioCardAssentTitle>
-                  <P>per 1 year</P>
-                </PortfolioCardNumbersColumnRight>
-              </PortfolioCardNumbersWrapper>
-
-              <SecondaryButtonForPortfolioCard
-                type="button"
-                fullWidth
-                size="small"
-                variant="contained"
-                href="/"
-              >
-                details
-              </SecondaryButtonForPortfolioCard>
-            </PortfolioCardItem>
-
-            <PortfolioCardItem component="li">
-              <PortfolioCardTitle variant="h2">
-                Portfolio is incomplete
-              </PortfolioCardTitle>
-
-              <PortfolioCardSubtitle>
-                Finish the portfolio questionnaire
-              </PortfolioCardSubtitle>
-
-              <PrimaryButtonForPortfolioCard
-                type="button"
-                fullWidth
-                size="small"
-                variant="contained"
-                href="/"
-              >
-                Continue
-              </PrimaryButtonForPortfolioCard>
-            </PortfolioCardItem>
+            {inCompletedPortfolios.map((portfolio) => {
+              return <IncompletedPortfolioCardItem link={portfolio.link} />;
+            })}
           </PortfolioCardsList>
         </Container>
       </MainBox>

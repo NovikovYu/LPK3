@@ -1,14 +1,11 @@
-import Image from "next/image";
-import * as React from "react";
-import {
-  PrimaryButton,
-} from "@/components/CommonComponents/Common-сomponents-style";
+import { PrimaryButton } from "@/components/CommonComponents/Common-сomponents-style";
 import {
   InfoPageWrapper,
   InfoPageImgWrapper,
   InfoPageTitle,
   InfoPageText,
 } from "@/components/Info-page/Info-page-styles";
+import Image from "next/image";
 
 interface IProps {
   imgSrc: string

@@ -1,9 +1,8 @@
-import * as React from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import { useEffect } from "react";
 import { Checkbox, FormGroup } from "@mui/material";
 import {
   SurvayAnswersWrapper,
@@ -36,9 +35,9 @@ const Question = ({
   updateAnswers,
   disableGoBackBtn,
 }: IProps) => {
-  const [value, setValue] = React.useState<string[]>([]);
+  const [value, setValue] = useState<string[]>([]);
 
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue([(event.target as HTMLInputElement).value]);
   };
   const handleCheckboxChange = (i: number) => {
@@ -53,7 +52,7 @@ const Question = ({
     setValue(oldAnswers);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     updateAnswers(value);
     setValue([]);

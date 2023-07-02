@@ -1,7 +1,6 @@
-import '@/styles/globals.css'
 import {ThemeProvider, createTheme} from '@mui/material';
+import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import '@fontsource/inter/300.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';

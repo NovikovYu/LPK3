@@ -1,8 +1,4 @@
-import {
-  Box,
-  ButtonProps,
-  Typography,
-} from "@mui/material";
+import { Box, ButtonProps, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import {
   PrimaryButton,
@@ -53,6 +49,12 @@ export const PortfolioCardTitle = styled(Typography)(({ theme }) => ({
 export const PortfolioCardAssentTitle = styled(PortfolioCardTitle)(
   ({ theme }) => ({
     color: "#4CAF50",
+  })
+);
+
+export const PortfolioNoSuccedCardAssentTitle = styled(PortfolioCardTitle)(
+  ({ theme }) => ({
+    color: "#D32F2F",
   })
 );
 
