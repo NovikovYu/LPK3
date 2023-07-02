@@ -3,13 +3,13 @@ import {styled } from "@mui/material/styles";
 import PhoneInput from 'react-phone-input-2';
 import CloseIcon from '@mui/icons-material/Close';
 
-export const SignUpBox = styled(Box)(() => ({
+export const SignUpBoxRestyled = styled(Box)(() => ({
   display:'flex', 
   alignItems:'center', 
   justifyContent:'space-between'
 }));
 
-export const  BoxForm = styled(Box)(({theme}) => ({
+export const SignUpBoxFormRestyled = styled(Box)(({theme}) => ({
     display:'flex',
     flexDirection:'column',
     marginTop: theme.spacing(4),
@@ -26,7 +26,7 @@ export const  BoxForm = styled(Box)(({theme}) => ({
     },
   }));
 
-export const InputBox = styled(Box)(({theme}) => ({
+export const DataInputsRestyled = styled(Box)(({theme}) => ({
   display:'flex', 
   justifyContent:'space-between', 
   gap:theme.spacing(2),
@@ -36,119 +36,117 @@ export const InputBox = styled(Box)(({theme}) => ({
   },
 }));
 
-export const  FormHeaderName = styled(Typography)(({theme}) => ({
-  fontSize:theme.typography.h3.fontSize,
-  [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.h4.fontSize,
-  },
-}));
-
-export const CloseIconButton = styled(CloseIcon)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 'large',
-  },
-}));
-
-export const  InputField = styled(TextField)(({theme}) => ({
-  marginBottom: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    marginBottom: theme.spacing(1.5),
-    input: {
-      fontSize:theme.typography.h6.fontSize,
-    },
-    label: {
-      fontSize:theme.typography.h6.fontSize
-    },
-    ".MuiFormHelperText-root.Mui-error": {
-      fontSize:theme.typography.subtitle1.fontSize
-    },
-  },
-}));
-
-export const InputFormControl = styled(FormControl)(({theme}) => ({
-  marginBottom: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    marginBottom: theme.spacing(1.5),
-  },
-}));
-
-export const InputPassword = styled(FormControl)(({theme}) => ({
-  marginBottom: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    marginBottom: theme.spacing(1),
-    input: {
-      fontSize:theme.typography.h6.fontSize
-    },
-    label: {
-      fontSize:theme.typography.h6.fontSize
-    }
-  },
-}));
-
-export const StyledPhoneInput = styled(PhoneInput)(({theme}) => ({
- "&.react-tel-input .form-control:focus": {
-    borderColor: theme.palette.primary.main,
-    boxShadow: "0px 0px 0px 1px #62AA5D",
-  },
-  "&.react-tel-input .form-control.invalid-number:focus": {
-    borderColor: theme.palette.primary.main,
-    boxShadow: "0px 0px 0px 1px #62AA5D",
-  },
-  [theme.breakpoints.down('sm')]: {
-    "&.react-tel-input .form-control": {
-      fontSize:theme.typography.h6.fontSize,
-      height:30
-    },
-     "&.react-tel-input .special-label": {
-      fontSize:theme.typography.subtitle1.fontSize
-    },
-  },
-}));
-
-export const HelperText = styled(FormHelperText)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.subtitle1.fontSize
-  },
-}));
-
-export const HelperTextCheckbox = styled(FormHelperText)(({theme}) => ({
-  marginBottom:theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.subtitle1.fontSize
-  },
-}));
-
-export const HelperTextPassword = styled(FormHelperText)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.subtitle2.fontSize,
-  },
-}));
-
-export const LabelText = styled(FormControlLabel)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    '& .MuiFormControlLabel-label': { 
-      fontSize:theme.typography.h6.fontSize
-    }
-  },
-}));
-
-export const ButtonStyle= styled(Button)(({theme}) => ({
+export const HeadingFormRestyled = styled(Typography)(({theme}) => ({
+  fontSize:theme.typography.h5.fontSize,
   [theme.breakpoints.down('sm')]: {
     fontSize:theme.typography.h6.fontSize,
   },
 }));
 
-// email
-export const EmailTypography = styled(Typography)(({theme}) => ({
-  fontWeight:theme.typography.h3.fontWeight, 
-  fontSize:theme.typography.h3.fontSize, 
+export const CloseIconButtonRestyled = styled(CloseIcon)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
-    fontWeight:theme.typography.h4.fontWeight,  
-    fontSize:theme.typography.h4.fontSize, 
+    fontSize: 'large',
   },
 }));
 
-export const  EmailBox = styled(Box)(({theme}) => ({
+export const  InputFieldRestyled = styled(TextField)(({theme}) => ({
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: theme.spacing(1.5),
+    input: {
+      fontSize:theme.typography.subtitle2.fontSize,
+    },
+    label: {
+      fontSize:theme.typography.subtitle2.fontSize
+    },
+    ".MuiFormHelperText-root.Mui-error": {
+      fontSize:theme.typography.caption.fontSize
+    },
+  },
+}));
+
+export const InputFormControlRestyled = styled(FormControl)(({theme}) => ({
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: theme.spacing(1.5),
+  },
+}));
+
+export const InputPasswordRestyled = styled(FormControl)(({theme}) => ({
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: theme.spacing(1),
+    input: {
+      fontSize:theme.typography.subtitle2.fontSize
+    },
+    label: {
+      fontSize:theme.typography.subtitle2.fontSize
+    }
+  },
+}));
+
+export const PhoneInputRestyled = styled(PhoneInput)(({theme}) => ({
+  "& .selected-flag:focus":{
+    outline: `${theme.spacing(0.125)} solid ${theme.palette.primary.main}`,
+    borderRadius: theme.spacing(0.625),
+  },
+  "& .react-tel-input .selected-flag .arrow":{
+    borderTop: `${theme.spacing(0.5)} solid ${theme.palette.primary.main}`,
+  },
+ "&.react-tel-input .form-control:focus, &.react-tel-input .form-control:hover": {
+    borderColor: theme.palette.primary.main,
+    boxShadow: `${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(0.125)} ${theme.palette.primary.main}`,
+  },
+  "&.react-tel-input .form-control.invalid-number:focus": {
+    borderColor: theme.palette.primary.main,
+    boxShadow: `${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(0.125)} ${theme.palette.primary.main}`,
+  },
+  [theme.breakpoints.down('sm')]: {
+    "&.react-tel-input .form-control": {
+      fontSize:theme.typography.subtitle2.fontSize,
+      height:theme.spacing(3.75),
+    },
+     "&.react-tel-input .special-label": {
+      fontSize:theme.typography.subtitle2.fontSize
+    },
+  },
+}));
+
+export const PhoneHelperTextRestyled = styled(FormHelperText)(({theme}) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize:theme.typography.caption.fontSize
+  },
+}));
+
+export const AcceptedHelperTextRestyled = styled(FormHelperText)(({theme}) => ({
+  marginBottom:theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    fontSize:theme.typography.caption.fontSize
+  },
+}));
+
+export const PasswordHelperTextRestyled = styled(FormHelperText)(({theme}) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize:theme.typography.overline.fontSize,
+    textAlign:'justify',
+  },
+}));
+
+export const LabelTextRestyled = styled(FormControlLabel)(({theme}) => ({
+  [theme.breakpoints.down('sm')]: {
+    '& .MuiFormControlLabel-label': { 
+      fontSize:theme.typography.subtitle2.fontSize
+    }
+  },
+}));
+
+export const ButtonRestyled= styled(Button)(({theme}) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize:theme.typography.subtitle2.fontSize,
+  },
+}));
+
+export const  SendingMessageBoxWrapper = styled(Box)(({theme}) => ({
   display:'flex',
   flexDirection:'column',
   marginTop: theme.spacing(4),
@@ -156,15 +154,14 @@ export const  EmailBox = styled(Box)(({theme}) => ({
   marginRight: theme.spacing(6),
   marginLeft: theme.spacing(6),
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(2),
-    marginBottom:theme.spacing(2),
+    marginTop: theme.spacing(3),
+    marginBottom:theme.spacing(3),
     marginRight: theme.spacing(4),
     marginLeft:theme.spacing(4),
   },
-
 }));
 
-export const MessageBox = styled(Box)(({theme}) => ({
+export const SendingMessageContentBoxWrapper = styled(Box)(({theme}) => ({
   display:'flex', 
   alignItems:'center', 
   justifyContent:'space-between',
@@ -174,28 +171,22 @@ export const MessageBox = styled(Box)(({theme}) => ({
   },
 }));
 
-export const MessageTypography = styled(Typography)(({theme}) => ({
-  fontWeight:theme.typography.body1.fontWeight, 
+export const MessageRestyled = styled(Typography)(({theme}) => ({ 
   fontSize:theme.typography.body1.fontSize,
-  letterSpacing:theme.typography.body1.letterSpacing,
-  alignSelf: 'stretch',
-  fontStyle:'normal',
   marginBottom:theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
-    fontWeight:theme.typography.h5.fontWeight, 
-    fontSize:theme.typography.h5.fontSize, 
-    letterSpacing: theme.typography.h5.letterSpacing,
-    alignSelf: 'stretch',
-    marginBottom:theme.spacing(1)
+    fontWeight:theme.typography.body1.fontWeight, 
+    fontSize:theme.typography.body1.fontSize, 
+    letterSpacing: theme.typography.body1.letterSpacing,
+    marginBottom:theme.spacing(1),
+    textAlign:'left',
   },
 }));
 
-export const ButtonMessage= styled(Button)(({theme}) => ({
+export const ButtonMessageRestyled = styled(Button)(({theme}) => ({
+  textTransform: 'uppercase',
   [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.h6.fontSize,
+    fontSize:theme.typography.subtitle2.fontSize,
     marginTop: theme.spacing(1),
   },
 }));
-
-
-

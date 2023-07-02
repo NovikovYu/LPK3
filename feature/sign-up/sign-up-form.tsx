@@ -1,9 +1,8 @@
 import * as React from 'react';
-import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
 import 'react-phone-number-input/style.css';
 import 'react-phone-input-2/lib/material.css';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 import { 
     Controller, 
     SubmitHandler, 
@@ -18,26 +17,27 @@ import {
     InputAdornment, 
     InputLabel, 
     OutlinedInput, 
-    Typography,
 } from '@mui/material';
 import {
-    BoxForm,
-    ButtonStyle,
-    CloseIconButton,
-    FormHeaderName,
-    HelperText,
-    HelperTextCheckbox,
-    HelperTextPassword,
-    InputBox, 
-    InputField, 
-    InputFormControl, 
-    InputPassword, 
-    LabelText, 
-    SignUpBox, 
-    StyledPhoneInput,
+    AcceptedHelperTextRestyled,
+    ButtonRestyled,
+    CloseIconButtonRestyled,
+    DataInputsRestyled,
+    HeadingFormRestyled,
+    InputFieldRestyled,
+    InputFormControlRestyled,
+    InputPasswordRestyled,
+    LabelTextRestyled,
+    PasswordHelperTextRestyled,
+    PhoneHelperTextRestyled,
+    PhoneInputRestyled,
+    SignUpBoxFormRestyled,
+    SignUpBoxRestyled, 
 } from './style-sign-up-form';
+import { useRouter } from 'next/router';
+import { signAppSchema } from '../utils/validation/common-validation';
 
-  type ISignUpForm = {
+type SignUpFormTypes = {
     name: string,
     lastName: string,
     email:string,
@@ -46,67 +46,30 @@ import {
     repeatPassword:string,
     isAccepted: boolean,
     country: string
-  };
+};
 
-  interface Props {
-    handleClose: () => void;
-    handleOpenEmail: () => void;
-    isMatchSm: boolean;
-  }
+interface Props {
+    handleCloseSignUpModal: () => void;
+    isMobile: boolean;
+}
 
-  const EXCLUDE_COUNTRIES = ['ru', 'by']
-  const REG_EMAIL= /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const REG_PASSWORD=/^.*((?=.*[!@#$%^&*\:]))(?=.*\d)((?=.*[a-z]))((?=.*[A-Z])).*$/;
+const EXCLUDE_COUNTRIES = ['ru', 'by'];
 
-const schema = yup.object().shape({
-    name: yup.string()
-    .required("Input your name")
-    .matches(/^([^0-9]*)$/, "Name should not contain numbers")
-    .min(2, "Name must be more then 2 characters")
-    .max(50, "Name must be less than 50 characters"),
-    lastName: yup.string()
-    .required("Input your last name")
-    .matches(/^([^0-9]*)$/, "Last Name should not contain numbers")
-    .min(2, "Last name must be more then 2 characters")
-    .max(50, "Last name must be less than 50 characters"),
-    email: yup.string()
-    .matches(REG_EMAIL, "Email should have correct format")
-    .required("Input your email"),
-    phone: yup.string()
-    .required("Input your number"),
-    password: yup.string()
-    .matches(REG_PASSWORD, " ")
-    .min(8, "Password must be more then 8 characters")
-    .required("Input your password"),
-    repeatPassword: yup.string()
-    .min(8, "Password must be more then 8 characters")
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required("Input your password"),
-    isAccepted: yup.bool()
-    .required("You need to agree with the terms&conditions")
-    .oneOf([true], "You need to agree with the terms&conditions")
-})
-
-const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
-
+const SignUpForm = ({handleCloseSignUpModal, isMobile}:Props) => {
+    const InputSize = isMobile ? 'small' : 'medium';
+    const ButtonSize = isMobile ? 'small' : 'large';
+    const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    
+    const handleClickShowPassword = () => setShowPassword((show) => !show);;
+    const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
+    const handleClickShowRepeatPassword = () => setShowRepeatPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
-    const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
-
-    const handleClickShowRepeatPassword = () => setShowRepeatPassword((show) => !show);
-    
-    const handleMouseDownRepeatPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-
-    const {handleSubmit, control} = useForm<ISignUpForm>({
+    const {handleSubmit, control} = useForm<SignUpFormTypes>({
         mode: 'onChange',
-        resolver: yupResolver(schema),
+        resolver: yupResolver(signAppSchema),
         defaultValues: {
             isAccepted: false
         }
@@ -116,44 +79,44 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
         control
     });
    
-    const onSubmit:SubmitHandler<ISignUpForm>=(data)=>{
+    const onSubmit:SubmitHandler<SignUpFormTypes>=(data)=>{
         if (isValidForm(data)) {
                 console.log(data);
-                handleClose();
-                handleOpenEmail();
+                handleCloseSignUpModal();
+                router.push('/confirm-email');
         } 
         else errors;
     };
 
-    const isValidForm=(data:ISignUpForm) => schema.isValidSync(data);
+    const isValidForm=(data:SignUpFormTypes) => signAppSchema.isValidSync(data);
     return (
-            <BoxForm>
-                <SignUpBox>
-                    <FormHeaderName>
+            <SignUpBoxFormRestyled>
+                <SignUpBoxRestyled>
+                    <HeadingFormRestyled>
                         Sign up
-                    </FormHeaderName>
+                    </HeadingFormRestyled>
                     <IconButton 
                         aria-label="Close form" 
-                        onClick={handleClose}
+                        onClick={handleCloseSignUpModal}
                     >
-                        <CloseIconButton />
+                        <CloseIconButtonRestyled />
                     </IconButton>
-                </SignUpBox>
+                </SignUpBoxRestyled>
                 <Box 
                     component="form" 
                     autoComplete="off" 
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                <InputBox>
+                <DataInputsRestyled>
                     <Controller
                         control={control}
                         name="name"
                         render={({field, fieldState}) => (
-                            <InputField
+                            <InputFieldRestyled
                                 id="reg-form-name" 
                                 fullWidth
-                                label="Name"
-                                size={isMatchSm ? 'small' : 'medium'}
+                                label="First Name"
+                                size={InputSize}
                                 variant="outlined"
                                 value={field.value || ''}
                                 error={!!fieldState.error?.message}
@@ -166,11 +129,11 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                         control={control}
                         name="lastName"
                         render={({field, fieldState}) => (
-                            <InputField 
+                            <InputFieldRestyled 
                                 id="reg-form-last-name" 
                                 fullWidth
                                 label="Last Name" 
-                                size={isMatchSm ? 'small' : 'medium'}
+                                size={InputSize}
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
                                 helperText={fieldState.error?.message}
@@ -179,16 +142,16 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                             />
                         )}
                     />
-                </InputBox>
+                </DataInputsRestyled>
                     <Controller
                         control={control}
                         name="email"
                         render={({field, fieldState}) => (
-                            <InputField
+                            <InputFieldRestyled
                                 id="reg-form-email" 
                                 fullWidth
                                 label="Email" 
-                                size={isMatchSm ? 'small' : 'medium'}
+                                size={InputSize}
                                 variant="outlined" 
                                 error={!!fieldState.error?.message}
                                 helperText={fieldState.error?.message}
@@ -203,17 +166,17 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                         render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                                <InputFormControl error={!!fieldState.error?.message} fullWidth>
-                                        <StyledPhoneInput
-                                            excludeCountries={EXCLUDE_COUNTRIES}
-                                            defaultErrorMessage={fieldState.error?.message}
-                                            value={fieldValue} 
-                                            inputClass={(!!fieldState.error?.message) ? 'invalid-number' : ''}
-                                            onChange={onChange}
-                                            inputStyle={{width:'100%'}}
-                                        />
-                                    <HelperText>{fieldState.error?.message}</HelperText>
-                                </InputFormControl>
+                                <InputFormControlRestyled error={!!fieldState.error?.message} fullWidth>
+                                    <PhoneInputRestyled
+                                        excludeCountries={EXCLUDE_COUNTRIES}
+                                        defaultErrorMessage={fieldState.error?.message}
+                                        value={fieldValue} 
+                                        inputClass={(!!fieldState.error?.message) ? 'invalid-number' : ''}
+                                        onChange={onChange}
+                                        inputStyle={{width:'100%'}}
+                                    />
+                                    <PhoneHelperTextRestyled>{fieldState.error?.message}</PhoneHelperTextRestyled>
+                                </InputFormControlRestyled>
                             )}
                         }
                     />
@@ -223,39 +186,40 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                         render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                            <InputPassword
+                            <InputPasswordRestyled
                                 fullWidth
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
-                                size={isMatchSm ? 'small' : 'medium'}
-                                > 
+                                size={InputSize}
+                            > 
                                 <InputLabel htmlFor="reg-form-password">Password</InputLabel>
                                 <OutlinedInput
-                                    id="reg-form-password"
-                                    label="Password"
+                                    id='reg-form-password'
+                                    label='Password'
                                     type={showPassword ? 'text' : 'password'}
                                     autoComplete="current-password"
                                     value={fieldValue || ''}
                                     onChange={onChange}
                                     endAdornment={
-                                        <InputAdornment position="end">
+                                        <InputAdornment position='end'>
                                             <IconButton
+                                                id='reg-form-password-eye'
                                                 aria-label="toggle password visibility"
                                                 onClick={handleClickShowPassword}
                                                 onMouseDown={handleMouseDownPassword}
-                                                edge="end"
+                                                edge='end'
                                             >
-                                                {showPassword ? <VisibilityOff fontSize={isMatchSm ? 'small' : 'medium'} /> : <Visibility fontSize={isMatchSm ? 'small' : 'medium'} />}
+                                                {showPassword ? <VisibilityOff fontSize={isMobile ? 'small' : 'medium'} /> : <Visibility fontSize={isMobile ? 'small' : 'medium'} />}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
                                 />
-                                <HelperTextPassword error={false}>
+                                <PasswordHelperTextRestyled error={false}>
                                     The password must be more than 8 characters and 
                                     contain at least one capital letter, a special sign !@#$%^&* and a number
-                                </HelperTextPassword>
-                                <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
-                            </InputPassword>
+                                </PasswordHelperTextRestyled>
+                                <PasswordHelperTextRestyled>{fieldState.error?.message}</PasswordHelperTextRestyled>
+                            </InputPasswordRestyled>
                         )}}
                     />
                     <Controller
@@ -264,11 +228,11 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                         render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                            <InputPassword
+                            <InputPasswordRestyled
                                 fullWidth
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
-                                size={isMatchSm ? 'small' : 'medium'}
+                                size={InputSize}
                                 > 
                                 <InputLabel htmlFor="reg-form-repeat-password">Repeat Password</InputLabel>
                                 <OutlinedInput
@@ -283,16 +247,16 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                                             <IconButton
                                                 aria-label="toggle password visibility"
                                                 onClick={handleClickShowRepeatPassword}
-                                                onMouseDown={handleMouseDownRepeatPassword}
+                                                onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {showRepeatPassword ? <VisibilityOff fontSize={isMatchSm ? 'small' : 'medium'}/> : <Visibility fontSize={isMatchSm ? 'small' : 'medium'}/>}
+                                                {showRepeatPassword? <VisibilityOff fontSize={isMobile ? 'small' : 'medium'}/> : <Visibility fontSize={isMobile ? 'small' : 'medium'}/>}
                                             </IconButton>
                                         </InputAdornment>
                                     }   
                                 />
-                                <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
-                            </InputPassword>
+                                <PasswordHelperTextRestyled>{fieldState.error?.message}</PasswordHelperTextRestyled>
+                            </InputPasswordRestyled>
                         )}}
                     />
                     <Controller
@@ -302,35 +266,37 @@ const SignUpForm = ({handleClose, handleOpenEmail, isMatchSm}:Props) => {
                             const {value: fieldValue, onChange} = field;
                             return (
                                 <FormControl error={!!fieldState.error?.message}>
-                                    <LabelText
+                                    <LabelTextRestyled
+                                        id='reg-form-accepted'
                                         label="I apply terms&conditions"
                                         control={
                                             <Checkbox
                                                 checked={fieldValue}
                                                 onChange={onChange}
+                                                id='reg-form-checkbox'
                                                 color={fieldState.error ? 'error' : 'secondary'} 
-                                                size={isMatchSm ? 'small' : 'medium'}
+                                                size={InputSize}
                                             />
                                         }
                                         labelPlacement="end"               
                                     />
-                                    <HelperTextCheckbox>{fieldState.error?.message}</HelperTextCheckbox>
+                                    <AcceptedHelperTextRestyled>{fieldState.error?.message}</AcceptedHelperTextRestyled>
                                 </FormControl>
                             )
                         }}
                     />
-                    <ButtonStyle
+                    <ButtonRestyled
                         type="submit" 
+                        id='reg-form-button'
                         variant="contained" 
-                        fullWidth={true} 
-                        size={isMatchSm ? 'small' : 'large'} 
+                        fullWidth
+                        size={ButtonSize} 
                         color="primary"
-                        sx={isMatchSm ? {fontSize:'small'} : {fontSize:'medium'}}
                     >
                         SIGN UP
-                    </ButtonStyle>
+                    </ButtonRestyled>
                 </Box>
-        </BoxForm>
+        </SignUpBoxFormRestyled>
     );
 };
 
