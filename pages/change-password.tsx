@@ -1,10 +1,10 @@
 import * as React from 'react';
+import * as yup from 'yup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useTheme} from '@mui/material/styles';
-import { changePasswordSchema } from '@/feature/utils/validation/common-validation';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {ButtonStyle, HelperTextPassword, InputPassword} from '@/feature/sign-up/style-sign-up-form';
+import { ButtonRestyled, InputPasswordRestyled, PasswordHelperTextRestyled } from '@/feature/sign-up/style-sign-up-form';
 import {
     ChangePasswordBox, 
     ChangePasswordFormBox, 
@@ -24,6 +24,7 @@ import {
     InputLabel, 
     OutlinedInput, 
 } from '@mui/material';
+import { changePasswordSchema } from '@/feature/utils/validation/common-validation';
 
   type SignInFormTypes = {
     password:string,
@@ -33,6 +34,7 @@ import {
 function ChangePasswordPage() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const ButtonSize = isMobile ? 'small' : 'large';
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
@@ -108,11 +110,11 @@ function ChangePasswordPage() {
                                             </InputAdornment>
                                         }   
                                     />
-                                    <HelperTextPassword error={false}>
+                                    <PasswordHelperTextRestyled error={false}>
                                         The password must be more than 8 characters and 
                                         contain at least one capital letter, a special sign !@#$%^&* and a number
-                                    </HelperTextPassword>
-                                    <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
+                                    </PasswordHelperTextRestyled>
+                                    <PasswordHelperTextRestyled>{fieldState.error?.message}</PasswordHelperTextRestyled>
                                 </InputChangePassword>
                             )}}
                         />
@@ -122,7 +124,7 @@ function ChangePasswordPage() {
                             render={({field, fieldState}) => {
                                 const {value: fieldValue, onChange} = field;
                                 return (
-                                <InputPassword
+                                <InputPasswordRestyled
                                     fullWidth
                                     variant="outlined"
                                     error={!!fieldState.error?.message}
@@ -149,21 +151,20 @@ function ChangePasswordPage() {
                                             </InputAdornment>
                                         }   
                                     />
-                                    <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
-                                </InputPassword>
+                                    <PasswordHelperTextRestyled>{fieldState.error?.message}</PasswordHelperTextRestyled>
+                                </InputPasswordRestyled>
                             )}}
                         />
-                        <ButtonStyle
+                        <ButtonRestyled
                             type="submit" 
                             id="change-password-form-button"
                             variant="contained" 
                             fullWidth
-                            size={isMobile ? 'small' : 'large'} 
-                            sx={isMobile ? {fontSize:'small'} : {fontSize:'medium'}}
+                            size={ButtonSize} 
                             href='change-password-message'
                         >
                             change password
-                        </ButtonStyle>
+                        </ButtonRestyled>
                     </Box>
                 </ChangePasswordFormBox>
             </ChangePasswordBox>

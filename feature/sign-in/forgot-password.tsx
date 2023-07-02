@@ -1,15 +1,15 @@
 import * as React from 'react';
+import * as yup from 'yup';
 import CloseIcon from '@mui/icons-material/Close';
 import {yupResolver} from '@hookform/resolvers/yup';
-import {schemaEmailValidation} from '../utils/validation/common-validation';
 import {Box} from '@mui/material';
-import { ButtonStyle } from '../sign-up/style-sign-up-form';
+import {ButtonRestyled} from '../sign-up/style-sign-up-form';
 import { 
-    ForgotPasswordBox, 
-    ForgotPasswordFormBox,
-    ForgotPasswordFormHeaderName,
-    ForgotPasswordFormIconButton,
-    InputFieldForgotPassword, 
+    ForgotPasswordBoxRestyled, 
+    ForgotPasswordFormRestyled, 
+    ForgotPasswordHeadingFormRestyled, 
+    ForgotPasswordIconButtonRestyled, 
+    ForgotPasswordInputFieldRestyled 
 } from './style-sign-in';
 import { 
     Controller, 
@@ -17,6 +17,7 @@ import {
     useForm, 
     useFormState
 } from 'react-hook-form';
+import { schemaEmailValidation } from '../utils/validation/common-validation';
 
 interface Props {
     handleCloseForgotPasswordModal: () => void;
@@ -52,18 +53,18 @@ const ForgotPasswordForm = ({handleCloseForgotPasswordModal, handleOpenForgotPas
     const isValidForm=(data:ForgotPasswordFormTypes) => schemaEmailValidation.isValidSync(data);
 
     return (
-            <ForgotPasswordBox>
-                <ForgotPasswordFormBox>
-                    <ForgotPasswordFormHeaderName>
+            <ForgotPasswordBoxRestyled>
+                <ForgotPasswordFormRestyled>
+                    <ForgotPasswordHeadingFormRestyled>
                         Forgot a password?
-                    </ForgotPasswordFormHeaderName>
-                    <ForgotPasswordFormIconButton
+                    </ForgotPasswordHeadingFormRestyled>
+                    <ForgotPasswordIconButtonRestyled
                         aria-label="Close-form" 
                         onClick={handleCloseForgotPasswordModal}
                     >
                         <CloseIcon />
-                    </ForgotPasswordFormIconButton>
-                </ForgotPasswordFormBox>
+                    </ForgotPasswordIconButtonRestyled>
+                </ForgotPasswordFormRestyled>
                 <Box 
                     component="form" 
                     autoComplete="off" 
@@ -73,7 +74,7 @@ const ForgotPasswordForm = ({handleCloseForgotPasswordModal, handleOpenForgotPas
                         control={control}
                         name="email"
                         render={({field, fieldState}) => (
-                            <InputFieldForgotPassword
+                            <ForgotPasswordInputFieldRestyled
                                 id="forgot-password-form-email" 
                                 fullWidth
                                 label="Email" 
@@ -86,7 +87,7 @@ const ForgotPasswordForm = ({handleCloseForgotPasswordModal, handleOpenForgotPas
                             />
                         )}
                     />
-                    <ButtonStyle
+                    <ButtonRestyled
                         type="submit" 
                         id='forgot-password-form-button'
                         variant="contained" 
@@ -95,9 +96,9 @@ const ForgotPasswordForm = ({handleCloseForgotPasswordModal, handleOpenForgotPas
                         color='primary'
                     >
                         Send email
-                    </ButtonStyle>
+                    </ButtonRestyled>
                 </Box>
-            </ForgotPasswordBox>
+            </ForgotPasswordBoxRestyled>
         );
 };
 export default ForgotPasswordForm;

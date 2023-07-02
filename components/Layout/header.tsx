@@ -1,8 +1,8 @@
 import * as React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import {AppBar, Box,Button,Container, Menu, MenuItem} from '@mui/material';
-import LintuIcon from '../icon/icon';
-import {HeaderNav, LiBox, MenuButton, MenuButtonIcon, SignInButton, ToolbarStyle, UlBox} from './Header-style';
+import {Box,Button,Container, Menu, MenuItem} from '@mui/material';
+import LintuIcon from '../img/icon';
+import {AppBarRestyled, HeaderWrapper, MenuButtonRestyled, MenuIconButtonRestyled, NavigationListItem, NavigationUlItem, SignInButtonRestyled, ToolbarRestyled} from './Header-style';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -10,7 +10,7 @@ interface Props {
   handleOpenSignInModal: () => void;
 }
 
-const pages = ['Menu Item', 'Menu Item2', 'Menu Item3', 'Menu Item4', 'Menu Item5'];
+const pages = ['Portfolio', 'Settings'];
 
 function Header({handleOpenSignInModal}:Props) {
   const theme = useTheme();
@@ -26,70 +26,70 @@ function Header({handleOpenSignInModal}:Props) {
 
   if (isDesktop) {
     return (
-      <AppBar>
+      <AppBarRestyled>
         <Container maxWidth='xl'>
-          <ToolbarStyle>
+          <ToolbarRestyled>
             <div>
               <Button href="/">
                 <LintuIcon />
               </Button>
             </div>
-            <HeaderNav>
+            <HeaderWrapper>
               <Box component="nav">
-                <UlBox component="ul">
+                <NavigationUlItem component="ul">
                   {pages.map((page) => (
-                    <LiBox component="li" key={page}>
-                      <MenuButton href="/">
+                    <NavigationListItem component="li" key={page}>
+                      <MenuButtonRestyled href="/">
                         {page}
-                      </MenuButton>
-                    </LiBox>
+                      </MenuButtonRestyled>
+                    </NavigationListItem>
                   ))}
-                </UlBox>
+                </NavigationUlItem>
               </Box>
-              </HeaderNav>
-              <div>
-                <SignInButton onClick={handleOpenSignInModal}>Sign In</SignInButton>
-              </div> 
-          </ToolbarStyle>
+                <SignInButtonRestyled onClick={handleOpenSignInModal}>Sign In</SignInButtonRestyled>
+            </HeaderWrapper>
+          </ToolbarRestyled>
         </Container>
-      </AppBar>
+      </AppBarRestyled>
     );
   }
   return (
-    <AppBar> 
+    <AppBarRestyled> 
       <Container maxWidth='md'>
-        <ToolbarStyle>
-          <MenuButtonIcon 
-            id="menu-button"
-            aria-controls={open ? 'menu-button' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-          >
-            <MenuIcon />
-          </MenuButtonIcon>
-          <Menu
-            id="item-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-            'aria-labelledby': 'item-button',
-            }}
-          >
-            {pages.map((page) => (
-              <MenuItem key={page} href="/">
-                  {page}
-              </MenuItem>
-            ))}
-          </Menu>
+        <ToolbarRestyled>
           <Button href="/">
             <LintuIcon />
           </Button>
-            <SignInButton  sx={{textTransform:'none'}} onClick={handleOpenSignInModal}>Sign In</SignInButton> 
-        </ToolbarStyle>
+          <div>
+            <SignInButtonRestyled onClick={handleOpenSignInModal}>Sign In</SignInButtonRestyled> 
+            <MenuIconButtonRestyled 
+              id="menu-button"
+              aria-controls={open ? 'menu-button' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            >
+              <MenuIcon />
+            </MenuIconButtonRestyled>
+            <Menu
+              id="item-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+              'aria-labelledby': 'item-button',
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} href="/">
+                    {page}
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
+        </ToolbarRestyled>
       </Container>
-  </AppBar>
+  </AppBarRestyled>
   );
 }
   

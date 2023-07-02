@@ -16,20 +16,15 @@ import {
     OutlinedInput, 
 } from '@mui/material';
 import {
-    InputLabelForgotPassword, 
-    InputPasswordSignIn, 
-    SendIconButtonStyle, 
-    SignInBox, 
-    SignInButtonStyle, 
-    SignUpButtonStyle, 
-    SignInBoxForm
+    ForgotPasswordInputLabelRestyled,
+    SendIconButtonRestyled, 
+    SignInBoxRestyled, 
+    SignInFormRestyled, 
+    SignInInputPasswordRestyled, 
+    SignInLoadingButtonRestyled,
+    SignUpButtonRestyled
 } from './style-sign-in'
-import {
-    CloseIconButton, 
-    FormHeaderName, 
-    HelperTextPassword, 
-    InputField,
-} from '../sign-up/style-sign-up-form';
+import { CloseIconButtonRestyled, HeadingFormRestyled, InputFieldRestyled, PasswordHelperTextRestyled } from '../sign-up/style-sign-up-form';
 
   type SignInFormTypes = {
     email:string,
@@ -46,7 +41,7 @@ import {
 const SignInForm = ({handleCloseSignInModal, handleOpenSignUpModal, handleOpenForgotPasswordModal, isMobile}:Props) => {
     const InputSize=isMobile ? 'small' : 'medium';
     const ButtonSize=isMobile ? 'small' : 'large';
-    const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     
@@ -87,18 +82,18 @@ const SignInForm = ({handleCloseSignInModal, handleOpenSignUpModal, handleOpenFo
         handleOpenForgotPasswordModal();
     }
     return (
-            <SignInBoxForm>
-                <SignInBox>
-                <FormHeaderName>
-                        Sign in
-                    </FormHeaderName>
-                    <IconButton 
-                        aria-label="Close form" 
-                        onClick={handleCloseSignInModal}
-                    >
-                        <CloseIconButton />
-                    </IconButton>
-                </SignInBox>
+            <SignInFormRestyled>
+                <SignInBoxRestyled>
+                    <HeadingFormRestyled>
+                            Sign in
+                        </HeadingFormRestyled>
+                        <IconButton 
+                            aria-label="Close form" 
+                            onClick={handleCloseSignInModal}
+                        >
+                            <CloseIconButtonRestyled />
+                        </IconButton>
+                </SignInBoxRestyled>
                 <Box 
                     component="form" 
                     autoComplete="off" 
@@ -108,7 +103,7 @@ const SignInForm = ({handleCloseSignInModal, handleOpenSignUpModal, handleOpenFo
                         control={control}
                         name="email"
                         render={({field, fieldState}) => (
-                            <InputField
+                            <InputFieldRestyled
                                 id="auth-form-email" 
                                 fullWidth
                                 label="Email" 
@@ -127,7 +122,7 @@ const SignInForm = ({handleCloseSignInModal, handleOpenSignUpModal, handleOpenFo
                         render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                            <InputPasswordSignIn
+                            <SignInInputPasswordRestyled
                                 id="auth-form-password"
                                 fullWidth
                                 variant="outlined"
@@ -155,41 +150,39 @@ const SignInForm = ({handleCloseSignInModal, handleOpenSignUpModal, handleOpenFo
                                         </InputAdornment>
                                     }   
                                 />
-                                <HelperTextPassword error={false}>
+                                <PasswordHelperTextRestyled error={false}>
                                     The password must be more than 8 characters and 
                                     contain at least one capital letter, a special sign !@#$%^&* and a number
-                                </HelperTextPassword>
-                                <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
-                            </InputPasswordSignIn>
+                                </PasswordHelperTextRestyled>
+                                <PasswordHelperTextRestyled>{fieldState.error?.message}</PasswordHelperTextRestyled>
+                            </SignInInputPasswordRestyled>
                         )}}
                     />
-                    <InputLabelForgotPassword htmlFor="auth-forgot-password" id='auth-form-forgot-password' onClick={ForgotPasswordForm}>Forgot a password?</InputLabelForgotPassword>
-                    <SignInButtonStyle
-                        loading={false}
+                    <ForgotPasswordInputLabelRestyled htmlFor="auth-forgot-password" id='auth-form-forgot-password' onClick={ForgotPasswordForm}>Forgot a password?</ForgotPasswordInputLabelRestyled>
+                    <SignInLoadingButtonRestyled
+                        loading={loading}
                         loadingPosition="end"
                         type="submit" 
                         variant="contained" 
                         fullWidth
                         size={ButtonSize}
                         color="primary"
-                        endIcon={<SendIconButtonStyle />}
-                        sx={isMobile ? {fontSize:'small'} : {fontSize:'medium'}}
+                        endIcon={<SendIconButtonRestyled />}
                         >
                         <span>sign in</span>
-                    </SignInButtonStyle>
-                    <SignUpButtonStyle
+                    </SignInLoadingButtonRestyled>
+                    <SignUpButtonRestyled
                         type="submit" 
                         id="auth-form-button"
                         fullWidth
                         size={ButtonSize}
-                        sx={isMobile ? {fontSize:'small'} : {fontSize:'medium'}}
                         onClick={ControlForms}
                     >
                         sign up
-                    </SignUpButtonStyle>
+                    </SignUpButtonRestyled>
                 </Box>
-        </SignInBoxForm>
-    );
+            </SignInFormRestyled>
+            );
 };
 
 export default SignInForm;

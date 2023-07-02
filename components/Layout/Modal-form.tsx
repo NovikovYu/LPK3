@@ -4,17 +4,14 @@ import SignInForm from "@/feature/sign-in/sign-in-form";
 import ForgotPasswordForm from "@/feature/sign-in/forgot-password";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ForgotPasswordMessage from '@/feature/sign-in/message-forgot-password';
-import SignUpMessage from '@/feature/sign-up/email-message';
 import {useTheme} from '@mui/material/styles';
 import {Modal} from "@mui/material";
-import {
-  ForgotPasswordMessageStyleBox,
-  ForgotPasswordStyleBox,
-  SignInStyleBox,
-  SignUpMessageStyleBox,
-  SignUpStyleBox, 
+import { 
+  ForgotPasswordBoxRestyled, 
+  ForgotPasswordMessageBoxRestyled, 
+  SignInBoxRestyled, 
+  SignUpBoxRestyled
 } from "./Header-style";
-
 
 interface Props {
     handleCloseSignInModal: () => void;
@@ -27,7 +24,6 @@ enum Modules {
     FORGOT_PASSWORD ='forgotPassword',
     FORGOT_PASSWORD_MESSAGE ='forgotPasswordMessage',
     SIGN_UP ='signUp',
-    SIGN_UP_MESSAGE ='signUpMessage',
 };
   
 interface OpenModalState {
@@ -35,7 +31,6 @@ interface OpenModalState {
     forgotPassword: boolean,
     forgotPasswordMessage: boolean,
     signUp: boolean,
-    signUpMessage: boolean,
 };
 
 const openModalStates = {
@@ -43,7 +38,6 @@ const openModalStates = {
    [Modules.FORGOT_PASSWORD]: false,
    [Modules.FORGOT_PASSWORD_MESSAGE]: false,
    [Modules.SIGN_UP]: false,
-   [Modules.SIGN_UP_MESSAGE]: false,
 };
 
 const ModalForm = ({handleCloseSignInModal, openFormSignInModal}:Props) => {
@@ -68,14 +62,14 @@ const ModalForm = ({handleCloseSignInModal, openFormSignInModal}:Props) => {
           aria-labelledby="sign-in"
           aria-describedby="sign-in-form"
         >
-          <SignInStyleBox> 
+          <SignInBoxRestyled> 
             <SignInForm
               handleCloseSignInModal={handleCloseSignInModal} 
               handleOpenSignUpModal={() => handleOpenModal(Modules.SIGN_UP, true)}
               handleOpenForgotPasswordModal={()=> handleOpenModal(Modules.FORGOT_PASSWORD, true)}
               isMobile={isMobile}
             />
-          </SignInStyleBox>                  
+          </SignInBoxRestyled>                  
         </Modal>
         <Modal
           open={openModalState.forgotPassword}
@@ -83,13 +77,13 @@ const ModalForm = ({handleCloseSignInModal, openFormSignInModal}:Props) => {
           aria-labelledby="forgot-password"
           aria-describedby="forgot-password-form"
         >
-          <ForgotPasswordStyleBox> 
+          <ForgotPasswordBoxRestyled> 
             <ForgotPasswordForm
               handleCloseForgotPasswordModal={()=> handleOpenModal(Modules.FORGOT_PASSWORD, false)}
               handleOpenForgotPasswordMessageModal={()=> handleOpenModal(Modules.FORGOT_PASSWORD_MESSAGE, true)}
               isMobile={isMobile}
             />
-          </ForgotPasswordStyleBox>                  
+          </ForgotPasswordBoxRestyled>                  
         </Modal>
         <Modal
           open={openModalState.forgotPasswordMessage}
@@ -97,12 +91,12 @@ const ModalForm = ({handleCloseSignInModal, openFormSignInModal}:Props) => {
           aria-labelledby="forgot-password"
           aria-describedby="forgot-password-form"
         >
-          <ForgotPasswordMessageStyleBox> 
+          <ForgotPasswordMessageBoxRestyled> 
             <ForgotPasswordMessage
               handleCloseForgotPasswordMessageModal={()=> handleOpenModal(Modules.FORGOT_PASSWORD_MESSAGE, false)}
               isMobile={isMobile}
             />
-          </ForgotPasswordMessageStyleBox>                  
+          </ForgotPasswordMessageBoxRestyled>                  
         </Modal>
         <Modal
             open={openModalState.signUp}
@@ -110,24 +104,13 @@ const ModalForm = ({handleCloseSignInModal, openFormSignInModal}:Props) => {
             aria-labelledby="sign-up"
             aria-describedby="sign-up-form"
         >
-              <SignUpStyleBox> 
+              <SignUpBoxRestyled> 
                 <SignUpForm
                   handleCloseSignUpModal={() => handleOpenModal(Modules.SIGN_UP, false)}
-                  handleOpenEmail={()=> handleOpenModal(Modules.SIGN_UP_MESSAGE, true)}
                   isMobile={isMobile}
                 />
-              </SignUpStyleBox>                  
+              </SignUpBoxRestyled>                  
           </Modal>
-          <Modal
-              open={openModalState.signUpMessage}
-              onClose={()=> handleOpenModal(Modules.SIGN_UP_MESSAGE, false)}
-              aria-labelledby="email-message"
-              aria-describedby="send-email-message"
-            >
-              <SignUpMessageStyleBox> 
-                <SignUpMessage handleCloseEmail={()=> handleOpenModal(Modules.SIGN_UP_MESSAGE, false)} isMobile={isMobile} />
-              </SignUpMessageStyleBox>
-            </Modal>
  </>
   )
 };

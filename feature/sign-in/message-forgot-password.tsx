@@ -1,12 +1,12 @@
 import * as React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { 
-    ButtonMessage, 
-    CloseIconButton, 
-    EmailBox, 
-    FormHeaderName, 
-    MessageBox, 
-    MessageTypography 
+    ButtonMessageRestyled,
+    CloseIconButtonRestyled, 
+    HeadingFormRestyled,
+    MessageRestyled,
+    SendingMessageBoxWrapper,
+    SendingMessageContentBoxWrapper,  
 } from '../sign-up/style-sign-up-form';
 
 interface Props {
@@ -16,31 +16,30 @@ interface Props {
 
 const ForgotPasswordMessage = ({handleCloseForgotPasswordMessageModal, isMobile}:Props) => {
     const ButtonSize = isMobile ? 'small' : 'large';
-    console.log('sss');
     return (
-        <EmailBox>
-            <MessageBox>
-                <FormHeaderName>
+        <SendingMessageBoxWrapper>
+            <SendingMessageContentBoxWrapper>
+                <HeadingFormRestyled>
                     We sent an email
-                </FormHeaderName>
-                <CloseIconButton aria-label="Close form" onClick={handleCloseForgotPasswordMessageModal}>
+                </HeadingFormRestyled>
+                <CloseIconButtonRestyled aria-label="Close form" onClick={handleCloseForgotPasswordMessageModal}>
                     <CloseIcon />
-                </CloseIconButton>
-            </MessageBox>
-            <MessageTypography>
+                </CloseIconButtonRestyled>
+            </SendingMessageContentBoxWrapper>
+            <MessageRestyled>
                 We sent password recovery instructions to your email
-            </MessageTypography>
-            <ButtonMessage
-            variant="contained" 
-            id='reg-message-button'
-            fullWidth
-            size={ButtonSize} 
-            color='primary'
-            onClick={handleCloseForgotPasswordMessageModal}
+            </MessageRestyled>
+            <ButtonMessageRestyled
+                variant="contained" 
+                id='reg-message-button'
+                fullWidth
+                size={ButtonSize} 
+                color='primary'
+                onClick={handleCloseForgotPasswordMessageModal}
             >
                 got it
-            </ButtonMessage>
-        </EmailBox>
+            </ButtonMessageRestyled>
+        </SendingMessageBoxWrapper>
     );
 };
 export default ForgotPasswordMessage;

@@ -3,13 +3,13 @@ import {styled } from "@mui/material/styles";
 import PhoneInput from 'react-phone-input-2';
 import CloseIcon from '@mui/icons-material/Close';
 
-export const SignUpBox = styled(Box)(() => ({
+export const SignUpBoxRestyled = styled(Box)(() => ({
   display:'flex', 
   alignItems:'center', 
   justifyContent:'space-between'
 }));
 
-export const  SignUpBoxForm = styled(Box)(({theme}) => ({
+export const SignUpBoxFormRestyled = styled(Box)(({theme}) => ({
     display:'flex',
     flexDirection:'column',
     marginTop: theme.spacing(4),
@@ -26,7 +26,7 @@ export const  SignUpBoxForm = styled(Box)(({theme}) => ({
     },
   }));
 
-export const InputBox = styled(Box)(({theme}) => ({
+export const DataInputsRestyled = styled(Box)(({theme}) => ({
   display:'flex', 
   justifyContent:'space-between', 
   gap:theme.spacing(2),
@@ -36,56 +36,56 @@ export const InputBox = styled(Box)(({theme}) => ({
   },
 }));
 
-export const  FormHeaderName = styled(Typography)(({theme}) => ({
-  fontSize:theme.typography.h3.fontSize,
+export const HeadingFormRestyled = styled(Typography)(({theme}) => ({
+  fontSize:theme.typography.h5.fontSize,
   [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.h4.fontSize,
+    fontSize:theme.typography.h6.fontSize,
   },
 }));
 
-export const CloseIconButton = styled(CloseIcon)(({theme}) => ({
+export const CloseIconButtonRestyled = styled(CloseIcon)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
     fontSize: 'large',
   },
 }));
 
-export const  InputField = styled(TextField)(({theme}) => ({
+export const  InputFieldRestyled = styled(TextField)(({theme}) => ({
   marginBottom: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
     marginBottom: theme.spacing(1.5),
     input: {
-      fontSize:theme.typography.h6.fontSize,
+      fontSize:theme.typography.subtitle2.fontSize,
     },
     label: {
-      fontSize:theme.typography.h6.fontSize
+      fontSize:theme.typography.subtitle2.fontSize
     },
     ".MuiFormHelperText-root.Mui-error": {
-      fontSize:theme.typography.subtitle1.fontSize
+      fontSize:theme.typography.caption.fontSize
     },
   },
 }));
 
-export const InputFormControl = styled(FormControl)(({theme}) => ({
+export const InputFormControlRestyled = styled(FormControl)(({theme}) => ({
   marginBottom: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
     marginBottom: theme.spacing(1.5),
   },
 }));
 
-export const InputPassword = styled(FormControl)(({theme}) => ({
+export const InputPasswordRestyled = styled(FormControl)(({theme}) => ({
   marginBottom: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
     marginBottom: theme.spacing(1),
     input: {
-      fontSize:theme.typography.h6.fontSize
+      fontSize:theme.typography.subtitle2.fontSize
     },
     label: {
-      fontSize:theme.typography.h6.fontSize
+      fontSize:theme.typography.subtitle2.fontSize
     }
   },
 }));
 
-export const StyledPhoneInput = styled(PhoneInput)(({theme}) => ({
+export const PhoneInputRestyled = styled(PhoneInput)(({theme}) => ({
   "& .selected-flag:focus":{
     outline: `${theme.spacing(0.125)} solid ${theme.palette.primary.main}`,
     borderRadius: theme.spacing(0.625),
@@ -103,49 +103,50 @@ export const StyledPhoneInput = styled(PhoneInput)(({theme}) => ({
   },
   [theme.breakpoints.down('sm')]: {
     "&.react-tel-input .form-control": {
-      fontSize:theme.typography.h6.fontSize,
+      fontSize:theme.typography.subtitle2.fontSize,
       height:theme.spacing(3.75),
     },
      "&.react-tel-input .special-label": {
-      fontSize:theme.typography.subtitle1.fontSize
+      fontSize:theme.typography.subtitle2.fontSize
     },
   },
 }));
 
-export const HelperText = styled(FormHelperText)(({theme}) => ({
+export const PhoneHelperTextRestyled = styled(FormHelperText)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.subtitle1.fontSize
+    fontSize:theme.typography.caption.fontSize
   },
 }));
 
-export const HelperTextCheckbox = styled(FormHelperText)(({theme}) => ({
+export const AcceptedHelperTextRestyled = styled(FormHelperText)(({theme}) => ({
   marginBottom:theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.subtitle1.fontSize
+    fontSize:theme.typography.caption.fontSize
   },
 }));
 
-export const HelperTextPassword = styled(FormHelperText)(({theme}) => ({
+export const PasswordHelperTextRestyled = styled(FormHelperText)(({theme}) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize:theme.typography.overline.fontSize,
+    textAlign:'justify',
+  },
+}));
+
+export const LabelTextRestyled = styled(FormControlLabel)(({theme}) => ({
+  [theme.breakpoints.down('sm')]: {
+    '& .MuiFormControlLabel-label': { 
+      fontSize:theme.typography.subtitle2.fontSize
+    }
+  },
+}));
+
+export const ButtonRestyled= styled(Button)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
     fontSize:theme.typography.subtitle2.fontSize,
   },
 }));
 
-export const LabelText = styled(FormControlLabel)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    '& .MuiFormControlLabel-label': { 
-      fontSize:theme.typography.h6.fontSize
-    }
-  },
-}));
-
-export const ButtonStyle= styled(Button)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.h6.fontSize,
-  },
-}));
-
-export const  EmailBox = styled(Box)(({theme}) => ({
+export const  SendingMessageBoxWrapper = styled(Box)(({theme}) => ({
   display:'flex',
   flexDirection:'column',
   marginTop: theme.spacing(4),
@@ -158,10 +159,9 @@ export const  EmailBox = styled(Box)(({theme}) => ({
     marginRight: theme.spacing(4),
     marginLeft:theme.spacing(4),
   },
-
 }));
 
-export const MessageBox = styled(Box)(({theme}) => ({
+export const SendingMessageContentBoxWrapper = styled(Box)(({theme}) => ({
   display:'flex', 
   alignItems:'center', 
   justifyContent:'space-between',
@@ -171,23 +171,22 @@ export const MessageBox = styled(Box)(({theme}) => ({
   },
 }));
 
-export const MessageTypography = styled(Typography)(({theme}) => ({
-  fontWeight:theme.typography.body1.fontWeight, 
+export const MessageRestyled = styled(Typography)(({theme}) => ({ 
   fontSize:theme.typography.body1.fontSize,
-  letterSpacing:theme.typography.body1.letterSpacing,
   marginBottom:theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
-    fontWeight:theme.typography.h5.fontWeight, 
-    fontSize:theme.typography.h5.fontSize, 
-    letterSpacing: theme.typography.h5.letterSpacing,
-    marginBottom:theme.spacing(1)
+    fontWeight:theme.typography.body1.fontWeight, 
+    fontSize:theme.typography.body1.fontSize, 
+    letterSpacing: theme.typography.body1.letterSpacing,
+    marginBottom:theme.spacing(1),
+    textAlign:'left',
   },
 }));
 
-export const ButtonMessage= styled(Button)(({theme}) => ({
+export const ButtonMessageRestyled = styled(Button)(({theme}) => ({
   textTransform: 'uppercase',
   [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.h6.fontSize,
+    fontSize:theme.typography.subtitle2.fontSize,
     marginTop: theme.spacing(1),
   },
 }));

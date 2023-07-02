@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import * as React from 'react';
-import {Container} from '@mui/material';
+import {Container, Typography} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 

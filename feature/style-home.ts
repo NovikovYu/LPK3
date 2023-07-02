@@ -10,7 +10,6 @@ export const  ChangePasswordBox = styled(Box)(({theme}) => ({
     width: 300,
     minHeight: 102,
   },
-
 }));
 
 export const ChangePasswordFormBox = styled(Box)(({theme}) => ({
@@ -80,3 +79,87 @@ export const ChangePasswordFormBox = styled(Box)(({theme}) => ({
       marginTop: theme.spacing(1),
     },
   }));
+
+  export const ConfirmEmailBoxWrapperRestyle = styled(Box)(({theme}) => ({
+    marginTop: theme.spacing(20),
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    backgroundColor: theme.palette.common.white,
+    width: 760,
+    height: 'auto',
+    [theme.breakpoints.down('md')]: {
+      width: 560,
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(11),
+      marginBottom: theme.spacing(7),
+      width: 344,
+    },
+  }));
+    
+  export const ConfirmEmailBoxRestyle = styled(Box)(({theme}) => ({
+    display:'flex',
+    flexDirection:'column',
+    marginTop: theme.spacing(4),
+    marginBottom:theme.spacing(4),
+    marginRight: theme.spacing(6),
+    marginLeft: theme.spacing(6),
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(0.875),
+      marginBottom:theme.spacing(0.875),
+      marginRight: theme.spacing(4),
+      marginLeft:theme.spacing(4),
+    },
+}));
+
+  export const ConfirmEmailContentWrapperRestyle = styled(Box)(({theme}) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  }));
+
+
+    export const ConfirmEmailImgWrapperRestyle = styled(Box)(({theme}) => ({
+      marginTop: theme.spacing(6),
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: theme.spacing(3),
+      },
+    }));
+
+    export const ConfirmEmailHeadingRestyle = styled(Box)(({theme}) => ({
+      fontFamily: theme.typography.fontFamily,
+      marginTop: theme.spacing(1.5),
+      marginBottom: theme.spacing(1),
+      fontSize:theme.typography.h5.fontSize,
+      fontWeight: theme.typography.h5.fontWeight,
+      lineHeight: theme.typography.h5.lineHeight,
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: theme.spacing(1),
+        fontSize:theme.typography.h5.fontSize,
+      },
+    }));
+
+    export const ConfirmEmailMessageRestyle = styled(Box)(({theme}) => ({
+      fontFamily: theme.typography.fontFamily,
+      fontSize:theme.typography.subtitle2.fontSize,
+      letterSpacing: theme.typography.subtitle2.letterSpacing,
+      textAlign:'center',
+      lineHeight: theme.typography.subtitle2.lineHeight,
+      width:480,
+      height:'auto',
+      color: theme.palette.text.secondary,
+      [theme.breakpoints.down('sm')]: {
+        fontSize:theme.typography.subtitle2.fontSize,
+        width:'100%',
+        height:'auto',
+      },
+    }));
+
+    export const ConfirmEmailButtonRestyle = styled(Button)(({theme}) => ({
+      marginBottom: theme.spacing(6),
+      marginTop: theme.spacing(4),
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: theme.spacing(4),
+        marginTop: theme.spacing(4),
+      },
+    }));

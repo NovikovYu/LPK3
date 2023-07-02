@@ -19,21 +19,22 @@ import {
     OutlinedInput, 
 } from '@mui/material';
 import {
-    ButtonStyle,
-    CloseIconButton,
-    FormHeaderName,
-    HelperText,
-    HelperTextCheckbox,
-    HelperTextPassword,
-    InputBox, 
-    InputField, 
-    InputFormControl, 
-    InputPassword, 
-    LabelText, 
-    SignUpBox, 
-    SignUpBoxForm, 
-    StyledPhoneInput,
+    AcceptedHelperTextRestyled,
+    ButtonRestyled,
+    CloseIconButtonRestyled,
+    DataInputsRestyled,
+    HeadingFormRestyled,
+    InputFieldRestyled,
+    InputFormControlRestyled,
+    InputPasswordRestyled,
+    LabelTextRestyled,
+    PasswordHelperTextRestyled,
+    PhoneHelperTextRestyled,
+    PhoneInputRestyled,
+    SignUpBoxFormRestyled,
+    SignUpBoxRestyled, 
 } from './style-sign-up-form';
+import { useRouter } from 'next/router';
 import { signAppSchema } from '../utils/validation/common-validation';
 
 type SignUpFormTypes = {
@@ -49,15 +50,15 @@ type SignUpFormTypes = {
 
 interface Props {
     handleCloseSignUpModal: () => void;
-    handleOpenEmail: () => void;
     isMobile: boolean;
 }
 
 const EXCLUDE_COUNTRIES = ['ru', 'by'];
 
-const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) => {
+const SignUpForm = ({handleCloseSignUpModal, isMobile}:Props) => {
     const InputSize = isMobile ? 'small' : 'medium';
     const ButtonSize = isMobile ? 'small' : 'large';
+    const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);;
     const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
@@ -82,36 +83,36 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
         if (isValidForm(data)) {
                 console.log(data);
                 handleCloseSignUpModal();
-                handleOpenEmail();
+                router.push('/confirm-email');
         } 
         else errors;
     };
 
     const isValidForm=(data:SignUpFormTypes) => signAppSchema.isValidSync(data);
     return (
-            <SignUpBoxForm>
-                <SignUpBox>
-                    <FormHeaderName>
+            <SignUpBoxFormRestyled>
+                <SignUpBoxRestyled>
+                    <HeadingFormRestyled>
                         Sign up
-                    </FormHeaderName>
+                    </HeadingFormRestyled>
                     <IconButton 
                         aria-label="Close form" 
                         onClick={handleCloseSignUpModal}
                     >
-                        <CloseIconButton />
+                        <CloseIconButtonRestyled />
                     </IconButton>
-                </SignUpBox>
+                </SignUpBoxRestyled>
                 <Box 
                     component="form" 
                     autoComplete="off" 
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                <InputBox>
+                <DataInputsRestyled>
                     <Controller
                         control={control}
                         name="name"
                         render={({field, fieldState}) => (
-                            <InputField
+                            <InputFieldRestyled
                                 id="reg-form-name" 
                                 fullWidth
                                 label="First Name"
@@ -128,7 +129,7 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                         control={control}
                         name="lastName"
                         render={({field, fieldState}) => (
-                            <InputField 
+                            <InputFieldRestyled 
                                 id="reg-form-last-name" 
                                 fullWidth
                                 label="Last Name" 
@@ -141,12 +142,12 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                             />
                         )}
                     />
-                </InputBox>
+                </DataInputsRestyled>
                     <Controller
                         control={control}
                         name="email"
                         render={({field, fieldState}) => (
-                            <InputField
+                            <InputFieldRestyled
                                 id="reg-form-email" 
                                 fullWidth
                                 label="Email" 
@@ -165,17 +166,17 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                         render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                                <InputFormControl error={!!fieldState.error?.message} fullWidth>
-                                        <StyledPhoneInput
-                                            excludeCountries={EXCLUDE_COUNTRIES}
-                                            defaultErrorMessage={fieldState.error?.message}
-                                            value={fieldValue} 
-                                            inputClass={(!!fieldState.error?.message) ? 'invalid-number' : ''}
-                                            onChange={onChange}
-                                            inputStyle={{width:'100%'}}
-                                        />
-                                    <HelperText>{fieldState.error?.message}</HelperText>
-                                </InputFormControl>
+                                <InputFormControlRestyled error={!!fieldState.error?.message} fullWidth>
+                                    <PhoneInputRestyled
+                                        excludeCountries={EXCLUDE_COUNTRIES}
+                                        defaultErrorMessage={fieldState.error?.message}
+                                        value={fieldValue} 
+                                        inputClass={(!!fieldState.error?.message) ? 'invalid-number' : ''}
+                                        onChange={onChange}
+                                        inputStyle={{width:'100%'}}
+                                    />
+                                    <PhoneHelperTextRestyled>{fieldState.error?.message}</PhoneHelperTextRestyled>
+                                </InputFormControlRestyled>
                             )}
                         }
                     />
@@ -185,12 +186,12 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                         render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                            <InputPassword
+                            <InputPasswordRestyled
                                 fullWidth
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
                                 size={InputSize}
-                                > 
+                            > 
                                 <InputLabel htmlFor="reg-form-password">Password</InputLabel>
                                 <OutlinedInput
                                     id='reg-form-password'
@@ -213,12 +214,12 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                                         </InputAdornment>
                                     }   
                                 />
-                                <HelperTextPassword error={false}>
+                                <PasswordHelperTextRestyled error={false}>
                                     The password must be more than 8 characters and 
                                     contain at least one capital letter, a special sign !@#$%^&* and a number
-                                </HelperTextPassword>
-                                <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
-                            </InputPassword>
+                                </PasswordHelperTextRestyled>
+                                <PasswordHelperTextRestyled>{fieldState.error?.message}</PasswordHelperTextRestyled>
+                            </InputPasswordRestyled>
                         )}}
                     />
                     <Controller
@@ -227,7 +228,7 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                         render={({field, fieldState}) => {
                             const {value: fieldValue, onChange} = field;
                             return (
-                            <InputPassword
+                            <InputPasswordRestyled
                                 fullWidth
                                 variant="outlined"
                                 error={!!fieldState.error?.message}
@@ -254,8 +255,8 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                                         </InputAdornment>
                                     }   
                                 />
-                                <HelperTextPassword>{fieldState.error?.message}</HelperTextPassword>
-                            </InputPassword>
+                                <PasswordHelperTextRestyled>{fieldState.error?.message}</PasswordHelperTextRestyled>
+                            </InputPasswordRestyled>
                         )}}
                     />
                     <Controller
@@ -265,7 +266,7 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                             const {value: fieldValue, onChange} = field;
                             return (
                                 <FormControl error={!!fieldState.error?.message}>
-                                    <LabelText
+                                    <LabelTextRestyled
                                         id='reg-form-accepted'
                                         label="I apply terms&conditions"
                                         control={
@@ -279,24 +280,23 @@ const SignUpForm = ({handleCloseSignUpModal, handleOpenEmail, isMobile}:Props) =
                                         }
                                         labelPlacement="end"               
                                     />
-                                    <HelperTextCheckbox>{fieldState.error?.message}</HelperTextCheckbox>
+                                    <AcceptedHelperTextRestyled>{fieldState.error?.message}</AcceptedHelperTextRestyled>
                                 </FormControl>
                             )
                         }}
                     />
-                    <ButtonStyle
+                    <ButtonRestyled
                         type="submit" 
                         id='reg-form-button'
                         variant="contained" 
                         fullWidth
                         size={ButtonSize} 
                         color="primary"
-                        sx={isMobile ? {fontSize:'small'} : {fontSize:'medium'}}
                     >
                         SIGN UP
-                    </ButtonStyle>
+                    </ButtonRestyled>
                 </Box>
-        </SignUpBoxForm>
+        </SignUpBoxFormRestyled>
     );
 };
 
