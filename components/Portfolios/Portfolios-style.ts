@@ -22,39 +22,39 @@ export const SecondaryButtonForPortfolioCard = styled(
 
 export const PortfoliosTitle = styled(Typography)(({ theme }) => ({
   marginTop: "0",
-  marginBottom: "8px",
-  color: "#18204A",
-  fontSize: "24px",
+  marginBottom: theme.spacing(1),
+  color: theme.palette.text.primary,
+  fontSize: theme.typography.h5.fontSize,
   lineHeight: "1.2",
-  fontWeight: "600",
+  fontWeight: theme.typography.h1.fontWeight,
 
   [theme.breakpoints.up("lg")]: {
-    fontSize: "34px",
+    fontSize: theme.typography.h4.fontSize,
   },
 }));
 
 export const PortfolioCardTitle = styled(Typography)(({ theme }) => ({
   marginTop: "0",
   marginBottom: "0",
-  color: "#18204A",
-  fontSize: "20px",
+  color: theme.palette.text.primary,
+  fontSize: theme.typography.h6.fontSize,
   lineHeight: "1.35",
-  fontWeight: "600",
+  fontWeight: theme.typography.h1.fontWeight,
 
   [theme.breakpoints.up("lg")]: {
-    fontSize: "24px",
+    fontSize: theme.typography.h5.fontSize,
   },
 }));
 
 export const PortfolioCardAssentTitle = styled(PortfolioCardTitle)(
   ({ theme }) => ({
-    color: "#4CAF50",
+    color: theme.palette.primary.light,
   })
 );
 
 export const PortfolioNoSuccedCardAssentTitle = styled(PortfolioCardTitle)(
   ({ theme }) => ({
-    color: "#D32F2F",
+    color: theme.palette.error.main,
   })
 );
 
@@ -62,32 +62,32 @@ export const PortfolioCardNumbersColumnLeftTitle = styled(Typography)(
   ({ theme }) => ({
     marginTop: "0",
     marginBottom: "0",
-    color: "#18204A",
-    fontSize: "20px",
-    fontWeight: "600",
+    color: theme.palette.text.primary,
+    fontSize: theme.typography.h6.fontSize,
+    fontWeight: theme.typography.h1.fontWeight,
 
     [theme.breakpoints.up("lg")]: {
-      fontSize: "24px",
+      fontSize: theme.typography.h5.fontSize,
     },
   })
 );
 
 export const PortfoliosSubtitle = styled(P)(({ theme }) => ({
   marginTop: "0",
-  marginBottom: "24px",
-  color: "#586691",
-  fontSize: "14px",
+  marginBottom: theme.spacing(3),
+  color: theme.palette.text.secondary,
+  fontSize: theme.typography.body2.fontSize,
 
   [theme.breakpoints.up("lg")]: {
-    marginBottom: "32px",
+    marginBottom: theme.spacing(4),
   },
 }));
 
 export const PortfolioCardSubtitle = styled(P)(({ theme }) => ({
   marginTop: "0",
-  marginBottom: "24px",
-  color: "#586691",
-  fontSize: "14px",
+  marginBottom: theme.spacing(3),
+  color: theme.palette.text.secondary,
+  fontSize: theme.typography.body2.fontSize,
 }));
 
 export const PortfolioCardsList = styled(Box)(({ theme }) => ({
@@ -95,7 +95,7 @@ export const PortfolioCardsList = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   flexWrap: "wrap",
-  gap: "26px",
+  gap: theme.spacing(3.25),
   margin: "0",
   padding: "0",
   listStyle: "none",
@@ -109,11 +109,11 @@ export const PortfolioCardsList = styled(Box)(({ theme }) => ({
 export const PortfolioCardItem = styled(Box)(({ theme }) => ({
   width: "100%",
   maxWidth: "368px",
-  padding: "24px 16px",
+  padding: theme.spacing(3, 2),
   backgroundColor: theme.palette.common.white,
   boxShadow:
     "0px 2px 4px -2px rgba(24, 39, 75, 0.12), 0px 4px 4px -2px rgba(24, 39, 75, 0.08)",
-  borderRadius: "4px",
+  borderRadius: theme.spacing(0.5),
 
   [theme.breakpoints.up("sm")]: {
     display: "flex",
@@ -123,7 +123,7 @@ export const PortfolioCardItem = styled(Box)(({ theme }) => ({
 }));
 
 export const PortfolioCardNumbersWrapper = styled(Box)(({ theme }) => ({
-  marginBottom: "24px",
+  marginBottom: theme.spacing(3),
   display: "flex",
   justifyContent: "space-between",
 }));

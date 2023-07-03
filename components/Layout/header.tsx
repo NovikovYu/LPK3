@@ -10,7 +10,7 @@ interface Props {
   handleOpenSignInModal: () => void;
 }
 
-const pages = ['Menu Item', 'Menu Item2', 'Menu Item3', 'Menu Item4', 'Menu Item5'];
+const pages = ['Portfolio', 'Settings', 'Confirm-your-email'];
 
 function Header({handleOpenSignInModal}:Props) {
   const theme = useTheme();
@@ -26,25 +26,29 @@ function Header({handleOpenSignInModal}:Props) {
 
   if (isDesktop) {
     return (
-      <AppBar>
-        <Container maxWidth={'xl'}>
-          <ToolbarStyle>
-            <LogoButton href="/">
-              <LintuIcon />
-            </LogoButton>
-            <Box component="nav">
-              <UlBox component="ul">
-                {pages.map((page) => (
-                  <LiBox component="li">
-                    <MenuButton key={page} href="/">
-                      {page}
-                    </MenuButton>
-                  </LiBox>
-                ))}
-              </UlBox>
-            </Box>
-            <SignUpButton onClick={handleOpen}>Sign In</SignUpButton> 
-          </ToolbarStyle>
+      <AppBarRestyled>
+        <Container maxWidth='xl'>
+          <ToolbarRestyled>
+            <div>
+              <Button href="/">
+                <LintuIcon />
+              </Button>
+            </div>
+            <HeaderWrapper>
+              <Box component="nav">
+                <NavigationUlItem component="ul">
+                  {pages.map((page) => (
+                    <NavigationListItem component="li" key={page}>
+                      <MenuButtonRestyled href={`/${page.toLowerCase()}`}>
+                        {page}
+                      </MenuButtonRestyled>
+                    </NavigationListItem>
+                  ))}
+                </NavigationUlItem>
+              </Box>
+                <SignInButtonRestyled onClick={handleOpenSignInModal}>Sign In</SignInButtonRestyled>
+            </HeaderWrapper>
+          </ToolbarRestyled>
         </Container>
       </AppBarRestyled>
     );

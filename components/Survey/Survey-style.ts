@@ -5,76 +5,76 @@ import { P } from "../CommonComponents/Common-сomponents-style";
 export const SurvayWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  gap: "16px",
+  gap: theme.spacing(2),
 }));
 
 export const SurvayInner = styled(Box)(({ theme }) => ({
   background: theme.palette.common.white,
   boxShadow:
     "0px 2px 4px -2px rgba(24, 39, 75, 0.12), 0px 4px 4px -2px rgba(24, 39, 75, 0.08)",
-  borderRadius: "4px",
+  borderRadius: theme.spacing(0.5),
 }));
 
 export const SurvayPartTitleWrapper = styled(SurvayInner)(({ theme }) => ({
-  marginBottom: "16px",
-  padding: "32px 12px",
+  marginBottom: theme.spacing(2),
+  padding: theme.spacing(4, 1.5),
 
   [theme.breakpoints.up("md")]: {
-    padding: "24px 32px",
+    padding: theme.spacing(3, 4),
   },
 }));
 
 export const SurvayPartQuestionsWrapper = styled(SurvayInner)(({ theme }) => ({
-  padding: "32px 12px",
+  padding: theme.spacing(4, 1.5),
 
   [theme.breakpoints.up("md")]: {
-    padding: "32px 32px",
+    padding: theme.spacing(4),
   },
 }));
 
 export const SurvayPartTitleTitle = styled(P)(({ theme }) => ({
   marginTop: "0",
-  color: "#18204A",
-  fontSize: "20px",
+  color: theme.palette.text.primary,
+  fontSize: theme.typography.h6.fontSize,
   lineHeight: "1.35",
-  fontWeight: "600",
+  fontWeight: theme.typography.h1.fontWeight,
 
   [theme.breakpoints.up("lg")]: {
-    fontSize: "24px",
+    fontSize: theme.typography.h5.fontSize,
   },
 }));
 
 export const SurvayPartQuestionsCounter = styled(P)(({ theme }) => ({
-  marginBottom: "16px",
-  color: "#0C6748",
+  marginBottom: theme.spacing(2),
+  color: theme.palette.primary.main,
 }));
 
 export const SurvayQuestion = styled(P)(({ theme }) => ({
-  marginBottom: "16px",
-  color: "#18204A",
+  marginBottom: theme.spacing(2),
+  color: theme.palette.text.primary,
 
   [theme.breakpoints.up("lg")]: {
     fontSize: "18px",
   },
 }));
 export const SurvayAnswer = styled(P)(({ theme }) => ({
-  marginBottom: "16px",
-  color: "#18204A",
+  marginBottom: theme.spacing(2),
+  color: theme.palette.text.primary,
 
   [theme.breakpoints.up("lg")]: {
-    fontSize: "16px",
+    fontSize: theme.typography.body1.fontSize,
   },
 }));
 
 export const SurvayAnswersWrapper = styled(Box)(({ theme }) => ({
-  marginBottom: "24px",
+  marginBottom: theme.spacing(3),
 
   [theme.breakpoints.up("lg")]: {
-    marginBottom: "32px",
+    marginBottom: theme.spacing(4),
   },
 }));
 
 export const SurvayButtonsWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
-  gap: "16px",
+  gap: theme.spacing(2),
 }));
