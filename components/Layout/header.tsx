@@ -10,7 +10,7 @@ interface Props {
   handleOpenSignInModal: () => void;
 }
 
-const pages = ['Portfolio', 'Settings'];
+const pages = ['Portfolio', 'Settings', 'Confirm-your-email'];
 
 function Header({handleOpenSignInModal}:Props) {
   const theme = useTheme();
@@ -39,7 +39,7 @@ function Header({handleOpenSignInModal}:Props) {
                 <NavigationUlItem component="ul">
                   {pages.map((page) => (
                     <NavigationListItem component="li" key={page}>
-                      <MenuButtonRestyled href="/">
+                      <MenuButtonRestyled href={`/${page.toLowerCase()}`}>
                         {page}
                       </MenuButtonRestyled>
                     </NavigationListItem>
