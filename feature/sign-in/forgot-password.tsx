@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as yup from 'yup';
 import CloseIcon from '@mui/icons-material/Close';
 import {yupResolver} from '@hookform/resolvers/yup';
+import {schemaEmailValidation} from '../utils/validation/common-validation';
 import {Box} from '@mui/material';
 import {ButtonRestyled} from '../sign-up/style-sign-up-form';
 import { 
@@ -17,7 +17,6 @@ import {
     useForm, 
     useFormState
 } from 'react-hook-form';
-import { schemaEmailValidation } from '../utils/validation/common-validation';
 
 interface Props {
     handleCloseForgotPasswordModal: () => void;

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as yup from 'yup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useTheme} from '@mui/material/styles';
@@ -25,7 +24,6 @@ import {
     OutlinedInput, 
 } from '@mui/material';
 import { changePasswordSchema } from '@/feature/utils/validation/common-validation';
-
   type SignInFormTypes = {
     password:string,
     repeatPassword:string,

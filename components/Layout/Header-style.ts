@@ -1,7 +1,6 @@
 import {AppBar, Box, Button, ButtonProps, IconButton, Toolbar} from "@mui/material";
 import {styled} from "@mui/material/styles";
 
-
 export const AppBarRestyled = styled(AppBar)(({theme}) => ({
   backgroundColor: theme.palette.common.white,
   boxShadow: `${theme.spacing(0)} ${theme.spacing(0.75)} ${theme.spacing(1.5)} -${theme.spacing(0.75)} rgba(24, 39, 75, 0.12), ${theme.spacing(0)} ${theme.spacing(1)} ${theme.spacing(3)} -${theme.spacing(0.5)} rgba(24, 39, 75, 0.08)`,
