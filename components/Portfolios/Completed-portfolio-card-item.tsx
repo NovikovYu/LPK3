@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { P } from "../CommonComponents/Common-сomponents-style";
+import { FC } from 'react';
+import { P } from '../CommonComponents/Common-сomponents-style';
 import {
   PortfolioCardItem,
   PortfolioCardNumbersWrapper,
@@ -9,7 +9,7 @@ import {
   PortfolioCardAssentTitle,
   PortfolioNoSuccedCardAssentTitle,
   SecondaryButtonForPortfolioCard,
-} from "./Portfolios-style";
+} from './Portfolios-style';
 
 interface IProps {
   currency: string;

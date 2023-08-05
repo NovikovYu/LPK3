@@ -1,13 +1,15 @@
-import {SvgIcon, SvgIconProps} from "@mui/material";
+import { SvgIcon, SvgIconProps } from '@mui/material';
 
 export default function LintuIcon(props: SvgIconProps) {
   return (
     <SvgIcon
       {...props}
-      width="90" height="44" viewBox="0 0 90 44"
+      width="90"
+      height="44"
+      viewBox="0 0 90 44"
       style={{
         width: 90,
-        height: 44
+        height: 44,
       }}
     >
       <g fill="#0C6748" clipPath="url(#clip0_361_1512)">
@@ -15,7 +17,12 @@ export default function LintuIcon(props: SvgIconProps) {
       </g>
       <defs>
         <clipPath id="clip0_189_4643">
-          <rect width="74" height="32" fill="white" transform="translate(8 6)"/>
+          <rect
+            width="74"
+            height="32"
+            fill="white"
+            transform="translate(8 6)"
+          />
         </clipPath>
       </defs>
     </SvgIcon>

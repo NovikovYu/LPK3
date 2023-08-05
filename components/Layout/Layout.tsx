@@ -1,7 +1,7 @@
-import { ReactNode, FC, useState } from "react";
-import ModalForm from "./Modal-form";
-import Header from "./header";
-import Head from "next/head";
+import { ReactNode, FC, useState } from 'react';
+import ModalForm from './Modal-form';
+import Header from './header';
+import Head from 'next/head';
 
 interface IProps {
   children: ReactNode;
@@ -13,8 +13,8 @@ interface IProps {
 const Layout: FC<IProps> = ({
   children,
   pageTitle,
-  pageDescription = "Page of Lintu progect",
-  pageKeywords = "Lintu, investments, finance, shares",
+  pageDescription = 'Page of Lintu progect',
+  pageKeywords = 'Lintu, investments, finance, shares',
 }) => {
   const [openFormSignInModal, setOpenFormSignInModal] = useState(false);
   const handleOpenSignInModal = () => {

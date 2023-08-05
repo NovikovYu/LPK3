@@ -1,44 +1,44 @@
-import { useState } from "react";
-import { cloneDeep } from "lodash";
-import { Container } from "@mui/material";
-import Layout from "@/components/Layout/Layout";
+import { useState } from 'react';
+import { cloneDeep } from 'lodash';
+import { Container } from '@mui/material';
+import Layout from '@/components/Layout/Layout';
 import {
   MainBox,
   P,
-} from "@/components/CommonComponents/Common-сomponents-style";
+} from '@/components/CommonComponents/Common-сomponents-style';
 import {
   SurvayWrapper,
   SurvayPartTitleWrapper,
   SurvayPartTitleTitle,
   SurvayPartQuestionsWrapper,
   SurvayPartQuestionsCounter,
-} from "@/components/Survey/Survey-style";
-import Question from "@/components/Survey/Question";
+} from '@/components/Survey/Survey-style';
+import Question from '@/components/Survey/Question';
 
 const questions = [
   {
-    partName: "Intoroduction part",
+    partName: 'Intoroduction part',
     quesionsArray: [
       {
-        question: "How is it going?11",
-        answers: ["it could be better", "fine", "great"],
+        question: 'How is it going?11',
+        answers: ['it could be better', 'fine', 'great'],
         multiple: true,
       },
       {
-        question: "How old are you?12",
+        question: 'How old are you?12',
         answers: [
-          "I am in my early adulthood",
-          "I am in my mid adulthood",
-          "I am in my late adulthood",
+          'I am in my early adulthood',
+          'I am in my mid adulthood',
+          'I am in my late adulthood',
         ],
         multiple: true,
       },
       {
-        question: "How much do you worry about uncertainty?13",
+        question: 'How much do you worry about uncertainty?13',
         answers: [
-          "I constantly feel anxious and worry about uncertainty",
-          "I occasionally experience worry and concern about uncertainty",
-          "I rarely feel concerned or worried about uncertainty",
+          'I constantly feel anxious and worry about uncertainty',
+          'I occasionally experience worry and concern about uncertainty',
+          'I rarely feel concerned or worried about uncertainty',
         ],
         multiple: false,
       },
@@ -46,37 +46,37 @@ const questions = [
   },
 
   {
-    partName: "Risk tollerance test",
+    partName: 'Risk tollerance test',
     quesionsArray: [
       {
-        question: "How is it going?21",
-        answers: ["it could be better", "fine", "great"],
+        question: 'How is it going?21',
+        answers: ['it could be better', 'fine', 'great'],
         multiple: false,
       },
       {
-        question: "How old are you?22",
+        question: 'How old are you?22',
         answers: [
-          "I am in my early adulthood",
-          "I am in my mid adulthood",
-          "I am in my late adulthood",
+          'I am in my early adulthood',
+          'I am in my mid adulthood',
+          'I am in my late adulthood',
         ],
         multiple: false,
       },
       {
-        question: "How much do you worry about uncertainty?23",
+        question: 'How much do you worry about uncertainty?23',
         answers: [
-          "I constantly feel anxious and worry about uncertainty",
-          "I occasionally experience worry and concern about uncertainty",
-          "I rarely feel concerned or worried about uncertainty",
+          'I constantly feel anxious and worry about uncertainty',
+          'I occasionally experience worry and concern about uncertainty',
+          'I rarely feel concerned or worried about uncertainty',
         ],
         multiple: false,
       },
       {
-        question: "How much do you worry about uncertainty?24",
+        question: 'How much do you worry about uncertainty?24',
         answers: [
-          "I constantly feel anxious and worry about uncertainty",
-          "I occasionally experience worry and concern about uncertainty",
-          "I rarely feel concerned or worried about uncertainty",
+          'I constantly feel anxious and worry about uncertainty',
+          'I occasionally experience worry and concern about uncertainty',
+          'I rarely feel concerned or worried about uncertainty',
         ],
         multiple: false,
       },
@@ -97,7 +97,7 @@ export default function Survey() {
         setCurrentPart((value) => value + 1);
         setCurrentQuestion(0);
       } else {
-        alert("Опрос закончен!" + JSON.stringify(answers));
+        alert('Опрос закончен!' + JSON.stringify(answers));
       }
     }
   };
@@ -109,7 +109,7 @@ export default function Survey() {
         setCurrentPart((value) => value - 1);
         setCurrentQuestion(questions[currentPart - 1].quesionsArray.length - 1);
       } else {
-        console.error("Кнопка НАЗАД не должна была сработать...");
+        console.error('Кнопка НАЗАД не должна была сработать...');
       }
     }
   };
@@ -121,13 +121,13 @@ export default function Survey() {
   };
 
   return (
-    <Layout pageTitle={"Lintu - survey page"}>
+    <Layout pageTitle={'Lintu - survey page'}>
       <MainBox component="main">
-        <Container sx={{ maxWidth: "808px" }} maxWidth={false}>
+        <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
           <SurvayWrapper>
             <SurvayPartTitleWrapper>
               <SurvayPartTitleTitle variant="h1">
-                Part {currentPart + 1} of {questions.length}:{" "}
+                Part {currentPart + 1} of {questions.length}:{' '}
                 {questions[currentPart].partName}
               </SurvayPartTitleTitle>
               <P>
