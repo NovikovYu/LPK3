@@ -1,18 +1,18 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import { Checkbox, FormGroup } from "@mui/material";
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import { Checkbox, FormGroup } from '@mui/material';
 import {
   SurvayAnswersWrapper,
   SurvayButtonsWrapper,
   SurvayQuestion,
-} from "./Survey-style";
+} from './Survey-style';
 import {
   SecondaryButton,
   PrimaryButton,
-} from "../CommonComponents/Common-сomponents-style";
+} from '../CommonComponents/Common-сomponents-style';
 
 interface IProps {
   question: {

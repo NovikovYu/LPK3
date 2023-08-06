@@ -1,4 +1,4 @@
-import {SvgIcon, SvgIconProps} from "@mui/material";
+import { SvgIcon, SvgIconProps } from '@mui/material';
 
 export default function ConfirmEmailImg(props: SvgIconProps) {
   return (
@@ -11,7 +11,7 @@ export default function ConfirmEmailImg(props: SvgIconProps) {
       viewBox="0 0 320 320"
       style={{
         width: 320,
-        height: 320
+        height: 320,
       }}
     >
       <path

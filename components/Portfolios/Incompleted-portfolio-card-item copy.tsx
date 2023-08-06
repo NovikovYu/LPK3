@@ -1,10 +1,10 @@
-import { FC } from "react";
+import { FC } from 'react';
 import {
   PortfolioCardItem,
   PortfolioCardTitle,
   PortfolioCardSubtitle,
   PrimaryButtonForPortfolioCard,
-} from "./Portfolios-style";
+} from './Portfolios-style';
 
 interface IProps {
   link: string;
