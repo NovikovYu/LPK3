@@ -1,9 +1,27 @@
-import { ThemeProvider, createTheme } from '@mui/material';
-import '@/styles/globals.css';
+import { forwardRef } from 'react';
+import NextLink from 'next/link';
 import type { AppProps } from 'next/app';
+import { ThemeProvider, createTheme } from '@mui/material';
 import 'typeface-inter';
+import '@/styles/globals.css';
+
+const LinkBehaviour = forwardRef(function LinkBehaviour(props, ref) {
+  return <NextLink ref={ref} {...props} />;
+});
 
 const theme = createTheme({
+  components: {
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehaviour,
+      },
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehaviour,
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#0C6748',

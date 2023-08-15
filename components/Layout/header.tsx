@@ -14,12 +14,19 @@ import {
 } from './Header-style';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import NextLink from 'next/link';
+import Link from 'next/link';
 
 interface Props {
   handleOpenSignInModal: () => void;
 }
 
-const pages = ['Portfolio', 'Settings', 'Confirm-your-email'];
+const pages = [
+  'Portfolio',
+  'Settings',
+  'start-the-questionnaire',
+  'Confirm-your-email',
+];
 
 function Header({ handleOpenSignInModal }: Props) {
   const theme = useTheme();
