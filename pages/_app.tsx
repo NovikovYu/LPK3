@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider, createTheme } from '@mui/material';
 import 'typeface-inter';
 import '@/styles/globals.css';
+import RootLayout from '@/components/layout';
 
 const LinkBehaviour = forwardRef(function LinkBehaviour(props, ref) {
   return <NextLink ref={ref} {...props} />;
@@ -147,8 +148,11 @@ const theme = createTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      {/* <Component {...pageProps} /> */}
+      <RootLayout>
         <Component {...pageProps} />
-      </ThemeProvider>
+      </RootLayout>
+    </ThemeProvider>
   );
 }
