@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import Head from 'next/head';
 import { cloneDeep } from 'lodash';
 import { Container } from '@mui/material';
-import Layout from '@/components/Layout/Layout';
 import {
   MainBox,
   P,
@@ -121,40 +121,42 @@ export default function Survey() {
   };
 
   return (
-    <Layout pageTitle={'Lintu - survey page'}>
-      <MainBox component="main">
-        <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
-          <SurvayWrapper>
-            <SurvayPartTitleWrapper>
-              <SurvayPartTitleTitle variant="h1">
-                Part {currentPart + 1} of {questions.length}:{' '}
-                {questions[currentPart].partName}
-              </SurvayPartTitleTitle>
-              <P>
-                If you exit, the answers are saved. You can always come back and
-                take the test to the end. There are a total of 38 questions in
-                the question. Answer thoughtfully to get the best result
-              </P>
-            </SurvayPartTitleWrapper>
+    <MainBox component="main">
+      <Head>
+        <title>Lintu - survey page</title>
+      </Head>
 
-            <SurvayPartQuestionsWrapper>
-              <SurvayPartQuestionsCounter>
-                Question {currentQuestion + 1} of
-                {questions[currentPart].quesionsArray.length}
-              </SurvayPartQuestionsCounter>
+      <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
+        <SurvayWrapper>
+          <SurvayPartTitleWrapper>
+            <SurvayPartTitleTitle variant="h1">
+              Part {currentPart + 1} of {questions.length}:{' '}
+              {questions[currentPart].partName}
+            </SurvayPartTitleTitle>
+            <P>
+              If you exit, the answers are saved. You can always come back and
+              take the test to the end. There are a total of 38 questions in the
+              question. Answer thoughtfully to get the best result
+            </P>
+          </SurvayPartTitleWrapper>
 
-              <Question
-                question={questions[currentPart].quesionsArray[currentQuestion]}
-                answer={answers[currentPart][currentQuestion] ?? null}
-                goNext={goNext}
-                goBack={goBack}
-                updateAnswers={updateAnswers}
-                disableGoBackBtn={currentPart === 0 && currentQuestion === 0}
-              />
-            </SurvayPartQuestionsWrapper>
-          </SurvayWrapper>
-        </Container>
-      </MainBox>
-    </Layout>
+          <SurvayPartQuestionsWrapper>
+            <SurvayPartQuestionsCounter>
+              Question {currentQuestion + 1} of
+              {questions[currentPart].quesionsArray.length}
+            </SurvayPartQuestionsCounter>
+
+            <Question
+              question={questions[currentPart].quesionsArray[currentQuestion]}
+              answer={answers[currentPart][currentQuestion] ?? null}
+              goNext={goNext}
+              goBack={goBack}
+              updateAnswers={updateAnswers}
+              disableGoBackBtn={currentPart === 0 && currentQuestion === 0}
+            />
+          </SurvayPartQuestionsWrapper>
+        </SurvayWrapper>
+      </Container>
+    </MainBox>
   );
 }

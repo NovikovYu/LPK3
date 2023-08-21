@@ -1,5 +1,5 @@
+import Head from 'next/head';
 import { Container } from '@mui/material';
-import Layout from '@/components/Layout/Layout';
 import {
   PortfoliosTitle,
   PortfoliosSubtitle,
@@ -41,61 +41,62 @@ const inCompletedPortfolios = [
 
 export default function Portfolios() {
   return (
-    <Layout pageTitle={'Lintu - portfolios page'}>
-      <MainBox component="main">
-        <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
-          <PortfoliosTitle variant="h1">Portfolios</PortfoliosTitle>
+    <MainBox component="main">
+      <Head>
+        <title>Lintu - portfolios page</title>
+      </Head>
 
-          <PortfoliosSubtitle>
-            Here are all your created portfolios and all the analytics about
-            them
-          </PortfoliosSubtitle>
+      <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
+        <PortfoliosTitle variant="h1">Portfolios</PortfoliosTitle>
 
-          <PortfolioCardsList component="ul">
-            <PortfolioCardItem component="li">
-              <PortfolioCardTitle variant="h2">
-                Create new portfolio
-              </PortfolioCardTitle>
+        <PortfoliosSubtitle>
+          Here are all your created portfolios and all the analytics about them
+        </PortfoliosSubtitle>
 
-              <PortfolioCardSubtitle>
-                Take the questionnaire and create a new portfolio
-              </PortfolioCardSubtitle>
+        <PortfolioCardsList component="ul">
+          <PortfolioCardItem component="li">
+            <PortfolioCardTitle variant="h2">
+              Create new portfolio
+            </PortfolioCardTitle>
 
-              <SecondaryButtonForPortfolioCard
-                type="button"
-                fullWidth
-                size="small"
-                variant="contained"
-                href="/start-the-questionnaire"
-              >
-                take a survey
-              </SecondaryButtonForPortfolioCard>
-            </PortfolioCardItem>
+            <PortfolioCardSubtitle>
+              Take the questionnaire and create a new portfolio
+            </PortfolioCardSubtitle>
 
-            {completedPortfolios.map((portfolio) => {
-              return (
-                <CompletedPortfolioCardItem
-                  currency={portfolio.currency}
-                  amount={portfolio.amount}
-                  number={portfolio.number}
-                  profitability={portfolio.profitability}
-                  link={portfolio.link}
-                  key={portfolio.number}
-                />
-              );
-            })}
+            <SecondaryButtonForPortfolioCard
+              type="button"
+              fullWidth
+              size="small"
+              variant="contained"
+              href="/start-the-questionnaire"
+            >
+              take a survey
+            </SecondaryButtonForPortfolioCard>
+          </PortfolioCardItem>
 
-            {inCompletedPortfolios.map((portfolio) => {
-              return (
-                <IncompletedPortfolioCardItem
-                  link={portfolio.link}
-                  key={portfolio.link}
-                />
-              );
-            })}
-          </PortfolioCardsList>
-        </Container>
-      </MainBox>
-    </Layout>
+          {completedPortfolios.map((portfolio) => {
+            return (
+              <CompletedPortfolioCardItem
+                currency={portfolio.currency}
+                amount={portfolio.amount}
+                number={portfolio.number}
+                profitability={portfolio.profitability}
+                link={portfolio.link}
+                key={portfolio.number}
+              />
+            );
+          })}
+
+          {inCompletedPortfolios.map((portfolio) => {
+            return (
+              <IncompletedPortfolioCardItem
+                link={portfolio.link}
+                key={portfolio.link}
+              />
+            );
+          })}
+        </PortfolioCardsList>
+      </Container>
+    </MainBox>
   );
 }
