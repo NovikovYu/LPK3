@@ -43,6 +43,8 @@ export const SignInLoadingButtonRestyled = styled(LoadingButton)(({theme}) => ({
   color: theme.palette.primary.contrastText,
   "&.Mui-disabled":{
     backgroundColor: theme.palette.primary.main,
+  },
+  "& .MuiLoadingButton-loadingIndicator":{
     color: theme.palette.primary.contrastText
   },
   [theme.breakpoints.down('sm')]: {

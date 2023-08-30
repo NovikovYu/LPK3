@@ -24,17 +24,17 @@ export const schemaRepeatPasswordValidation = yup.object().shape({
 });
 
 export const signAppSchema = yup.object().shape({
-    name: yup.string()
+    first_name: yup.string()
     .required("Input your name")
     .matches(/^([^0-9]*)$/, "Name should not contain numbers")
     .min(2,  "Name must be more then 2 characters")
     .max(50,  "Name must be more then 50 characters"),
-    lastName: yup.string()
+    last_name: yup.string()
     .required("Input your last name")
     .matches(/^([^0-9]*)$/, "Last Name should not contain numbers")
     .min(2, "Last name must be more then 2 characters")
     .max(50, "Last name must be less than 50 characters"),
-    phone: yup.string()
+    phone_number: yup.string()
     .required("Input your number"),
     isAccepted: yup.bool()
     .required("You need to agree with the terms&conditions")
