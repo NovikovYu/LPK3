@@ -1,8 +1,17 @@
 import * as React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Box,Button,Container, Menu, MenuItem} from '@mui/material';
+import { Box, Button, Container, Menu, MenuItem } from '@mui/material';
 import LintuIcon from '../img/icon';
-import {AppBarRestyled, HeaderWrapper, MenuButtonRestyled, MenuIconButtonRestyled, NavigationListItem, NavigationUlItem, SignInButtonRestyled, ToolbarRestyled} from './Header-style';
+import {
+  AppBarRestyled,
+  HeaderWrapper,
+  MenuButtonRestyled,
+  MenuIconButtonRestyled,
+  NavigationListItem,
+  NavigationUlItem,
+  SignInButtonRestyled,
+  ToolbarRestyled,
+} from './Header-style';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -12,7 +21,7 @@ interface Props {
 
 const pages = ['Portfolio', 'Settings', 'Confirm-your-email'];
 
-function Header({handleOpenSignInModal}:Props) {
+function Header({ handleOpenSignInModal }: Props) {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -27,7 +36,7 @@ function Header({handleOpenSignInModal}:Props) {
   if (isDesktop) {
     return (
       <AppBarRestyled>
-        <Container maxWidth='xl'>
+        <Container maxWidth="xl">
           <ToolbarRestyled>
             <div>
               <Button href="/">
@@ -46,7 +55,9 @@ function Header({handleOpenSignInModal}:Props) {
                   ))}
                 </NavigationUlItem>
               </Box>
-                <SignInButtonRestyled onClick={handleOpenSignInModal}>Sign In</SignInButtonRestyled>
+              <SignInButtonRestyled onClick={handleOpenSignInModal}>
+                Sign In
+              </SignInButtonRestyled>
             </HeaderWrapper>
           </ToolbarRestyled>
         </Container>
@@ -54,15 +65,17 @@ function Header({handleOpenSignInModal}:Props) {
     );
   }
   return (
-    <AppBarRestyled> 
-      <Container maxWidth='md'>
+    <AppBarRestyled>
+      <Container maxWidth="md">
         <ToolbarRestyled>
           <Button href="/">
             <LintuIcon />
           </Button>
           <div>
-            <SignInButtonRestyled onClick={handleOpenSignInModal}>Sign In</SignInButtonRestyled> 
-            <MenuIconButtonRestyled 
+            <SignInButtonRestyled onClick={handleOpenSignInModal}>
+              Sign In
+            </SignInButtonRestyled>
+            <MenuIconButtonRestyled
               id="menu-button"
               aria-controls={open ? 'menu-button' : undefined}
               aria-haspopup="true"
@@ -77,20 +90,20 @@ function Header({handleOpenSignInModal}:Props) {
               open={open}
               onClose={handleClose}
               MenuListProps={{
-              'aria-labelledby': 'item-button',
+                'aria-labelledby': 'item-button',
               }}
             >
               {pages.map((page) => (
                 <MenuItem key={page} href="/">
-                    {page}
+                  {page}
                 </MenuItem>
               ))}
             </Menu>
           </div>
         </ToolbarRestyled>
       </Container>
-  </AppBarRestyled>
+    </AppBarRestyled>
   );
 }
-  
+
 export default Header;

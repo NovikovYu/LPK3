@@ -1,5 +1,5 @@
-import { Container } from "@mui/material";
-import Layout from "@/components/Layout/Layout";
+import { Container } from '@mui/material';
+import Layout from '@/components/Layout/Layout';
 import {
   PortfoliosTitle,
   PortfoliosSubtitle,
@@ -8,42 +8,42 @@ import {
   PortfolioCardItem,
   PortfolioCardSubtitle,
   SecondaryButtonForPortfolioCard,
-} from "../components/Portfolios/Portfolios-style";
-import { MainBox } from "@/components/CommonComponents/Common-сomponents-style";
-import IncompletedPortfolioCardItem from "@/components/Portfolios/Incompleted-portfolio-card-item copy";
-import CompletedPortfolioCardItem from "@/components/Portfolios/Completed-portfolio-card-item";
+} from '../components/Portfolios/Portfolios-style';
+import { MainBox } from '@/components/CommonComponents/Common-сomponents-style';
+import IncompletedPortfolioCardItem from '@/components/Portfolios/Incompleted-portfolio-card-item copy';
+import CompletedPortfolioCardItem from '@/components/Portfolios/Completed-portfolio-card-item';
 
 const completedPortfolios = [
   {
-    currency: "€",
+    currency: '€',
     amount: 2456,
     number: 1,
     profitability: 12,
-    link: "/sdfsdf",
+    link: '/sdfsdf',
   },
   {
-    currency: "€",
+    currency: '€',
     amount: 9481,
     number: 2,
     profitability: -1,
-    link: "/sdfsdf",
+    link: '/sdfsdf',
   },
 ];
 
 const inCompletedPortfolios = [
   {
-    link: "/sdfsdf",
+    link: '/sdfsdf',
   },
   {
-    link: "/sdfsdf",
+    link: '/sdfsdf',
   },
 ];
 
 export default function Portfolios() {
   return (
-    <Layout pageTitle={"Lintu - portfolios page"}>
+    <Layout pageTitle={'Lintu - portfolios page'}>
       <MainBox component="main">
-        <Container sx={{ maxWidth: "808px" }} maxWidth={false}>
+        <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
           <PortfoliosTitle variant="h1">Portfolios</PortfoliosTitle>
 
           <PortfoliosSubtitle>
@@ -80,12 +80,18 @@ export default function Portfolios() {
                   number={portfolio.number}
                   profitability={portfolio.profitability}
                   link={portfolio.link}
+                  key={portfolio.number}
                 />
               );
             })}
 
             {inCompletedPortfolios.map((portfolio) => {
-              return <IncompletedPortfolioCardItem link={portfolio.link} />;
+              return (
+                <IncompletedPortfolioCardItem
+                  link={portfolio.link}
+                  key={portfolio.link}
+                />
+              );
             })}
           </PortfolioCardsList>
         </Container>
