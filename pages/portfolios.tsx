@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { Container } from '@mui/material';
 import Layout from '@/components/Layout/Layout';
 import {
@@ -12,6 +15,7 @@ import {
 import { MainBox } from '@/components/CommonComponents/Common-сomponents-style';
 import IncompletedPortfolioCardItem from '@/components/Portfolios/Incompleted-portfolio-card-item copy';
 import CompletedPortfolioCardItem from '@/components/Portfolios/Completed-portfolio-card-item';
+import { selectAccessKey } from '@/store/slices/sessionSlice';
 
 const completedPortfolios = [
   {
@@ -40,62 +44,73 @@ const inCompletedPortfolios = [
 ];
 
 export default function Portfolios() {
-  return (
-    <Layout pageTitle={'Lintu - portfolios page'}>
-      <MainBox component="main">
-        <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
-          <PortfoliosTitle variant="h1">Portfolios</PortfoliosTitle>
+  const accessKey = useSelector(selectAccessKey);
+  const router = useRouter();
 
-          <PortfoliosSubtitle>
-            Here are all your created portfolios and all the analytics about
-            them
-          </PortfoliosSubtitle>
+  useEffect(() => {
+    if (!accessKey) {
+      router.push('/');
+    }
+  }, [accessKey, router]);
 
-          <PortfolioCardsList component="ul">
-            <PortfolioCardItem component="li">
-              <PortfolioCardTitle variant="h2">
-                Create new portfolio
-              </PortfolioCardTitle>
+  if (accessKey) {
+    return (
+      <Layout pageTitle={'Lintu - portfolios page'}>
+        <MainBox component="main">
+          <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
+            <PortfoliosTitle variant="h1">Portfolios</PortfoliosTitle>
 
-              <PortfolioCardSubtitle>
-                Take the questionnaire and create a new portfolio
-              </PortfolioCardSubtitle>
+            <PortfoliosSubtitle>
+              Here are all your created portfolios and all the analytics about
+              them
+            </PortfoliosSubtitle>
 
-              <SecondaryButtonForPortfolioCard
-                type="button"
-                fullWidth
-                size="small"
-                variant="contained"
-                href="/start-the-questionnaire"
-              >
-                take a survey
-              </SecondaryButtonForPortfolioCard>
-            </PortfolioCardItem>
+            <PortfolioCardsList component="ul">
+              <PortfolioCardItem component="li">
+                <PortfolioCardTitle variant="h2">
+                  Create new portfolio
+                </PortfolioCardTitle>
 
-            {completedPortfolios.map((portfolio) => {
-              return (
-                <CompletedPortfolioCardItem
-                  currency={portfolio.currency}
-                  amount={portfolio.amount}
-                  number={portfolio.number}
-                  profitability={portfolio.profitability}
-                  link={portfolio.link}
-                  key={portfolio.number}
-                />
-              );
-            })}
+                <PortfolioCardSubtitle>
+                  Take the questionnaire and create a new portfolio
+                </PortfolioCardSubtitle>
 
-            {inCompletedPortfolios.map((portfolio) => {
-              return (
-                <IncompletedPortfolioCardItem
-                  link={portfolio.link}
-                  key={portfolio.link}
-                />
-              );
-            })}
-          </PortfolioCardsList>
-        </Container>
-      </MainBox>
-    </Layout>
-  );
+                <SecondaryButtonForPortfolioCard
+                  type="button"
+                  fullWidth
+                  size="small"
+                  variant="contained"
+                  href="/start-the-questionnaire"
+                >
+                  take a survey
+                </SecondaryButtonForPortfolioCard>
+              </PortfolioCardItem>
+
+              {completedPortfolios.map((portfolio) => {
+                return (
+                  <CompletedPortfolioCardItem
+                    currency={portfolio.currency}
+                    amount={portfolio.amount}
+                    number={portfolio.number}
+                    profitability={portfolio.profitability}
+                    link={portfolio.link}
+                    key={portfolio.number}
+                  />
+                );
+              })}
+
+              {inCompletedPortfolios.map((portfolio) => {
+                return (
+                  <IncompletedPortfolioCardItem
+                    link={portfolio.link}
+                    key={portfolio.link}
+                  />
+                );
+              })}
+            </PortfolioCardsList>
+          </Container>
+        </MainBox>
+      </Layout>
+    );
+  }
 }

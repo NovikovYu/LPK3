@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { signInSchema } from '../utils/validation/common-validation';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-
 import {
   Controller,
   SubmitHandler,
@@ -16,6 +15,8 @@ import {
   InputLabel,
   OutlinedInput,
 } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { signInSchema } from '../utils/validation/common-validation';
 import {
   ForgotPasswordInputLabelRestyled,
   SendIconButtonRestyled,
@@ -31,6 +32,8 @@ import {
   InputFieldRestyled,
   PasswordHelperTextRestyled,
 } from '../sign-up/style-sign-up-form';
+import saveSessionToLocalStorage from '../utils/session/saveSessionToLocalStorage';
+import { setAccessKey } from '@/store/slices/sessionSlice';
 
 type SignInFormTypes = {
   email: string;
@@ -44,6 +47,8 @@ interface Props {
   isMobile: boolean;
 }
 
+const axios = require('axios');
+
 const SignInForm = ({
   handleCloseSignInModal,
   handleOpenSignUpModal,
@@ -52,9 +57,11 @@ const SignInForm = ({
 }: Props) => {
   const InputSize = isMobile ? 'small' : 'medium';
   const ButtonSize = isMobile ? 'small' : 'large';
-  const [loading, setLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -62,7 +69,7 @@ const SignInForm = ({
     event.preventDefault();
   };
 
-  const { handleSubmit, control } = useForm<SignInFormTypes>({
+  const { handleSubmit, control, setError } = useForm<SignInFormTypes>({
     mode: 'onChange',
     resolver: yupResolver(signInSchema),
   });
@@ -71,15 +78,58 @@ const SignInForm = ({
     control,
   });
 
-  const LoadingButtonsTransition = () => {
-    setLoading(true);
-  };
+  async function signInByBackend(userData: SignInFormTypes) {
+    setIsLoading(true);
 
-  const onSubmit: SubmitHandler<SignInFormTypes> = (data) => {
+    try {
+      const response = await axios.post(process.env.BASE_DEV_URL + 'login/', {
+        password: userData.password,
+        email: userData.email,
+      });
+      return response;
+    } catch (error) {
+      try {
+        setError(
+          'email',
+          {
+            type: 'manual',
+            message:
+              'A user with this email and password combination was not found in the system.',
+          },
+          { shouldFocus: true },
+        );
+        setError(
+          'password',
+          {
+            type: 'manual',
+            message:
+              'A user with this email and password combination was not found in the system.',
+          },
+          { shouldFocus: true },
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const onSubmit: SubmitHandler<SignInFormTypes> = async (data) => {
     if (isValidForm(data)) {
-      LoadingButtonsTransition();
-      console.log(data);
-      handleCloseSignInModal();
+      const signInResult = await signInByBackend(data);
+
+      if (signInResult?.data?.access) {
+        try {
+          saveSessionToLocalStorage(signInResult.data);
+          dispatch(setAccessKey(signInResult.data.access));
+        } catch (e) {
+          console.error('Sign in error:', e);
+        }
+
+        handleCloseSignInModal();
+        router.push('/portfolios');
+      }
     } else errors;
   };
 
@@ -89,10 +139,12 @@ const SignInForm = ({
     handleOpenSignUpModal();
     handleCloseSignInModal();
   };
+
   const ForgotPasswordForm = () => {
     handleCloseSignInModal();
     handleOpenForgotPasswordModal();
   };
+  
   return (
     <SignInFormRestyled>
       <SignInBoxRestyled>
@@ -170,12 +222,12 @@ const SignInForm = ({
                     </InputAdornment>
                   }
                 />
+                <PasswordHelperTextRestyled>
+                  {fieldState.error?.message}
+                </PasswordHelperTextRestyled>
                 <PasswordHelperTextRestyled error={false}>
                   The password must be more than 8 characters and contain at
                   least one capital letter, a special sign !@#$%^&* and a number
-                </PasswordHelperTextRestyled>
-                <PasswordHelperTextRestyled>
-                  {fieldState.error?.message}
                 </PasswordHelperTextRestyled>
               </SignInInputPasswordRestyled>
             );
@@ -189,7 +241,7 @@ const SignInForm = ({
           Forgot a password?
         </ForgotPasswordInputLabelRestyled>
         <SignInLoadingButtonRestyled
-          loading={loading}
+          loading={isLoading}
           loadingPosition="end"
           type="submit"
           variant="contained"
