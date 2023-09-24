@@ -1,6 +1,8 @@
+import { Provider } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material';
-import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
+import { store } from '../store/store';
+import '@/styles/globals.css';
 import 'typeface-inter';
 
 const theme = createTheme({
@@ -129,8 +131,10 @@ const theme = createTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </Provider>
   );
 }

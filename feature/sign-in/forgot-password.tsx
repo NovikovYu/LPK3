@@ -46,7 +46,6 @@ const ForgotPasswordForm = ({
 
   const onSubmit: SubmitHandler<ForgotPasswordFormTypes> = (data) => {
     if (isValidForm(data)) {
-      console.log(data);
       handleCloseForgotPasswordModal();
       handleOpenForgotPasswordMessageModal();
     } else errors;

@@ -65,7 +65,6 @@ function ChangePasswordPage() {
 
   const onSubmit: SubmitHandler<SignInFormTypes> = (data) => {
     if (isValidForm(data)) {
-      console.log(data);
     } else errors;
   };
 
