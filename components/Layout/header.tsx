@@ -53,13 +53,16 @@ function Header({ handleOpenSignInModal }: Props) {
             <HeaderWrapper>
               <Box component="nav">
                 <NavigationUlItem component="ul">
-                  {pages.map((page) => (
-                    <NavigationListItem component="li" key={page}>
-                      <MenuButtonRestyled href={`/${page.toLowerCase()}`}>
-                        {page}
-                      </MenuButtonRestyled>
-                    </NavigationListItem>
-                  ))}
+                  <NavigationListItem component="li" key={'portfolios'}>
+                    <MenuButtonRestyled href={`/portfolios`}>
+                      Portfolio
+                    </MenuButtonRestyled>
+                  </NavigationListItem>
+                  <NavigationListItem component="li" key={'settings'}>
+                    <MenuButtonRestyled href={`/settings`}>
+                      Settings
+                    </MenuButtonRestyled>
+                  </NavigationListItem>
                 </NavigationUlItem>
               </Box>
               <SignInButtonRestyled onClick={handleOpenSignInModal}>
@@ -100,11 +103,12 @@ function Header({ handleOpenSignInModal }: Props) {
                 'aria-labelledby': 'item-button',
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} href="/">
-                  {page}
-                </MenuItem>
-              ))}
+              <MenuItem key={'portfolios'} href="/portfolios">
+                Portfolio
+              </MenuItem>
+              <MenuItem key={'settings'} href="/settings">
+                Settings
+              </MenuItem>
             </Menu>
           </div>
         </ToolbarRestyled>
