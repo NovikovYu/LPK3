@@ -1,6 +1,11 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import NextLink from 'next/link';
+import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button, Container, Menu, MenuItem } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import LintuIcon from '../img/icon';
 import {
   AppBarRestyled,
@@ -12,10 +17,8 @@ import {
   SignInButtonRestyled,
   ToolbarRestyled,
 } from './Header-style';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import NextLink from 'next/link';
-import Link from 'next/link';
+import { selectAccessKey, setAccessKey } from '../../store/slices/sessionSlice';
+import deleteSessionFromLocalStorage from '@/feature/utils/session/deleteSessionFromLocalStorage';
 
 interface Props {
   handleOpenSignInModal: () => void;
@@ -33,11 +36,19 @@ function Header({ handleOpenSignInModal }: Props) {
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const accessKey = useSelector(selectAccessKey);
+  const dispatch = useDispatch();
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSignOut = () => {
+    deleteSessionFromLocalStorage();
+    dispatch(setAccessKey(null));
   };
 
   if (isDesktop) {
@@ -50,6 +61,7 @@ function Header({ handleOpenSignInModal }: Props) {
                 <LintuIcon />
               </Button>
             </div>
+
             <HeaderWrapper>
               <Box component="nav">
                 <NavigationUlItem component="ul">
@@ -65,15 +77,24 @@ function Header({ handleOpenSignInModal }: Props) {
                   </NavigationListItem>
                 </NavigationUlItem>
               </Box>
-              <SignInButtonRestyled onClick={handleOpenSignInModal}>
-                Sign In
-              </SignInButtonRestyled>
+
+              {accessKey && (
+                <SignInButtonRestyled onClick={handleSignOut}>
+                  Sign Out
+                </SignInButtonRestyled>
+              )}
+              {!accessKey && (
+                <SignInButtonRestyled onClick={handleOpenSignInModal}>
+                  Sign In
+                </SignInButtonRestyled>
+              )}
             </HeaderWrapper>
           </ToolbarRestyled>
         </Container>
       </AppBarRestyled>
     );
   }
+
   return (
     <AppBarRestyled>
       <Container maxWidth="md">
@@ -82,9 +103,16 @@ function Header({ handleOpenSignInModal }: Props) {
             <LintuIcon />
           </Button>
           <div>
-            <SignInButtonRestyled onClick={handleOpenSignInModal}>
-              Sign In
-            </SignInButtonRestyled>
+            {accessKey && (
+              <SignInButtonRestyled onClick={handleSignOut}>
+                Sign Out
+              </SignInButtonRestyled>
+            )}
+            {!accessKey && (
+              <SignInButtonRestyled onClick={handleOpenSignInModal}>
+                Sign In
+              </SignInButtonRestyled>
+            )}
             <MenuIconButtonRestyled
               id="menu-button"
               aria-controls={open ? 'menu-button' : undefined}

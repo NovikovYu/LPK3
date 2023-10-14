@@ -1,8 +1,10 @@
 import { forwardRef } from 'react';
 import NextLink from 'next/link';
 import type { AppProps } from 'next/app';
+import { Provider } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material';
 import 'typeface-inter';
+import { store } from '../store/store';
 import '@/styles/globals.css';
 import RootLayout from '@/components/Layout/layout';
 
@@ -148,10 +150,13 @@ const theme = createTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <RootLayout>
-        <Component {...pageProps} />
-      </RootLayout>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <RootLayout>
+         <Component {...pageProps} />
+        </RootLayout>      
+      </ThemeProvider>
+    </Provider>
+
   );
 }
