@@ -1,11 +1,30 @@
+import { forwardRef } from 'react';
+import NextLink from 'next/link';
+import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material';
-import type { AppProps } from 'next/app';
+import 'typeface-inter';
 import { store } from '../store/store';
 import '@/styles/globals.css';
-import 'typeface-inter';
+import RootLayout from '@/components/Layout/layout';
+
+const LinkBehaviour = forwardRef(function LinkBehaviour(props, ref) {
+  return <NextLink ref={ref} {...props} />;
+});
 
 const theme = createTheme({
+  components: {
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehaviour,
+      },
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehaviour,
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#0C6748',
@@ -133,8 +152,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <RootLayout>
+         <Component {...pageProps} />
+        </RootLayout>      
       </ThemeProvider>
     </Provider>
+
   );
 }

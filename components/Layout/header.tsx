@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import NextLink from 'next/link';
+import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button, Container, Menu, MenuItem } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -22,7 +24,12 @@ interface Props {
   handleOpenSignInModal: () => void;
 }
 
-const pages = ['Portfolio', 'Settings', 'Confirm-your-email'];
+const pages = [
+  'Portfolio',
+  'Settings',
+  'start-the-questionnaire',
+  'Confirm-your-email',
+];
 
 function Header({ handleOpenSignInModal }: Props) {
   const theme = useTheme();
@@ -58,13 +65,16 @@ function Header({ handleOpenSignInModal }: Props) {
             <HeaderWrapper>
               <Box component="nav">
                 <NavigationUlItem component="ul">
-                  {pages.map((page) => (
-                    <NavigationListItem component="li" key={page}>
-                      <MenuButtonRestyled href={`/${page.toLowerCase()}`}>
-                        {page}
-                      </MenuButtonRestyled>
-                    </NavigationListItem>
-                  ))}
+                  <NavigationListItem component="li" key={'portfolios'}>
+                    <MenuButtonRestyled href={`/portfolios`}>
+                      Portfolio
+                    </MenuButtonRestyled>
+                  </NavigationListItem>
+                  <NavigationListItem component="li" key={'settings'}>
+                    <MenuButtonRestyled href={`/settings`}>
+                      Settings
+                    </MenuButtonRestyled>
+                  </NavigationListItem>
                 </NavigationUlItem>
               </Box>
 
@@ -121,11 +131,12 @@ function Header({ handleOpenSignInModal }: Props) {
                 'aria-labelledby': 'item-button',
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} href="/">
-                  {page}
-                </MenuItem>
-              ))}
+              <MenuItem key={'portfolios'} href="/portfolios">
+                Portfolio
+              </MenuItem>
+              <MenuItem key={'settings'} href="/settings">
+                Settings
+              </MenuItem>
             </Menu>
           </div>
         </ToolbarRestyled>

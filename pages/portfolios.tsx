@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import Head from 'next/head';
 import { Container } from '@mui/material';
-import Layout from '@/components/Layout/Layout';
 import {
   PortfoliosTitle,
   PortfoliosSubtitle,
@@ -55,8 +55,11 @@ export default function Portfolios() {
 
   if (accessKey) {
     return (
-      <Layout pageTitle={'Lintu - portfolios page'}>
         <MainBox component="main">
+          <Head>
+            <title>Lintu - portfolios page</title>
+          </Head>
+        
           <Container sx={{ maxWidth: '808px' }} maxWidth={false}>
             <PortfoliosTitle variant="h1">Portfolios</PortfoliosTitle>
 
@@ -110,7 +113,6 @@ export default function Portfolios() {
             </PortfolioCardsList>
           </Container>
         </MainBox>
-      </Layout>
     );
   }
 }

@@ -7,17 +7,9 @@ import { setAccessKey } from '../../store/slices/sessionSlice';
 
 interface IProps {
   children: ReactNode;
-  pageTitle: string;
-  pageDescription?: string;
-  pageKeywords?: string;
 }
 
-const Layout: FC<IProps> = ({
-  children,
-  pageTitle,
-  pageDescription = 'Page of Lintu progect',
-  pageKeywords = 'Lintu, investments, finance, shares',
-}) => {
+const RootLayout: FC<IProps> = ({ children }) => {
   const [openFormSignInModal, setOpenFormSignInModal] = useState(false);
   const dispatch = useDispatch();
   const handleOpenSignInModal = () => {
@@ -57,19 +49,23 @@ const Layout: FC<IProps> = ({
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta name="keywords" content={pageKeywords} />
+        <title>Lintu - main page</title>
+        <meta name="description" content={'Page of Lintu progect'} />
+        <meta name="keywords" content={'Lintu, investments, finance, shares'} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header handleOpenSignInModal={handleOpenSignInModal} />
+
+      {children}
+
+      <footer></footer>
+
       <ModalForm
         handleCloseSignInModal={handleCloseSignInModal}
         openFormSignInModal={openFormSignInModal}
       />
-      {children}
-      <footer></footer>
     </>
   );
 };
-export default Layout;
+
+export default RootLayout;

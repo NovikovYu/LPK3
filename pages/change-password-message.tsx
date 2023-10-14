@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { MessageRestyled } from '@/feature/sign-up/style-sign-up-form';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -7,6 +6,7 @@ import {
   ChangePasswordMessageBox,
   ChangePasswordMessageHeading,
 } from '@/feature/style-home';
+import { MessageRestyled } from '@/feature/sign-up/style-sign-up-form';
 
 const ChangePasswordMessage = () => {
   const theme = useTheme();

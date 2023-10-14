@@ -1,8 +1,21 @@
 import * as React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  Controller,
+  SubmitHandler,
+  useForm,
+  useFormState,
+} from 'react-hook-form';
 import { useTheme } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from '@mui/material';
 import {
   ButtonRestyled,
   InputPasswordRestyled,
@@ -14,20 +27,8 @@ import {
   ChangePasswordHeading,
   InputChangePassword,
 } from '../feature/style-home';
-import {
-  Controller,
-  SubmitHandler,
-  useForm,
-  useFormState,
-} from 'react-hook-form';
-import {
-  Box,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from '@mui/material';
 import { changePasswordSchema } from '@/feature/utils/validation/common-validation';
+
 type SignInFormTypes = {
   password: string;
   repeatPassword: string;

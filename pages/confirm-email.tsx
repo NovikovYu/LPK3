@@ -1,6 +1,7 @@
 import * as React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { GlobalStyles } from '@mui/material';
 import {
   ConfirmEmailBoxRestyle,
   ConfirmEmailBoxWrapperRestyle,
@@ -11,7 +12,6 @@ import {
   ConfirmEmailMessageRestyle,
 } from '@/feature/style-home';
 import ConfirmEmailImg from '@/components/img/confirm-email-img';
-import { GlobalStyles } from '@mui/material';
 
 const ChangePasswordMessage = () => {
   const theme = useTheme();
