@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+
 import { P } from '../CommonComponents/Common-сomponents-style';
 
 export const SurvayWrapper = styled(Box)(({ theme }) => ({
@@ -10,8 +11,7 @@ export const SurvayWrapper = styled(Box)(({ theme }) => ({
 
 export const SurvayInner = styled(Box)(({ theme }) => ({
   background: theme.palette.common.white,
-  boxShadow:
-    '0px 2px 4px -2px rgba(24, 39, 75, 0.12), 0px 4px 4px -2px rgba(24, 39, 75, 0.08)',
+  boxShadow: theme.palette.shadows[300],
   borderRadius: theme.spacing(0.5),
 }));
 

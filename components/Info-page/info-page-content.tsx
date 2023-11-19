@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { PrimaryButton } from '@/components/CommonComponents/Common-сomponents-style';
 import {
   InfoPageWrapper,
@@ -5,14 +7,23 @@ import {
   InfoPageTitle,
   InfoPageText,
 } from '@/components/Info-page/Info-page-styles';
-import Image from 'next/image';
 
-interface IProps {
+interface IInfoPageContentWithOnClick {
   imgSrc: string;
   imgAlt: string;
   titleText: string;
   mainText: string;
   buttonText: string;
+  onClick: () => void;
+  buttonLink?: string;
+}
+interface IInfoPageContentWithLink {
+  imgSrc: string;
+  imgAlt: string;
+  titleText: string;
+  mainText: string;
+  buttonText: string;
+  onClick?: () => void;
   buttonLink: string;
 }
 
@@ -22,8 +33,9 @@ export default function InfoPageContent({
   titleText,
   mainText,
   buttonText,
+  onClick,
   buttonLink,
-}: IProps) {
+}: IInfoPageContentWithOnClick | IInfoPageContentWithLink) {
   return (
     <InfoPageWrapper>
       <InfoPageImgWrapper>
@@ -38,6 +50,7 @@ export default function InfoPageContent({
         type="button"
         size="large"
         variant="contained"
+        onClick={onClick}
         href={buttonLink}
       >
         {buttonText}

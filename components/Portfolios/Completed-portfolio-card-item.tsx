@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { P } from '../CommonComponents/Common-сomponents-style';
+
 import {
   PortfolioCardItem,
   PortfolioCardNumbersWrapper,
@@ -10,6 +10,7 @@ import {
   PortfolioNoSuccedCardAssentTitle,
   SecondaryButtonForPortfolioCard,
 } from './Portfolios-style';
+import { P } from '../CommonComponents/Common-сomponents-style';
 
 interface IProps {
   currency: string;
@@ -27,7 +28,7 @@ const CompletedPortfolioCardItem: FC<IProps> = ({
   link,
 }) => {
   return (
-    <PortfolioCardItem component="li">
+    <PortfolioCardItem>
       <PortfolioCardNumbersWrapper>
         <PortfolioCardNumbersColumnLeft>
           <PortfolioCardTitle>

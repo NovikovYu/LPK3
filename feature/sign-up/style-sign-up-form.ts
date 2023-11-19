@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
   Button,
@@ -9,7 +10,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import PhoneInput from 'react-phone-input-2';
-import CloseIcon from '@mui/icons-material/Close';
 
 export const SignUpBoxRestyled = styled(Box)(() => ({
   display: 'flex',
@@ -104,15 +104,11 @@ export const PhoneInputRestyled = styled(PhoneInput)(({ theme }) => ({
   '&.react-tel-input .form-control:focus, &.react-tel-input .form-control:hover':
     {
       borderColor: theme.palette.primary.main,
-      boxShadow: `${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(
-        0,
-      )} ${theme.spacing(0.125)} ${theme.palette.primary.main}`,
+      boxShadow: theme.palette.shadows[200],
     },
   '&.react-tel-input .form-control.invalid-number:focus': {
     borderColor: theme.palette.primary.main,
-    boxShadow: `${theme.spacing(0)} ${theme.spacing(0)} ${theme.spacing(
-      0,
-    )} ${theme.spacing(0.125)} ${theme.palette.primary.main}`,
+    boxShadow: theme.palette.shadows[200],
   },
   [theme.breakpoints.down('sm')]: {
     '&.react-tel-input .form-control': {

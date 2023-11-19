@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+
 import { P } from '../CommonComponents/Common-сomponents-style';
 
 export const InfoPageWrapper = styled(Box)(({ theme }) => ({
@@ -11,8 +12,7 @@ export const InfoPageWrapper = styled(Box)(({ theme }) => ({
   margin: theme.spacing(0, 'auto'),
   padding: '32px 12px',
   backgroundColor: theme.palette.primary.contrastText,
-  boxShadow:
-    '0px 2px 4px -2px rgba(24, 39, 75, 0.12), 0px 4px 4px -2px rgba(24, 39, 75, 0.08)',
+  boxShadow: theme.palette.shadows[300],
   borderRadius: theme.spacing(0.5),
 
   [theme.breakpoints.up('sm')]: {

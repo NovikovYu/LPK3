@@ -1,15 +1,16 @@
 import { ReactNode, FC, useState, useEffect } from 'react';
+
 import { useDispatch } from 'react-redux';
-import Head from 'next/head';
-import ModalForm from './Modal-form';
+
 import Header from './header';
+import ModalForm from './Modal-form';
 import { setAccessKey } from '../../store/slices/sessionSlice';
 
 interface IProps {
   children: ReactNode;
 }
 
-const RootLayout: FC<IProps> = ({ children }) => {
+const RootPageLayout: FC<IProps> = ({ children }) => {
   const [openFormSignInModal, setOpenFormSignInModal] = useState(false);
   const dispatch = useDispatch();
   const handleOpenSignInModal = () => {
@@ -48,12 +49,6 @@ const RootLayout: FC<IProps> = ({ children }) => {
 
   return (
     <>
-      <Head>
-        <title>Lintu - main page</title>
-        <meta name="description" content={'Page of Lintu progect'} />
-        <meta name="keywords" content={'Lintu, investments, finance, shares'} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
       <Header handleOpenSignInModal={handleOpenSignInModal} />
 
       {children}
@@ -68,4 +63,4 @@ const RootLayout: FC<IProps> = ({ children }) => {
   );
 };
 
-export default RootLayout;
+export default RootPageLayout;

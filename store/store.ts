@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import { accessKeySlice } from '@/store/slices/sessionSlice';
 
 export const store = configureStore({

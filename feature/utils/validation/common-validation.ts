@@ -12,6 +12,7 @@ export const schemaEmailValidation = yup.object().shape({
     .matches(REG_EMAIL, 'Invalid email')
     .required('Input your email'),
 });
+
 export const schemaPasswordValidation = yup.object().shape({
   password: yup
     .string()
@@ -28,23 +29,31 @@ export const schemaRepeatPasswordValidation = yup.object().shape({
     .required(ERROR_MESSAGE_INPUT_PASSWORD_FIELD),
 });
 
-export const signAppSchema = yup.object().shape({
-    first_name: yup.string()
-    .required("Input your name")
-    .matches(/^([^0-9]*)$/, "Name should not contain numbers")
-    .min(2,  "Name must be more then 2 characters")
-    .max(50,  "Name must be more then 50 characters"),
-    last_name: yup.string()
-    .required("Input your last name")
-    .matches(/^([^0-9]*)$/, "Last Name should not contain numbers")
-    .min(2, "Last name must be more then 2 characters")
-    .max(50, "Last name must be less than 50 characters"),
-    phone_number: yup.string()
-    .required("Input your number"),
-    isAccepted: yup.bool()
-    .required("You need to agree with the terms&conditions")
-    .oneOf([true], "You need to agree with the terms&conditions")
-}).concat(schemaEmailValidation).concat(schemaPasswordValidation).concat(schemaRepeatPasswordValidation);
+export const signAppSchema = yup
+  .object()
+  .shape({
+    first_name: yup
+      .string()
+      .required('Input your name')
+      .matches(/^([^0-9]*)$/, 'Name should not contain numbers')
+      .min(2, 'Name must be more then 2 characters')
+      .max(50, 'Name must be more then 50 characters'),
+    last_name: yup
+      .string()
+      .required('Input your last name')
+      .matches(/^([^0-9]*)$/, 'Last Name should not contain numbers')
+      .min(2, 'Last name must be more then 2 characters')
+      .max(50, 'Last name must be less than 50 characters'),
+    phone_number: yup.string().required('Input your number'),
+    isAccepted: yup
+      .bool()
+      .required('You need to agree with the terms&conditions')
+      .oneOf([true], 'You need to agree with the terms&conditions'),
+    country: yup.string(),
+  })
+  .concat(schemaEmailValidation)
+  .concat(schemaPasswordValidation)
+  .concat(schemaRepeatPasswordValidation);
 
 export const changePasswordSchema = schemaPasswordValidation.concat(
   schemaRepeatPasswordValidation,

@@ -2,8 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    BASE_DEV_URL: 'http://51.250.84.219/api/v1/',
+    BASE_DEV_URL: 'http://158.160.126.80/api/v1/',
   },
-}
+  experimental: {
+    serverActions: true,
+  },
+};
 
 module.exports = nextConfig;

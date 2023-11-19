@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import NextLink from 'next/link';
-import Link from 'next/link';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button, Container, Menu, MenuItem } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import LintuIcon from '../img/icon';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux';
+
+import deleteSessionFromLocalStorage from '@/feature/utils/session/deleteSessionFromLocalStorage';
+
 import {
   AppBarRestyled,
   HeaderWrapper,
@@ -18,18 +21,11 @@ import {
   ToolbarRestyled,
 } from './Header-style';
 import { selectAccessKey, setAccessKey } from '../../store/slices/sessionSlice';
-import deleteSessionFromLocalStorage from '@/feature/utils/session/deleteSessionFromLocalStorage';
+import LintuIcon from '../img/icon';
 
 interface Props {
   handleOpenSignInModal: () => void;
 }
-
-const pages = [
-  'Portfolio',
-  'Settings',
-  'start-the-questionnaire',
-  'Confirm-your-email',
-];
 
 function Header({ handleOpenSignInModal }: Props) {
   const theme = useTheme();
@@ -38,6 +34,7 @@ function Header({ handleOpenSignInModal }: Props) {
   const open = Boolean(anchorEl);
   const accessKey = useSelector(selectAccessKey);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -49,6 +46,7 @@ function Header({ handleOpenSignInModal }: Props) {
   const handleSignOut = () => {
     deleteSessionFromLocalStorage();
     dispatch(setAccessKey(null));
+    router.push('/');
   };
 
   if (isDesktop) {
@@ -57,21 +55,40 @@ function Header({ handleOpenSignInModal }: Props) {
         <Container maxWidth="xl">
           <ToolbarRestyled>
             <div>
-              <Button href="/">
+              {/* <Button href="/"> */}
+              {/* <Button
+                component={NextLinkComposed}
+                to={{
+                  pathname: '/',
+                }}
+              >
                 <LintuIcon />
-              </Button>
+              </Button> */}
+              <Link href="/">
+                <LintuIcon />
+              </Link>
             </div>
 
             <HeaderWrapper>
               <Box component="nav">
-                <NavigationUlItem component="ul">
-                  <NavigationListItem component="li" key={'portfolios'}>
-                    <MenuButtonRestyled href={`/portfolios`}>
-                      Portfolio
+                <NavigationUlItem>
+                  <NavigationListItem key={'portfolios'}>
+                    {/* <MenuButtonRestyled href={`/portfolios`}> */}
+                    <MenuButtonRestyled
+                      href={{
+                        pathname: '/portfolios',
+                      }}
+                    >
+                      Portfolios
                     </MenuButtonRestyled>
                   </NavigationListItem>
-                  <NavigationListItem component="li" key={'settings'}>
-                    <MenuButtonRestyled href={`/settings`}>
+                  <NavigationListItem key={'settings'}>
+                    {/* <MenuButtonRestyled href={`/settings`}> */}
+                    <MenuButtonRestyled
+                      href={{
+                        pathname: '/settings',
+                      }}
+                    >
                       Settings
                     </MenuButtonRestyled>
                   </NavigationListItem>
@@ -95,54 +112,80 @@ function Header({ handleOpenSignInModal }: Props) {
     );
   }
 
-  return (
-    <AppBarRestyled>
-      <Container maxWidth="md">
-        <ToolbarRestyled>
-          <Button href="/">
-            <LintuIcon />
-          </Button>
-          <div>
-            {accessKey && (
-              <SignInButtonRestyled onClick={handleSignOut}>
-                Sign Out
-              </SignInButtonRestyled>
-            )}
-            {!accessKey && (
-              <SignInButtonRestyled onClick={handleOpenSignInModal}>
-                Sign In
-              </SignInButtonRestyled>
-            )}
-            <MenuIconButtonRestyled
-              id="menu-button"
-              aria-controls={open ? 'menu-button' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            >
-              <MenuIcon />
-            </MenuIconButtonRestyled>
-            <Menu
-              id="item-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'item-button',
-              }}
-            >
-              <MenuItem key={'portfolios'} href="/portfolios">
-                Portfolio
-              </MenuItem>
-              <MenuItem key={'settings'} href="/settings">
-                Settings
-              </MenuItem>
-            </Menu>
-          </div>
-        </ToolbarRestyled>
-      </Container>
-    </AppBarRestyled>
-  );
+  // return (
+  //   <AppBarRestyled>
+  //     <Container maxWidth="md">
+  //       <ToolbarRestyled>
+  //         {/* <Button href="/"> */}
+  //         <Button
+  //           component={NextLinkComposed}
+  //           to={{
+  //             pathname: '/',
+  //           }}
+  //         >
+  //           <LintuIcon />
+  //         </Button>
+  //         <div>
+  //           {accessKey && (
+  //             <SignInButtonRestyled onClick={handleSignOut}>
+  //               Sign Out
+  //             </SignInButtonRestyled>
+  //           )}
+  //           {!accessKey && (
+  //             <SignInButtonRestyled onClick={handleOpenSignInModal}>
+  //               Sign In
+  //             </SignInButtonRestyled>
+  //           )}
+  //           <MenuIconButtonRestyled
+  //             id="menu-button"
+  //             aria-controls={open ? 'menu-button' : undefined}
+  //             aria-haspopup="true"
+  //             aria-expanded={open ? 'true' : undefined}
+  //             onClick={handleClick}
+  //           >
+  //             <MenuIcon />
+  //           </MenuIconButtonRestyled>
+  //           <Menu
+  //             id="item-menu"
+  //             anchorEl={anchorEl}
+  //             open={open}
+  //             onClose={handleClose}
+  //             MenuListProps={{
+  //               'aria-labelledby': 'item-button',
+  //             }}
+  //           >
+  //             {/* <MenuItem key={'portfolios'} href="/portfolios">
+  //               Portfolios
+  //             </MenuItem>
+  //             <MenuItem key={'settings'} href="/settings">
+  //               Settings
+  //             </MenuItem> */}
+  //             <MenuItem key={'portfolios'}>
+  //               <Button
+  //                 component={NextLinkComposed}
+  //                 to={{
+  //                   pathname: '/portfolios',
+  //                 }}
+  //               >
+  //                 Portfolios
+  //               </Button>
+  //             </MenuItem>
+  //             <MenuItem key={'settings'}>
+  //               <Button
+  //                 component={NextLinkComposed}
+  //                 to={{
+  //                   pathname: '/settings',
+  //                 }}
+  //               >
+  //                 Settings
+  //               </Button>
+  //             </MenuItem>
+  //           </Menu>
+  //         </div>
+  //       </ToolbarRestyled>
+  //     </Container>
+  //   </AppBarRestyled>
+  // );
 }
 
 export default Header;

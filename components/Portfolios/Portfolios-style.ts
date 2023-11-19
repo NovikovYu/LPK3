@@ -1,5 +1,6 @@
-import { Box, ButtonProps, Typography } from '@mui/material';
+import { Box, ButtonProps, List, ListItem, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+
 import {
   PrimaryButton,
   SecondaryButton,
@@ -90,7 +91,7 @@ export const PortfolioCardSubtitle = styled(P)(({ theme }) => ({
   fontSize: theme.typography.body2.fontSize,
 }));
 
-export const PortfolioCardsList = styled(Box)(({ theme }) => ({
+export const PortfolioCardsList = styled(List)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -106,7 +107,9 @@ export const PortfolioCardsList = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const PortfolioCardItem = styled(Box)(({ theme }) => ({
+export const PortfolioCardItem = styled(ListItem)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   width: '100%',
   maxWidth: '368px',
   padding: theme.spacing(3, 2),
@@ -116,7 +119,23 @@ export const PortfolioCardItem = styled(Box)(({ theme }) => ({
   borderRadius: theme.spacing(0.5),
 
   [theme.breakpoints.up('sm')]: {
-    display: 'flex',
+    alignItems: 'flex-start',
+    width: 'calc(50% - 13px)',
+  },
+}));
+
+export const PortfolioCardItemSkeleton = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  maxWidth: '368px',
+  padding: theme.spacing(3, 2),
+  backgroundColor: theme.palette.common.white,
+  boxShadow: theme.palette.shadows[300],
+  borderRadius: theme.spacing(0.5),
+
+  [theme.breakpoints.up('sm')]: {
     flexDirection: 'column',
     width: 'calc(50% - 13px)',
   },

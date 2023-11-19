@@ -1,13 +1,8 @@
+'use client';
 import * as React from 'react';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  Controller,
-  SubmitHandler,
-  useForm,
-  useFormState,
-} from 'react-hook-form';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   IconButton,
@@ -15,8 +10,18 @@ import {
   InputLabel,
   OutlinedInput,
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { signInSchema } from '../utils/validation/common-validation';
+import { useRouter } from 'next/navigation';
+import {
+  Controller,
+  SubmitHandler,
+  useForm,
+  useFormState,
+} from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+
+import { signIn } from '@/actions/actions';
+import { setAccessKey } from '@/store/slices/sessionSlice';
+
 import {
   ForgotPasswordInputLabelRestyled,
   SendIconButtonRestyled,
@@ -33,9 +38,9 @@ import {
   PasswordHelperTextRestyled,
 } from '../sign-up/style-sign-up-form';
 import saveSessionToLocalStorage from '../utils/session/saveSessionToLocalStorage';
-import { setAccessKey } from '@/store/slices/sessionSlice';
+import { signInSchema } from '../utils/validation/common-validation';
 
-type SignInFormTypes = {
+export type SignInFormTypes = {
   email: string;
   password: string;
 };
@@ -46,8 +51,6 @@ interface Props {
   handleOpenForgotPasswordModal: () => void;
   isMobile: boolean;
 }
-
-const axios = require('axios');
 
 const SignInForm = ({
   handleCloseSignInModal,
@@ -78,46 +81,9 @@ const SignInForm = ({
     control,
   });
 
-  async function signInByBackend(userData: SignInFormTypes) {
-    setIsLoading(true);
-
-    try {
-      const response = await axios.post(process.env.BASE_DEV_URL + 'login/', {
-        password: userData.password,
-        email: userData.email,
-      });
-      return response;
-    } catch (error) {
-      try {
-        setError(
-          'email',
-          {
-            type: 'manual',
-            message:
-              'A user with this email and password combination was not found in the system.',
-          },
-          { shouldFocus: true },
-        );
-        setError(
-          'password',
-          {
-            type: 'manual',
-            message:
-              'A user with this email and password combination was not found in the system.',
-          },
-          { shouldFocus: true },
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   const onSubmit: SubmitHandler<SignInFormTypes> = async (data) => {
     if (isValidForm(data)) {
-      const signInResult = await signInByBackend(data);
+      const signInResult = await signIn(data, setIsLoading, setError);
 
       if (signInResult?.data?.access) {
         try {
@@ -144,7 +110,7 @@ const SignInForm = ({
     handleCloseSignInModal();
     handleOpenForgotPasswordModal();
   };
-  
+
   return (
     <SignInFormRestyled>
       <SignInBoxRestyled>
@@ -253,7 +219,7 @@ const SignInForm = ({
           <span>sign in</span>
         </SignInLoadingButtonRestyled>
         <SignUpButtonRestyled
-          type="submit"
+          type="button"
           id="auth-form-button"
           fullWidth
           size={ButtonSize}

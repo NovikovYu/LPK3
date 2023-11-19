@@ -1,11 +1,14 @@
 import * as React from 'react';
-import SignUpForm from '@/feature/sign-up/sign-up-form';
-import SignInForm from '@/feature/sign-in/sign-in-form';
-import ForgotPasswordForm from '@/feature/sign-in/forgot-password';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import ForgotPasswordMessage from '@/feature/sign-in/message-forgot-password';
-import { useTheme } from '@mui/material/styles';
+
 import { Modal } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import ForgotPasswordForm from '@/feature/sign-in/forgot-password';
+import ForgotPasswordMessage from '@/feature/sign-in/message-forgot-password';
+import SignInForm from '@/feature/sign-in/sign-in-form';
+import SignUpForm from '@/feature/sign-up/sign-up-form';
+
 import {
   ForgotPasswordBoxRestyled,
   ForgotPasswordMessageBoxRestyled,
@@ -24,6 +27,7 @@ enum Modules {
   FORGOT_PASSWORD = 'forgotPassword',
   FORGOT_PASSWORD_MESSAGE = 'forgotPasswordMessage',
   SIGN_UP = 'signUp',
+  SIGN_UP2 = 'signUp2',
 }
 
 interface OpenModalState {
@@ -31,6 +35,7 @@ interface OpenModalState {
   forgotPassword: boolean;
   forgotPasswordMessage: boolean;
   signUp: boolean;
+  signUp2: boolean;
 }
 
 const openModalStates = {
@@ -38,6 +43,7 @@ const openModalStates = {
   [Modules.FORGOT_PASSWORD]: false,
   [Modules.FORGOT_PASSWORD_MESSAGE]: false,
   [Modules.SIGN_UP]: false,
+  [Modules.SIGN_UP2]: false,
 };
 
 const ModalForm = ({ handleCloseSignInModal, openFormSignInModal }: Props) => {

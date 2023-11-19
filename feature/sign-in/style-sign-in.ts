@@ -1,3 +1,5 @@
+import SendIcon from '@mui/icons-material/Send';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
   Box,
   Button,
@@ -8,8 +10,6 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from '@mui/icons-material/Send';
 
 export const SignInBoxRestyled = styled(Box)(() => ({
   display: 'flex',
@@ -47,18 +47,20 @@ export const SignInInputPasswordRestyled = styled(FormControl)(({ theme }) => ({
   },
 }));
 
-export const SignInLoadingButtonRestyled = styled(LoadingButton)(({theme}) => ({
-  color: theme.palette.primary.contrastText,
-  "&.Mui-disabled":{
-    backgroundColor: theme.palette.primary.main,
-  },
-  "& .MuiLoadingButton-loadingIndicator":{
-    color: theme.palette.primary.contrastText
-  },
-  [theme.breakpoints.down('sm')]: {
-    fontSize:theme.typography.subtitle2.fontSize,
-  },
-}));
+export const SignInLoadingButtonRestyled = styled(LoadingButton)(
+  ({ theme }) => ({
+    color: theme.palette.primary.contrastText,
+    '&.Mui-disabled': {
+      backgroundColor: theme.palette.primary.main,
+    },
+    '& .MuiLoadingButton-loadingIndicator': {
+      color: theme.palette.primary.contrastText,
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.typography.subtitle2.fontSize,
+    },
+  }),
+);
 
 export const SignUpButtonRestyled = styled(Button)(({ theme }) => ({
   color: theme.palette.text.primary,

@@ -4,19 +4,16 @@ import {
   Button,
   ButtonProps,
   IconButton,
+  List,
+  ListItem,
   Toolbar,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import Link from 'next/link';
 
 export const AppBarRestyled = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
-  boxShadow: `${theme.spacing(0)} ${theme.spacing(0.75)} ${theme.spacing(
-    1.5,
-  )} -${theme.spacing(0.75)} rgba(24, 39, 75, 0.12), ${theme.spacing(
-    0,
-  )} ${theme.spacing(1)} ${theme.spacing(3)} -${theme.spacing(
-    0.5,
-  )} rgba(24, 39, 75, 0.08)`,
+  boxShadow: theme.palette.shadows[100],
 }));
 
 export const HeaderWrapper = styled('div')(({ theme }) => ({
@@ -25,7 +22,7 @@ export const HeaderWrapper = styled('div')(({ theme }) => ({
   gap: theme.spacing(6),
 }));
 
-export const MenuButtonRestyled = styled(Button)<ButtonProps>(({ theme }) => ({
+export const MenuButtonRestyled = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
   textTransform: 'capitalize',
   fontWeight: theme.typography.body1.fontWeight,
@@ -67,13 +64,14 @@ export const ToolbarRestyled = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
-export const NavigationUlItem = styled(Box)(() => ({
+export const NavigationUlItem = styled(List)(() => ({
   display: 'flex',
 }));
 
-export const NavigationListItem = styled(Box)(({ theme }) => ({
+export const NavigationListItem = styled(ListItem)(({ theme }) => ({
   listStyleType: 'none',
   marginRight: theme.spacing(4),
+  padding: 0,
 }));
 
 export const SignInBoxRestyled = styled(Box)(({ theme }) => ({
